@@ -27,9 +27,9 @@
 </div>
 
 <div class="module-switcher">
+  <button class="module-btn" data-module="joints" onclick="switchModule('joints',this)">Joints &amp; Serology<span class="module-sub">Patterns &amp; Markers</span></button>
   <button class="module-btn" data-module="ana" onclick="switchModule('ana',this)">ANA &amp; ENA<span class="module-sub">+ Myositis Antibodies</span></button>
   <button class="module-btn" data-module="anca" onclick="switchModule('anca',this)">ANCA &amp; Vasculitis<span class="module-sub">Chapel Hill Classification</span></button>
-  <button class="module-btn" data-module="joints" onclick="switchModule('joints',this)">Joints &amp; Serology<span class="module-sub">Patterns &amp; Markers</span></button>
 </div>
 
 <!-- ANA MODULE -->
@@ -291,7 +291,7 @@
 
   const params = new URLSearchParams(window.location.search);
   const requestedTab = params.get('tab');
-  const requestedModule = normalizeModule(params.get('module')) || normalizeModule(requestedTab?.split('-')[0]) || loadSelectedModule() || 'ana';
+  const requestedModule = normalizeModule(params.get('module')) || normalizeModule(requestedTab?.split('-')[0]) || loadSelectedModule() || 'joints';
 
   document.querySelectorAll('.module-btn').forEach(btn => {
     btn.classList.remove('active', 'active-anca', 'active-joints');

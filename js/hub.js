@@ -6,6 +6,22 @@ const CASE_TOTALS = { ana: 4, anca: 4, joints: 4 };
 
 const MODULES = [
   {
+    key: 'joints',
+    accent: 'joints',
+    title: 'Joints & Serology',
+    sub: 'Patterns & Markers',
+    desc: 'Joint distribution patterns, serological markers (RF, anti-CCP, HLA-B27), and crystal arthropathies. Pattern recognition for RA, SpA, PsA, gout, and more.',
+    tabs: [
+      { label: 'Joint Patterns', tab: 'joints-patterns' },
+      { label: 'Marker Index', tab: 'joints-markers' },
+      { label: 'Disease Map', tab: 'joints-diseases' },
+      { label: 'Myth Busters', tab: 'joints-myths' },
+      { label: 'Quiz', tab: 'joints-quiz' },
+      { label: 'Cases', tab: 'joints-cases' },
+      { label: 'Summary', tab: 'joints-summary' }
+    ]
+  },
+  {
     key: 'ana',
     accent: 'ana',
     title: 'ANA & ENA',
@@ -35,22 +51,6 @@ const MODULES = [
       { label: 'Quiz', tab: 'anca-quiz' },
       { label: 'Cases', tab: 'anca-cases' },
       { label: 'Summary', tab: 'anca-summary' }
-    ]
-  },
-  {
-    key: 'joints',
-    accent: 'joints',
-    title: 'Joints & Serology',
-    sub: 'Patterns & Markers',
-    desc: 'Joint distribution patterns, serological markers (RF, anti-CCP, HLA-B27), and crystal arthropathies. Pattern recognition for RA, SpA, PsA, gout, and more.',
-    tabs: [
-      { label: 'Joint Patterns', tab: 'joints-patterns' },
-      { label: 'Marker Index', tab: 'joints-markers' },
-      { label: 'Disease Map', tab: 'joints-diseases' },
-      { label: 'Myth Busters', tab: 'joints-myths' },
-      { label: 'Quiz', tab: 'joints-quiz' },
-      { label: 'Cases', tab: 'joints-cases' },
-      { label: 'Summary', tab: 'joints-summary' }
     ]
   }
 ];
