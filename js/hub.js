@@ -111,24 +111,7 @@ function renderModuleCards() {
   `).join('');
 }
 
-function renderQuickLinks() {
-  const container = document.getElementById('quick-links');
-  if (!container) return;
-
-  const links = [];
-  for (const mod of MODULES) {
-    for (const t of mod.tabs) {
-      links.push(`<a href="module.html?module=${mod.key}&tab=${t.tab}" class="quick-link">
-        <span class="ql-icon">${mod.key === 'ana' ? '\u{1F52C}' : mod.key === 'joints' ? '\u{1F9B4}' : '\u{1FA78}'}</span>
-        ${mod.title} &rsaquo; ${t.label}
-      </a>`);
-    }
-  }
-  container.innerHTML = links.join('');
-}
-
 // ── Init ──────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   renderModuleCards();
-  renderQuickLinks();
 });

@@ -4,26 +4,9 @@
 .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
 
 .hero { padding: 60px 0 32px; text-align: center; }
-.hero-badge { display: inline-block; padding: 4px 16px; border: 1px solid var(--border-glow); border-radius: 20px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--fitc-green); margin-bottom: 24px; background: rgba(57,255,20,0.05); animation: pulse-glow 3s ease-in-out infinite; }
-.hero h1 { font-family: var(--font-display); font-size: clamp(32px,5vw,48px); font-weight: 700; letter-spacing: -1px; margin-bottom: 12px; background: linear-gradient(135deg,var(--fitc-green) 0%,var(--dapi-blue) 50%,var(--rhodamine-red) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero h1 { font-family: var(--font-display); font-size: clamp(32px,5vw,48px); font-weight: 300; letter-spacing: -2px; margin-bottom: 12px; color: var(--text-primary); }
+.hero h1 strong { font-weight: 700; }
 .hero p { font-size: 14px; color: var(--text-secondary); max-width: 620px; margin: 0 auto; font-weight: 300; }
-
-/* ── Welcome section ──────────────────────────────────────── */
-.welcome {
-  max-width: 680px;
-  margin: 0 auto 48px;
-  text-align: center;
-}
-.welcome p {
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.8;
-  font-weight: 300;
-}
-.welcome strong {
-  color: var(--text-primary);
-  font-weight: 500;
-}
 
 /* ── Module card grid ─────────────────────────────────────── */
 .module-grid {
@@ -177,49 +160,6 @@
   color: var(--text-secondary);
 }
 
-/* ── Quick-access strip ───────────────────────────────────── */
-.quick-access {
-  margin-bottom: 48px;
-}
-.quick-access-label {
-  text-align: center;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--text-muted);
-  margin-bottom: 16px;
-  font-weight: 600;
-}
-.quick-links {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-.quick-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  border: 1px solid var(--border-subtle);
-  border-radius: 8px;
-  background: transparent;
-  color: var(--text-secondary);
-  font-family: var(--font-mono);
-  font-size: 11px;
-  text-decoration: none;
-  transition: all 0.2s;
-  letter-spacing: 0.3px;
-}
-.quick-link:hover {
-  border-color: var(--border-glow);
-  color: var(--text-primary);
-  background: var(--glass);
-}
-.quick-link .ql-icon {
-  font-size: 13px;
-}
-
 /* ── Footer ───────────────────────────────────────────────── */
 .hub-footer {
   text-align: center;
@@ -242,8 +182,5 @@
   .module-card-arrow {
     bottom: 22px;
     right: 20px;
-  }
-  .welcome {
-    margin-bottom: 36px;
   }
 }
