@@ -3,7 +3,7 @@ export function renderAbTable({ targetId, data, nameClass, columnMapper, filter 
   const d = filter ? (filter === 'all' ? data : data.filter(a => a.cat === filter)) : data;
   tbody.innerHTML = d.map(ab => {
     const col2 = columnMapper(ab);
-    return `<tr><td><div class="${nameClass}">${ab.name}</div>${ab.aka ? `<div class="ab-aka">${ab.aka}</div>` : ''}</td><td>${col2}</td><td style="color:var(--text-secondary);font-size:12px">${ab.diseases.join(', ')}</td><td style="color:var(--text-secondary);font-size:12px;max-width:300px">${ab.notes}</td></tr>`;
+    return `<tr><td><div class="${nameClass}">${ab.name}</div>${ab.aka ? `<div class="ab-aka">${ab.aka}</div>` : ''}</td><td>${col2}</td><td style="color:var(--text-secondary);font-size:12px">${ab.diseases.join(', ')}</td><td style="color:var(--text-secondary);font-size:12px">${ab.notes}</td></tr>`;
   }).join('');
 }
 
