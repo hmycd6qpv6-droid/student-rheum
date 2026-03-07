@@ -1,10 +1,33 @@
-export function renderAbTable({ targetId, data, nameClass, columnMapper, filter }) {
-  const tbody = document.getElementById(targetId);
-  const d = filter ? (filter === 'all' ? data : data.filter(a => a.cat === filter)) : data;
-  tbody.innerHTML = d.map(ab => {
+const tableHtmlCache = new Map();
+
+function getFilteredRows(data, filter) {
+  if (!filter || filter === 'all') return data;
+  return data.filter(item => item.cat === filter);
+}
+
+function buildTableHTML({ data, nameClass, columnMapper, filter }) {
+  const rows = getFilteredRows(data, filter);
+  return rows.map(ab => {
     const col2 = columnMapper(ab);
     return `<tr><td><div class="${nameClass}">${ab.name}</div>${ab.aka ? `<div class="ab-aka">${ab.aka}</div>` : ''}</td><td>${col2}</td><td style="color:var(--text-secondary);font-size:12px">${ab.diseases.join(', ')}</td><td style="color:var(--text-secondary);font-size:12px">${ab.notes}</td></tr>`;
   }).join('');
+}
+
+export function renderAbTable({ targetId, data, nameClass, columnMapper, filter = 'all', cacheKey }) {
+  const tbody = document.getElementById(targetId);
+  if (!tbody) return;
+
+  const htmlKey = cacheKey ? `${cacheKey}:${filter}` : null;
+  if (htmlKey && tableHtmlCache.has(htmlKey)) {
+    tbody.innerHTML = tableHtmlCache.get(htmlKey);
+    return;
+  }
+
+  const html = buildTableHTML({ data, nameClass, columnMapper, filter });
+  if (htmlKey) {
+    tableHtmlCache.set(htmlKey, html);
+  }
+  tbody.innerHTML = html;
 }
 
 export function renderPatterns(containerId, patterns) {

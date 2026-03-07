@@ -4,8 +4,39 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Autoantibody Lab — Rheumatology Teaching</title>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+  @font-face {
+    font-family: 'Space Grotesk';
+    src: url('assets/fonts/space-grotesk-300.woff2') format('woff2');
+    font-weight: 300;
+    font-style: normal;
+    font-display: optional;
+  }
+
+  @font-face {
+    font-family: 'Space Grotesk';
+    src: url('assets/fonts/space-grotesk-600.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: optional;
+  }
+
+  @font-face {
+    font-family: 'IBM Plex Mono';
+    src: url('assets/fonts/ibm-plex-mono-400.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: optional;
+  }
+
+  @font-face {
+    font-family: 'IBM Plex Mono';
+    src: url('assets/fonts/ibm-plex-mono-600.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: optional;
+  }
+
   :root {
     --bg-dark: #0a0e14;
     --bg-card: rgba(16, 24, 32, 0.85);
@@ -23,8 +54,8 @@
     --border-glow: rgba(57, 255, 20, 0.25);
     --glass: rgba(255,255,255,0.03);
     --radius: 8px;
-    --font-mono: 'IBM Plex Mono', 'JetBrains Mono', monospace;
-    --font-display: 'Space Grotesk', sans-serif;
+    --font-mono: 'IBM Plex Mono', 'SFMono-Regular', 'SF Mono', 'Consolas', 'Liberation Mono', monospace;
+    --font-display: 'Space Grotesk', 'Avenir Next', 'Segoe UI', sans-serif;
   }
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--bg-dark); color:var(--text-primary); font-family:var(--font-mono); font-size:14px; line-height:1.6; overflow-x:hidden; }

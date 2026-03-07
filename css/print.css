@@ -1,5 +1,4 @@
 @media print {
-  /* Reset dark background to white */
   body {
     background: #fff !important;
     color: #000 !important;
@@ -12,33 +11,21 @@
     margin: 0 !important;
   }
 
-  /* Hide navigation and non-summary elements */
   .toolbar,
   .tab-rail,
   .footnote,
-  #sec-ana-patterns,
-  #sec-ana-antibodies,
-  #sec-ana-diseases,
-  #sec-ana-myths,
-  #sec-ana-quiz,
-  #sec-ana-cases,
-  #sec-anca-patterns,
-  #sec-anca-antibodies,
-  #sec-anca-diseases,
-  #sec-anca-myths,
-  #sec-anca-quiz,
-  #sec-anca-cases,
+  body::before,
+  body::after,
   .quiz-header,
   .quiz-nav,
   .quiz-progress {
     display: none !important;
   }
 
-  /* Show summary sections regardless of active state */
-  .module-content,
-  .section,
-  #sec-ana-summary,
-  #sec-anca-summary {
+  #module-content-root,
+  #module-content-root .module-content.active,
+  #module-content-root .module-content.active .container,
+  #module-content-root .module-content.active .section.active {
     display: block !important;
     opacity: 1 !important;
     visibility: visible !important;
@@ -47,7 +34,11 @@
     overflow: visible !important;
   }
 
-  /* Section titles */
+  #module-content-root .module-content,
+  #module-content-root .section {
+    display: none !important;
+  }
+
   .section-title {
     color: #000 !important;
     font-size: 16pt !important;
@@ -61,7 +52,6 @@
     margin-bottom: 12pt !important;
   }
 
-  /* Summary cards */
   .summary-card {
     background: #fff !important;
     border: 1px solid #ccc !important;
@@ -84,7 +74,6 @@
     display: none !important;
   }
 
-  /* Top5 lists */
   .summary-top5-list li {
     color: #000 !important;
     border-bottom: 1px solid #eee !important;
@@ -98,50 +87,26 @@
     border: none !important;
   }
 
-  /* Cheatsheet tables */
-  .summary-cheatsheet-table {
-    border-collapse: collapse !important;
-  }
-
-  .summary-cheatsheet-table th {
-    background: #f0f0f0 !important;
-    color: #000 !important;
-    border: 1px solid #ccc !important;
-    font-size: 9pt !important;
-    padding: 4pt 8pt !important;
-  }
-
-  .summary-cheatsheet-table td {
-    color: #000 !important;
-    border: 1px solid #ccc !important;
-    font-size: 9pt !important;
-    padding: 4pt 8pt !important;
-    background: #fff !important;
-  }
-
-  .summary-ab-name {
-    color: #000 !important;
-    font-weight: 700 !important;
-  }
-
-  /* Comparison tables */
+  .summary-cheatsheet-table,
   .summary-comparison-table {
     border-collapse: collapse !important;
   }
 
+  .summary-cheatsheet-table th,
   .summary-comparison-table th {
     background: #f0f0f0 !important;
     color: #000 !important;
     border: 1px solid #ccc !important;
     font-size: 9pt !important;
-    padding: 4pt 6pt !important;
+    padding: 4pt 8pt !important;
   }
 
+  .summary-cheatsheet-table td,
   .summary-comparison-table td {
     color: #000 !important;
     border: 1px solid #ccc !important;
     font-size: 9pt !important;
-    padding: 4pt 6pt !important;
+    padding: 4pt 8pt !important;
     background: #fff !important;
   }
 
@@ -149,7 +114,11 @@
     background: #f8f8f8 !important;
   }
 
-  /* Shortcut cards */
+  .summary-ab-name {
+    color: #000 !important;
+    font-weight: 700 !important;
+  }
+
   .summary-shortcut-scenario {
     color: #000 !important;
     background: #f0f0f0 !important;
@@ -166,7 +135,6 @@
     font-size: 9pt !important;
   }
 
-  /* General print resets */
   * {
     text-shadow: none !important;
     box-shadow: none !important;

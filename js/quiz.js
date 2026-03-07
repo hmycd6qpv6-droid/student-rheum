@@ -1,84 +1,136 @@
-import { anaQuizQ } from './data/ana-quiz.js';
-import { ancaQuizQ } from './data/anca-quiz.js';
-import { jointsQuizQ } from './data/joints-quiz.js';
 import { saveQuizScore } from './progress.js';
 
-export const QS = {
-  ana: { cur: 0, score: 0, ans: [], mode: 'all', qs: [...anaQuizQ], all: anaQuizQ },
-  anca: { cur: 0, score: 0, ans: [], mode: 'all', qs: [...ancaQuizQ], all: ancaQuizQ },
-  joints: { cur: 0, score: 0, ans: [], mode: 'all', qs: [...jointsQuizQ], all: jointsQuizQ }
-};
+export const QS = {};
 
-export function setQuizMode(m, mode) {
-  const s = QS[m];
-  s.mode = mode;
-  const p = document.getElementById(m + 'QuizContainer').closest('.section');
-  p.querySelectorAll('.quiz-mode-btn').forEach(b => b.classList.toggle('active', b.dataset.mode === mode));
-  s.qs = mode === 'all' ? [...s.all] : s.all.filter(q => mode === 'vignette' ? q.type === 'vignette' : q.type === 'tf');
-  resetQuiz(m);
+function getState(moduleName) {
+  return QS[moduleName] || null;
 }
 
-export function resetQuiz(m) {
-  const s = QS[m];
-  s.cur = 0;
-  s.score = 0;
-  s.ans = new Array(s.qs.length).fill(null);
-  document.getElementById(m + 'QuizScore').textContent = '0';
-  document.getElementById(m + 'QuizTotal').textContent = '0';
-  renderQuiz(m);
+function getModeQuestions(questions, mode) {
+  if (mode === 'all') return [...questions];
+  return questions.filter(q => mode === 'vignette' ? q.type === 'vignette' : q.type === 'tf');
 }
 
-export function renderQuiz(m) {
-  const s = QS[m];
-  if (!s.qs.length) return;
-  document.getElementById(m + 'QuizProgress').innerHTML = s.qs.map((_, i) => {
-    let c = '';
-    if (i === s.cur) c = 'current';
-    if (s.ans[i] !== null) c = s.ans[i] === true ? 'correct' : 'incorrect';
-    return `<div class="progress-dot ${c}" onclick="jumpTo('${m}',${i})"></div>`;
+function syncModeButtons(moduleName, mode) {
+  const container = document.getElementById(moduleName + 'QuizContainer');
+  const section = container?.closest('.section');
+  if (!section) return;
+  section.querySelectorAll('.quiz-mode-btn').forEach(button => {
+    button.classList.toggle('active', button.dataset.mode === mode);
+  });
+}
+
+export function initQuiz(moduleName, questions) {
+  if (getState(moduleName)) return;
+
+  QS[moduleName] = {
+    cur: 0,
+    score: 0,
+    ans: [],
+    mode: 'all',
+    qs: [...questions],
+    all: questions
+  };
+
+  resetQuiz(moduleName);
+}
+
+export function setQuizMode(moduleName, mode) {
+  const state = getState(moduleName);
+  if (!state) return;
+  state.mode = mode;
+  syncModeButtons(moduleName, mode);
+  state.qs = getModeQuestions(state.all, mode);
+  resetQuiz(moduleName);
+}
+
+export function resetQuiz(moduleName) {
+  const state = getState(moduleName);
+  if (!state) return;
+
+  state.cur = 0;
+  state.score = 0;
+  state.ans = new Array(state.qs.length).fill(null);
+
+  const scoreEl = document.getElementById(moduleName + 'QuizScore');
+  const totalEl = document.getElementById(moduleName + 'QuizTotal');
+  if (scoreEl) scoreEl.textContent = '0';
+  if (totalEl) totalEl.textContent = '0';
+
+  renderQuiz(moduleName);
+}
+
+export function renderQuiz(moduleName) {
+  const state = getState(moduleName);
+  if (!state || !state.qs.length) return;
+
+  const progressEl = document.getElementById(moduleName + 'QuizProgress');
+  const containerEl = document.getElementById(moduleName + 'QuizContainer');
+  const prevBtn = document.getElementById(moduleName + 'PrevBtn');
+  const nextBtn = document.getElementById(moduleName + 'NextBtn');
+
+  if (!progressEl || !containerEl || !prevBtn || !nextBtn) return;
+
+  progressEl.innerHTML = state.qs.map((_, index) => {
+    let className = '';
+    if (index === state.cur) className = 'current';
+    if (state.ans[index] !== null) className = state.ans[index] === true ? 'correct' : 'incorrect';
+    return `<div class="progress-dot ${className}" onclick="jumpTo('${moduleName}',${index})"></div>`;
   }).join('');
-  const q = s.qs[s.cur];
-  const tl = q.type === 'vignette' ? '<span class="quiz-q-type type-vignette">Vignette</span>' : '<span class="quiz-q-type type-tf">True / False</span>';
-  const ia = s.ans[s.cur] !== null;
-  const oh = q.opts.map((o, i) => {
-    let c = 'quiz-option';
-    if (ia) {
-      c += ' answered';
-      if (i === q.correct) c += ' correct';
-      else if (s.ans[s.cur] !== true && i === s.ans[s.cur]) c += ' incorrect';
+
+  const question = state.qs[state.cur];
+  const typeLabel = question.type === 'vignette'
+    ? '<span class="quiz-q-type type-vignette">Vignette</span>'
+    : '<span class="quiz-q-type type-tf">True / False</span>';
+  const isAnswered = state.ans[state.cur] !== null;
+  const optionsHtml = question.opts.map((option, index) => {
+    let className = 'quiz-option';
+    if (isAnswered) {
+      className += ' answered';
+      if (index === question.correct) className += ' correct';
+      else if (state.ans[state.cur] !== true && index === state.ans[state.cur]) className += ' incorrect';
     }
-    return `<button class="${c}" onclick="answerQ('${m}',${i})" ${ia ? 'disabled' : ''}><span class="opt-letter">${String.fromCharCode(65 + i)}</span><span>${o}</span></button>`;
+    return `<button class="${className}" onclick="answerQ('${moduleName}',${index})" ${isAnswered ? 'disabled' : ''}><span class="opt-letter">${String.fromCharCode(65 + index)}</span><span>${option}</span></button>`;
   }).join('');
-  document.getElementById(m + 'QuizContainer').innerHTML = `<div class="quiz-card"><div class="quiz-q-number">Question ${s.cur + 1} of ${s.qs.length} ${tl}</div><div class="quiz-question">${q.q}</div><div class="quiz-options">${oh}</div><div class="quiz-explanation ${ia ? 'visible' : ''}"><strong>Explanation:</strong> ${q.explanation}</div></div>`;
-  document.getElementById(m + 'PrevBtn').disabled = s.cur === 0;
-  const nb = document.getElementById(m + 'NextBtn');
-  nb.disabled = s.cur === s.qs.length - 1;
-  nb.textContent = s.cur === s.qs.length - 1 ? 'Done' : 'Next \u25b8';
+
+  containerEl.innerHTML = `<div class="quiz-card"><div class="quiz-q-number">Question ${state.cur + 1} of ${state.qs.length} ${typeLabel}</div><div class="quiz-question">${question.q}</div><div class="quiz-options">${optionsHtml}</div><div class="quiz-explanation ${isAnswered ? 'visible' : ''}"><strong>Explanation:</strong> ${question.explanation}</div></div>`;
+
+  prevBtn.disabled = state.cur === 0;
+  nextBtn.disabled = state.cur === state.qs.length - 1;
+  nextBtn.textContent = state.cur === state.qs.length - 1 ? 'Done' : 'Next ▸';
 }
 
-export function answerQ(m, i) {
-  const s = QS[m];
-  if (s.ans[s.cur] !== null) return;
-  const ok = i === s.qs[s.cur].correct;
-  s.ans[s.cur] = ok ? true : i;
-  if (ok) s.score++;
-  const t = s.ans.filter(a => a !== null).length;
-  document.getElementById(m + 'QuizScore').textContent = s.score;
-  document.getElementById(m + 'QuizTotal').textContent = t;
-  // Save best score when all questions answered
-  if (t === s.qs.length) {
-    saveQuizScore(m, s.mode, s.score, s.qs.length);
+export function answerQ(moduleName, index) {
+  const state = getState(moduleName);
+  if (!state || state.ans[state.cur] !== null) return;
+
+  const isCorrect = index === state.qs[state.cur].correct;
+  state.ans[state.cur] = isCorrect ? true : index;
+  if (isCorrect) state.score++;
+
+  const answeredCount = state.ans.filter(answer => answer !== null).length;
+  const scoreEl = document.getElementById(moduleName + 'QuizScore');
+  const totalEl = document.getElementById(moduleName + 'QuizTotal');
+  if (scoreEl) scoreEl.textContent = state.score;
+  if (totalEl) totalEl.textContent = answeredCount;
+
+  if (answeredCount === state.qs.length) {
+    saveQuizScore(moduleName, state.mode, state.score, state.qs.length);
   }
-  renderQuiz(m);
+
+  renderQuiz(moduleName);
 }
 
-export function navQuiz(m, d) {
-  const s = QS[m];
-  s.cur = Math.max(0, Math.min(s.qs.length - 1, s.cur + d));
-  renderQuiz(m);
+export function navQuiz(moduleName, delta) {
+  const state = getState(moduleName);
+  if (!state) return;
+  state.cur = Math.max(0, Math.min(state.qs.length - 1, state.cur + delta));
+  renderQuiz(moduleName);
 }
 
-export function jumpTo(m, i) {
-  QS[m].cur = i;
-  renderQuiz(m);
+export function jumpTo(moduleName, index) {
+  const state = getState(moduleName);
+  if (!state) return;
+  state.cur = index;
+  renderQuiz(moduleName);
 }
