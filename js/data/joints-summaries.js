@@ -19,7 +19,6 @@ export const jointsSummaries = [
       {antibody: 'HLA-B27', diseases: 'AS (~90%), reactive arthritis, anterior uveitis. ~8% prevalence in Caucasians.'},
       {antibody: 'HLA-DR4', diseases: 'Seropositive RA (shared epitope). Associated with more aggressive erosive disease.'},
       {antibody: 'Anti-CarP', diseases: 'Seronegative RA (~15\u201320%). Novel marker for erosive progression.'},
-      {antibody: '14-3-3 Eta', diseases: 'Early RA. Complements RF/CCP for diagnosis.'},
       {antibody: 'Serum Urate', diseases: 'Gout (but can be normal during acute flare in 40% of cases).'},
       {antibody: 'CRP', diseases: 'Non-specific. Normal in up to 40% active RA. Very high (>100) \u2192 think infection or crystal.'}
     ]
