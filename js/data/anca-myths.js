@@ -1,0 +1,10 @@
+export const ancaMyths = [
+  {myth:true,text:"A positive ANCA always means vasculitis.",explanation:"FALSE. Atypical ANCA (x-ANCA) is seen in IBD, PSC, autoimmune hepatitis. Always confirm with PR3/MPO-specific testing. p-ANCA without MPO specificity is not diagnostic of AAV."},
+  {myth:true,text:"ANCA titre should routinely guide treatment decisions.",explanation:"FALSE. Rising titres may predict relapse (especially PR3), but evidence does not support pre-emptive treatment based on titre alone. Treat the patient, not the titre."},
+  {myth:true,text:"GPA and MPA are distinguished primarily by ANCA type.",explanation:"FALSE. Distinguished by presence/absence of granulomatous inflammation, not ANCA specificity. ~10% GPA is MPO-positive. Some MPA is PR3-positive."},
+  {myth:false,text:"EGPA can be ANCA-negative.",explanation:"TRUE. Only ~40% ANCA-positive. ANCA-negative EGPA: more cardiac/eosinophilic. ANCA-positive: more vasculitic (GN, neuropathy, purpura)."},
+  {myth:true,text:"Pauci-immune means no antibodies are involved.",explanation:"FALSE. 'Pauci-immune' = few immune complex DEPOSITS on biopsy IF. The disease IS antibody-mediated (by ANCA activating neutrophils). Distinguishes AAV from immune-complex GN and anti-GBM."},
+  {myth:false,text:"Drug-induced ANCA vasculitis often shows multi-ANCA positivity.",explanation:"TRUE. Unlike primary AAV (usually single PR3 or MPO), drug-induced cases often positive for PR3 + MPO + anti-lactoferrin + anti-elastase. Important diagnostic clue."},
+  {myth:true,text:"Anti-GBM disease and AAV are mutually exclusive.",explanation:"FALSE. ~30% anti-GBM are also ANCA-positive (usually MPO). 'Double-positive' patients may have better prognosis than isolated anti-GBM."},
+  {myth:false,text:"International consensus now recommends PR3/MPO immunoassay as primary AAV screening.",explanation:"TRUE. 2017 revised consensus: high-quality antigen-specific immunoassays (PR3 and MPO) as primary screening, not IF alone. Major shift from prior IF-first approach."},
+];

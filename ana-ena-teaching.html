@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Autoantibody Lab — Rheumatology Teaching</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-dark: #0a0e14;
+    --bg-card: rgba(16, 24, 32, 0.85);
+    --bg-card-hover: rgba(20, 32, 44, 0.95);
+    --fitc-green: #39ff14;
+    --fitc-green-glow: rgba(57, 255, 20, 0.3);
+    --dapi-blue: #4488ff;
+    --rhodamine-red: #ff3366;
+    --amber-warn: #ffaa00;
+    --cyan-anca: #00e5ff;
+    --text-primary: #e0e8f0;
+    --text-secondary: #8899aa;
+    --text-muted: #556677;
+    --border-subtle: rgba(57, 255, 20, 0.12);
+    --border-glow: rgba(57, 255, 20, 0.25);
+    --glass: rgba(255,255,255,0.03);
+    --radius: 8px;
+    --font-mono: 'IBM Plex Mono', 'JetBrains Mono', monospace;
+    --font-display: 'Space Grotesk', sans-serif;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg-dark); color:var(--text-primary); font-family:var(--font-mono); font-size:14px; line-height:1.6; overflow-x:hidden; }
+  body::before { content:''; position:fixed; top:0;left:0;right:0;bottom:0; background:radial-gradient(ellipse at 50% 50%,rgba(57,255,20,0.03) 0%,transparent 70%),radial-gradient(ellipse at 80% 20%,rgba(68,136,255,0.02) 0%,transparent 50%),radial-gradient(ellipse at 20% 80%,rgba(255,51,102,0.02) 0%,transparent 50%); pointer-events:none; z-index:0; }
+  body::after { content:''; position:fixed; top:0;left:0;right:0;bottom:0; background-image:linear-gradient(rgba(57,255,20,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(57,255,20,0.02) 1px,transparent 1px); background-size:40px 40px; pointer-events:none; z-index:0; }
+  .container { max-width:1100px; margin:0 auto; padding:0 24px; position:relative; z-index:1; }
+
+  .hero { padding:60px 0 32px; text-align:center; }
+  .hero-badge { display:inline-block; padding:4px 16px; border:1px solid var(--border-glow); border-radius:20px; font-size:11px; letter-spacing:2px; text-transform:uppercase; color:var(--fitc-green); margin-bottom:24px; background:rgba(57,255,20,0.05); animation:pulse-glow 3s ease-in-out infinite; }
+  @keyframes pulse-glow { 0%,100%{box-shadow:0 0 8px rgba(57,255,20,0.1);} 50%{box-shadow:0 0 20px rgba(57,255,20,0.2);} }
+  .hero h1 { font-family:var(--font-display); font-size:clamp(32px,5vw,48px); font-weight:700; letter-spacing:-1px; margin-bottom:12px; background:linear-gradient(135deg,var(--fitc-green) 0%,var(--dapi-blue) 50%,var(--rhodamine-red) 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+  .hero p { font-size:14px; color:var(--text-secondary); max-width:620px; margin:0 auto; font-weight:300; }
+
+  .module-switcher { display:flex; justify-content:center; gap:12px; padding:32px 0 8px; flex-wrap:wrap; }
+  .module-btn { padding:14px 28px; border:1px solid var(--border-subtle); background:var(--bg-card); color:var(--text-secondary); font-family:var(--font-display); font-size:15px; font-weight:600; cursor:pointer; border-radius:12px; transition:all 0.3s; }
+  .module-btn .module-sub { display:block; font-family:var(--font-mono); font-size:10px; font-weight:400; letter-spacing:1px; text-transform:uppercase; margin-top:4px; opacity:0.6; }
+  .module-btn:hover { border-color:var(--border-glow); background:var(--bg-card-hover); transform:translateY(-2px); box-shadow:0 6px 24px rgba(0,0,0,0.3); }
+  .module-btn.active { border-color:var(--fitc-green); background:rgba(57,255,20,0.06); color:var(--fitc-green); box-shadow:0 0 20px rgba(57,255,20,0.1); }
+  .module-btn.active-anca { border-color:var(--cyan-anca); background:rgba(0,229,255,0.06); color:var(--cyan-anca); box-shadow:0 0 20px rgba(0,229,255,0.1); }
+  .module-content { display:none; }
+  .module-content.active { display:block; }
+
+  .nav-tabs { display:flex; justify-content:center; gap:4px; margin-bottom:48px; margin-top:28px; flex-wrap:wrap; background:var(--bg-card); border-radius:12px; padding:6px; border:1px solid var(--border-subtle); max-width:720px; margin-left:auto; margin-right:auto; }
+  .nav-tab { padding:10px 18px; border:none; background:transparent; color:var(--text-secondary); font-family:var(--font-mono); font-size:11px; font-weight:500; cursor:pointer; border-radius:8px; transition:all 0.25s; letter-spacing:0.5px; text-transform:uppercase; }
+  .nav-tab:hover { color:var(--text-primary); background:var(--glass); }
+  .nav-tab.active { background:rgba(57,255,20,0.1); color:var(--fitc-green); box-shadow:0 0 12px rgba(57,255,20,0.1); }
+  .nav-tab.active-anca { background:rgba(0,229,255,0.1); color:var(--cyan-anca); box-shadow:0 0 12px rgba(0,229,255,0.1); }
+
+  .section { display:none; animation:fadeIn 0.4s ease; }
+  .section.active { display:block; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(12px);} to{opacity:1;transform:translateY(0);} }
+  .section-title { font-family:var(--font-display); font-size:28px; font-weight:600; margin-bottom:8px; }
+  .section-subtitle { color:var(--text-secondary); font-size:13px; margin-bottom:36px; font-weight:300; }
+
+  .pattern-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px; margin-bottom:48px; }
+  .pattern-card { background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:var(--radius); padding:28px; cursor:pointer; transition:all 0.3s; position:relative; overflow:hidden; }
+  .pattern-card::before { content:''; position:absolute; top:0;left:0;right:0; height:3px; background:var(--card-accent,var(--fitc-green)); opacity:0; transition:opacity 0.3s; }
+  .pattern-card:hover { border-color:var(--border-glow); background:var(--bg-card-hover); transform:translateY(-2px); box-shadow:0 8px 32px rgba(0,0,0,0.3); }
+  .pattern-card:hover::before { opacity:1; }
+  .pattern-card.expanded { border-color:var(--border-glow); }
+  .if-pattern { width:56px; height:56px; border-radius:12px; overflow:hidden; }
+  .if-pattern svg { width:100%; height:100%; }
+  .pattern-name { font-family:var(--font-display); font-size:18px; font-weight:600; margin-bottom:6px; }
+  .pattern-desc { color:var(--text-secondary); font-size:12px; margin-bottom:16px; line-height:1.7; }
+  .pattern-detail { display:none; border-top:1px solid var(--border-subtle); padding-top:16px; margin-top:16px; }
+  .pattern-card.expanded .pattern-detail { display:block; }
+  .expand-hint { font-size:11px; color:var(--text-muted); margin-top:8px; }
+
+  .assoc-tag { display:inline-block; padding:3px 10px; border-radius:4px; font-size:11px; margin:3px 4px 3px 0; font-weight:500; }
+  .tag-antibody { background:rgba(57,255,20,0.1); color:var(--fitc-green); border:1px solid rgba(57,255,20,0.2); }
+  .tag-disease { background:rgba(68,136,255,0.1); color:var(--dapi-blue); border:1px solid rgba(68,136,255,0.2); }
+  .tag-anca { background:rgba(0,229,255,0.1); color:var(--cyan-anca); border:1px solid rgba(0,229,255,0.2); }
+
+  .filter-bar { display:flex; gap:8px; margin-bottom:24px; flex-wrap:wrap; }
+  .filter-btn { padding:6px 14px; border:1px solid var(--border-subtle); background:transparent; color:var(--text-secondary); font-family:var(--font-mono); font-size:11px; border-radius:6px; cursor:pointer; transition:all 0.2s; text-transform:uppercase; letter-spacing:0.5px; }
+  .filter-btn:hover { border-color:var(--border-glow); color:var(--text-primary); }
+  .filter-btn.active { background:rgba(57,255,20,0.1); border-color:var(--fitc-green); color:var(--fitc-green); }
+
+  .ab-table { width:100%; border-collapse:collapse; margin-bottom:48px; }
+  .ab-table thead th { text-align:left; padding:12px 16px; font-size:10px; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); border-bottom:1px solid var(--border-subtle); font-weight:600; }
+  .ab-table tbody tr { border-bottom:1px solid rgba(255,255,255,0.03); transition:background 0.2s; }
+  .ab-table tbody tr:hover { background:rgba(57,255,20,0.03); }
+  .ab-table td { padding:14px 16px; font-size:13px; vertical-align:top; }
+  .ab-name { font-weight:600; color:var(--fitc-green); white-space:nowrap; }
+  .ab-name-anca { font-weight:600; color:var(--cyan-anca); white-space:nowrap; }
+  .ab-aka { font-size:11px; color:var(--text-muted); font-weight:300; }
+  .ab-category { font-size:10px; padding:2px 8px; border-radius:3px; text-transform:uppercase; letter-spacing:0.5px; font-weight:600; white-space:nowrap; }
+  .cat-ena { background:rgba(68,136,255,0.15); color:var(--dapi-blue); }
+  .cat-myositis-specific { background:rgba(255,51,102,0.15); color:var(--rhodamine-red); }
+  .cat-myositis-associated { background:rgba(255,170,0,0.15); color:var(--amber-warn); }
+  .cat-anca-assoc { background:rgba(0,229,255,0.15); color:var(--cyan-anca); }
+  .malig-flag { display:inline-flex; align-items:center; gap:4px; background:rgba(255,51,102,0.12); color:var(--rhodamine-red); padding:2px 8px; border-radius:3px; font-size:10px; font-weight:600; border:1px solid rgba(255,51,102,0.25); margin-top:4px; }
+  .malig-flag::before { content:'⚠'; }
+
+  .disease-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:20px; margin-bottom:48px; }
+  .disease-card { background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:var(--radius); padding:24px; transition:all 0.3s; }
+  .disease-card:hover { border-color:var(--border-glow); transform:translateY(-1px); }
+  .disease-name { font-family:var(--font-display); font-size:16px; font-weight:600; margin-bottom:4px; color:var(--dapi-blue); }
+  .disease-name-anca { font-family:var(--font-display); font-size:16px; font-weight:600; margin-bottom:4px; color:var(--cyan-anca); }
+  .disease-aka { font-size:11px; color:var(--text-muted); margin-bottom:14px; }
+  .disease-ab-list { list-style:none; padding:0; }
+  .disease-ab-list li { padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.03); font-size:12px; display:flex; justify-content:space-between; align-items:center; }
+  .disease-ab-list li:last-child { border-bottom:none; }
+  .specificity { font-size:10px; padding:2px 6px; border-radius:3px; text-transform:uppercase; letter-spacing:0.5px; }
+  .spec-high { background:rgba(57,255,20,0.15); color:var(--fitc-green); }
+  .spec-mod { background:rgba(68,136,255,0.15); color:var(--dapi-blue); }
+  .spec-assoc { background:rgba(255,170,0,0.1); color:var(--amber-warn); }
+
+  .clinical-features { margin-top:12px; padding-top:12px; border-top:1px solid var(--border-subtle); }
+  .clinical-features-label { font-size:10px; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin-bottom:6px; }
+  .feature-tag { display:inline-block; padding:2px 8px; border-radius:3px; font-size:10px; margin:2px 3px 2px 0; background:rgba(255,255,255,0.04); color:var(--text-secondary); border:1px solid rgba(255,255,255,0.06); }
+
+  .myth-card { background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:var(--radius); padding:24px; margin-bottom:16px; position:relative; overflow:hidden; }
+  .myth-card::before { content:''; position:absolute; left:0;top:0;bottom:0; width:3px; }
+  .myth-label { font-size:10px; text-transform:uppercase; letter-spacing:1.5px; font-weight:700; margin-bottom:8px; }
+  .myth-card.myth .myth-label { color:var(--rhodamine-red); }
+  .myth-card.myth::before { background:var(--rhodamine-red); }
+  .myth-card.fact .myth-label { color:var(--fitc-green); }
+  .myth-card.fact::before { background:var(--fitc-green); }
+  .myth-text { font-family:var(--font-display); font-size:16px; font-weight:500; margin-bottom:12px; }
+  .myth-explanation { font-size:13px; color:var(--text-secondary); line-height:1.7; }
+
+  .quiz-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:32px; flex-wrap:wrap; gap:16px; }
+  .quiz-score { font-family:var(--font-display); font-size:14px; color:var(--text-secondary); }
+  .quiz-score span { color:var(--fitc-green); font-weight:700; font-size:20px; }
+  .quiz-controls { display:flex; gap:8px; flex-wrap:wrap; }
+  .quiz-mode-btn { padding:8px 16px; border:1px solid var(--border-subtle); background:transparent; color:var(--text-secondary); font-family:var(--font-mono); font-size:11px; border-radius:6px; cursor:pointer; transition:all 0.2s; text-transform:uppercase; letter-spacing:0.5px; }
+  .quiz-mode-btn.active { background:rgba(57,255,20,0.1); border-color:var(--fitc-green); color:var(--fitc-green); }
+  .quiz-card { background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:var(--radius); padding:32px; margin-bottom:24px; }
+  .quiz-q-number { font-size:10px; text-transform:uppercase; letter-spacing:2px; color:var(--text-muted); margin-bottom:12px; }
+  .quiz-q-type { display:inline-block; padding:2px 8px; border-radius:3px; font-size:10px; text-transform:uppercase; letter-spacing:0.5px; margin-left:8px; }
+  .type-vignette { background:rgba(68,136,255,0.15); color:var(--dapi-blue); }
+  .type-tf { background:rgba(255,170,0,0.15); color:var(--amber-warn); }
+  .quiz-question { font-family:var(--font-display); font-size:17px; font-weight:500; margin-bottom:24px; line-height:1.6; }
+  .quiz-options { display:flex; flex-direction:column; gap:10px; margin-bottom:20px; }
+  .quiz-option { padding:14px 18px; border:1px solid var(--border-subtle); border-radius:6px; background:transparent; color:var(--text-primary); font-family:var(--font-mono); font-size:13px; text-align:left; cursor:pointer; transition:all 0.2s; display:flex; align-items:flex-start; gap:12px; }
+  .quiz-option:hover:not(.answered) { border-color:var(--border-glow); background:rgba(57,255,20,0.03); }
+  .quiz-option .opt-letter { display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; border:1px solid var(--border-subtle); font-size:11px; font-weight:600; flex-shrink:0; transition:all 0.2s; }
+  .quiz-option:hover:not(.answered) .opt-letter { border-color:var(--fitc-green); color:var(--fitc-green); }
+  .quiz-option.correct { border-color:var(--fitc-green); background:rgba(57,255,20,0.08); }
+  .quiz-option.correct .opt-letter { background:var(--fitc-green); color:var(--bg-dark); border-color:var(--fitc-green); }
+  .quiz-option.incorrect { border-color:var(--rhodamine-red); background:rgba(255,51,102,0.08); }
+  .quiz-option.incorrect .opt-letter { background:var(--rhodamine-red); color:white; border-color:var(--rhodamine-red); }
+  .quiz-option.answered { cursor:default; }
+  .quiz-explanation { display:none; padding:16px; background:rgba(57,255,20,0.04); border:1px solid var(--border-subtle); border-radius:6px; margin-top:16px; font-size:13px; color:var(--text-secondary); line-height:1.7; }
+  .quiz-explanation.visible { display:block; }
+  .quiz-explanation strong { color:var(--fitc-green); }
+  .quiz-nav { display:flex; justify-content:space-between; margin-top:32px; }
+  .quiz-btn { padding:10px 24px; border:1px solid var(--border-glow); background:transparent; color:var(--fitc-green); font-family:var(--font-mono); font-size:12px; border-radius:6px; cursor:pointer; transition:all 0.2s; text-transform:uppercase; letter-spacing:1px; }
+  .quiz-btn:hover { background:rgba(57,255,20,0.1); box-shadow:0 0 16px rgba(57,255,20,0.15); }
+  .quiz-btn:disabled { opacity:0.3; cursor:not-allowed; }
+  .quiz-btn.primary { background:rgba(57,255,20,0.1); }
+  .quiz-progress { display:flex; gap:6px; margin-bottom:32px; flex-wrap:wrap; }
+  .progress-dot { width:10px; height:10px; border-radius:50%; border:1px solid var(--border-subtle); transition:all 0.3s; cursor:pointer; }
+  .progress-dot.current { border-color:var(--fitc-green); box-shadow:0 0 8px var(--fitc-green-glow); }
+  .progress-dot.correct { background:var(--fitc-green); border-color:var(--fitc-green); }
+  .progress-dot.incorrect { background:var(--rhodamine-red); border-color:var(--rhodamine-red); }
+
+  .info-box { background:var(--bg-card); border:1px solid rgba(0,229,255,0.15); border-radius:var(--radius); padding:20px 24px; margin-bottom:48px; }
+  .info-box-label { font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:var(--cyan-anca); font-weight:600; margin-bottom:8px; }
+  .info-box-text { font-size:13px; color:var(--text-secondary); line-height:1.7; }
+  .info-box-text strong { color:var(--text-primary); }
+
+  .footnote { text-align:center; padding:48px 0; font-size:11px; color:var(--text-muted); border-top:1px solid var(--border-subtle); margin-top:48px; }
+
+  @media (max-width:600px) {
+    .container{padding:0 16px;} .hero{padding:40px 0 20px;} .pattern-grid,.disease-grid{grid-template-columns:1fr;} .ab-table{font-size:12px;} .ab-table td,.ab-table th{padding:10px 8px;} .quiz-card{padding:20px;} .nav-tab{padding:8px 10px;font-size:10px;} .module-btn{padding:10px 18px;font-size:13px;}
+  }
+  ::-webkit-scrollbar{width:6px;} ::-webkit-scrollbar-track{background:var(--bg-dark);} ::-webkit-scrollbar-thumb{background:var(--border-subtle);border-radius:3px;} ::-webkit-scrollbar-thumb:hover{background:var(--border-glow);}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="hero">
+  <div class="hero-badge">🔬 Immunofluorescence Lab</div>
+  <h1>The Autoantibody Lab</h1>
+  <p>Interactive guides to autoantibodies — patterns, targets, and clinical associations for rheumatology trainees and medical students.</p>
+</div>
+
+<div class="module-switcher">
+  <button class="module-btn active" onclick="switchModule('ana',this)">ANA &amp; ENA<span class="module-sub">+ Myositis Antibodies</span></button>
+  <button class="module-btn" onclick="switchModule('anca',this)">ANCA &amp; Vasculitis<span class="module-sub">Chapel Hill Classification</span></button>
+</div>
+
+<!-- ══════════════ ANA MODULE ══════════════ -->
+<div class="module-content active" id="module-ana">
+  <div class="nav-tabs">
+    <button class="nav-tab active" data-module="ana" data-tab="ana-patterns">IF Patterns</button>
+    <button class="nav-tab" data-module="ana" data-tab="ana-antibodies">Antibody Index</button>
+    <button class="nav-tab" data-module="ana" data-tab="ana-diseases">By Disease</button>
+    <button class="nav-tab" data-module="ana" data-tab="ana-myths">Myth Busters</button>
+    <button class="nav-tab" data-module="ana" data-tab="ana-quiz">Quiz</button>
+  </div>
+
+  <div class="section active" id="sec-ana-patterns">
+    <div class="section-title">Immunofluorescence Patterns</div>
+    <div class="section-subtitle">Click any pattern to reveal associated antibodies and diseases.</div>
+    <div class="pattern-grid">
+      <div class="pattern-card" style="--card-accent:var(--fitc-green)" onclick="toggleCard(this)">
+        <div class="if-pattern"><svg viewBox="0 0 56 56"><rect width="56" height="56" fill="#0d1a0f"/><circle cx="28" cy="28" r="18" fill="#1a4a1a" stroke="#39ff14" stroke-width="0.5" opacity="0.9"/><circle cx="28" cy="28" r="17" fill="#2a6a1a" opacity="0.6"/><circle cx="28" cy="28" r="15" fill="#39ff14" opacity="0.25"/></svg></div>
+        <div class="pattern-name">Homogeneous</div>
+        <div class="pattern-desc">Diffuse, uniform staining of the entire nucleus. The most common ANA pattern.</div>
+        <div class="expand-hint">▸ click to expand</div>
+        <div class="pattern-detail">
+          <div style="margin-bottom:8px;font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Associated Antibodies</div>
+          <span class="assoc-tag tag-antibody">Anti-dsDNA</span><span class="assoc-tag tag-antibody">Anti-histone</span>
+          <div style="margin-top:14px;margin-bottom:8px;font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Think of</div>
+          <span class="assoc-tag tag-disease">SLE</span><span class="assoc-tag tag-disease">Drug-induced lupus</span>
+        </div>
+      </div>
+      <div class="pattern-card" style="--card-accent:var(--dapi-blue)" onclick="toggleCard(this)">
+        <div class="if-pattern"><svg viewBox="0 0 56 56"><rect width="56" height="56" fill="#0d0f1a"/><circle cx="28" cy="28" r="18" fill="#1a1a3a" stroke="#4488ff" stroke-width="0.5" opacity="0.9"/><circle cx="20" cy="22" r="2" fill="#4488ff" opacity="0.7"/><circle cx="32" cy="20" r="1.5" fill="#4488ff" opacity="0.5"/><circle cx="26" cy="32" r="2" fill="#4488ff" opacity="0.6"/><circle cx="35" cy="30" r="1.5" fill="#4488ff" opacity="0.4"/><circle cx="24" cy="26" r="1" fill="#4488ff" opacity="0.8"/><circle cx="30" cy="26" r="1.8" fill="#4488ff" opacity="0.5"/><circle cx="22" cy="34" r="1.2" fill="#4488ff" opacity="0.6"/><circle cx="34" cy="24" r="1" fill="#4488ff" opacity="0.7"/></svg></div>
+        <div class="pattern-name">Speckled</div>
+        <div class="pattern-desc">Discrete speckles throughout the nucleus. The classic ENA pattern — fine or coarse.</div>
+        <div class="expand-hint">▸ click to expand</div>
+        <div class="pattern-detail">
+          <div style="margin-bottom:8px;font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Associated Antibodies</div>
+          <span class="assoc-tag tag-antibody">Anti-Sm</span><span class="assoc-tag tag-antibody">Anti-RNP</span><span class="assoc-tag tag-antibody">Anti-Ro (SSA)</span><span class="assoc-tag tag-antibody">Anti-La (SSB)</span>
+          <div style="margin-top:14px;margin-bottom:8px;font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Think of</div>
+          <span class="assoc-tag tag-disease">SLE</span><span class="assoc-tag tag-disease">Sjögren's</span><span class="assoc-tag tag-disease">MCTD</span>
+        </div>
+      </div>
+      <div class="pattern-card" style="--card-accent:var(--rhodamine-red)" onclick="toggleCard(this)">
+        <div class="if-pattern"><svg viewBox="0 0 56 56"><rect width="56" height="56" fill="#1a0d12"/><circle cx="28" cy="28" r="18" fill="#2a1a24" stroke="#ff3366" stroke-width="0.5" opacity="0.9"/><circle cx="20" cy="22" r="1" fill="#ff3366" opacity="0.8"/><circle cx="25" cy="20" r="1" fill="#ff3366" opacity="0.8"/><circle cx="30" cy="21" r="1" fill="#ff3366" opacity="0.8"/><circle cx="35" cy="23" r="1" fill="#ff3366" opacity="0.8"/><circle cx="22" cy="27" r="1" fill="#ff3366" opacity="0.8"/><circle cx="27" cy="26" r="1" fill="#ff3366" opacity="0.8"/><circle cx="32" cy="27" r="1" fill="#ff3366" opacity="0.8"/><circle cx="24" cy="32" r="1" fill="#ff3366" opacity="0.8"/><circle cx="29" cy="31" r="1" fill="#ff3366" opacity="0.8"/><circle cx="34" cy="32" r="1" fill="#ff3366" opacity="0.8"/><circle cx="26" cy="36" r="1" fill="#ff3366" opacity="0.8"/><circle cx="31" cy="35" r="1" fill="#ff3366" opacity="0.8"/></svg></div>
+        <div class="pattern-name">Centromere</div>
+        <div class="pattern-desc">Discrete dots corresponding to centromeres — count ~46 dots per cell in metaphase.</div>
+        <div class="expand-hint">▸ click to expand</div>
+        <div class="pattern-detail">
+          <div style="margin-bottom:8px;font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Associated Antibodies</div>
+          <span class="assoc-tag tag-antibody">Anti-centromere (CENP-B)</span>
+          <div style="margin-top:14px;margin-bottom:8px;font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Think of</div>
+          <span class="assoc-tag tag-disease">Limited cutaneous SSc (CREST)</span><span class="assoc-tag tag-disease">Primary biliary cholangitis</span>
+        </div>
+      </div>
+      <div class="pattern-card" style="--card-accent:var(--amber-warn)" onclick="toggleCard(this)">
+        <div class="if-pattern"><svg viewBox="0 0 56 56"><rect width="56" height="56" fill="#1a150d"/><circle cx="28" cy="28" r="18" fill="#2a2a1a" stroke="#ffaa00" stroke-width="0.5" opacity="0.9"/><circle cx="23" cy="25" r="4" fill="#ffaa00" opacity="0.5"/><circle cx="33" cy="24" r="3.5" fill="#ffaa00" opacity="0.4"/><circle cx="28" cy="33" r="4.5" fill="#ffaa00" opacity="0.45"/></svg></div>
+        <div class="pattern-name">Nucleolar</div>
+        <div class="pattern-desc">Bright staining confined to nucleoli — fewer, larger fluorescent regions within the nucleus.</div>
+        <div class="expand-hint">▸ click to expand</div>
+        <div class="pattern-detail">
+          <div style="margin-bottom:8px;font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Associated Antibodies</div>
+          <span class="assoc-tag tag-antibody">Anti-Scl-70</span><span class="assoc-tag tag-antibody">Anti-PM-Scl</span><span class="assoc-tag tag-antibody">Anti-fibrillarin</span><span class="assoc-tag tag-antibody">Anti-RNA Pol III</span>
+          <div style="margin-top:14px;margin-bottom:8px;font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Think of</div>
+          <span class="assoc-tag tag-disease">Diffuse cutaneous SSc</span><span class="assoc-tag tag-disease">Scleroderma-myositis overlap</span>
+        </div>
+      </div>
+      <div class="pattern-card" style="--card-accent:#cc88ff" onclick="toggleCard(this)">
+        <div class="if-pattern"><svg viewBox="0 0 56 56"><rect width="56" height="56" fill="#140d1a"/><circle cx="28" cy="28" r="22" fill="#2a1a3a" opacity="0.5"/><circle cx="28" cy="28" r="18" fill="none" stroke="#cc88ff" stroke-width="0.5" opacity="0.6"/><circle cx="28" cy="28" r="10" fill="#140d1a" stroke="#cc88ff" stroke-width="0.3" opacity="0.4"/><circle cx="18" cy="20" r="1.5" fill="#cc88ff" opacity="0.4"/><circle cx="38" cy="22" r="1" fill="#cc88ff" opacity="0.3"/><circle cx="20" cy="36" r="1.2" fill="#cc88ff" opacity="0.35"/><circle cx="36" cy="35" r="1.5" fill="#cc88ff" opacity="0.4"/><circle cx="16" cy="28" r="1" fill="#cc88ff" opacity="0.3"/><circle cx="40" cy="28" r="1.3" fill="#cc88ff" opacity="0.35"/></svg></div>
+        <div class="pattern-name">Cytoplasmic</div>
+        <div class="pattern-desc">Staining in the cytoplasm rather than the nucleus. Technically not "ANA" — but reported on the same test.</div>
+        <div class="expand-hint">▸ click to expand</div>
+        <div class="pattern-detail">
+          <div style="margin-bottom:8px;font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Associated Antibodies</div>
+          <span class="assoc-tag tag-antibody">Anti-Jo-1</span><span class="assoc-tag tag-antibody">Anti-SRP</span><span class="assoc-tag tag-antibody">Anti-ribosomal P</span><span class="assoc-tag tag-antibody">Anti-mitochondrial</span>
+          <div style="margin-top:14px;margin-bottom:8px;font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Think of</div>
+          <span class="assoc-tag tag-disease">Antisynthetase syndrome</span><span class="assoc-tag tag-disease">SLE (neuropsychiatric)</span><span class="assoc-tag tag-disease">PBC</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ana-antibodies">
+    <div class="section-title">Antibody Index</div>
+    <div class="section-subtitle">Filter by category.</div>
+    <div class="filter-bar" id="anaFilterBar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="ena">ENA / Core</button>
+      <button class="filter-btn" data-filter="msa">Myositis-Specific</button>
+      <button class="filter-btn" data-filter="maa">Myositis-Associated</button>
+    </div>
+    <table class="ab-table"><thead><tr><th>Antibody</th><th>Category</th><th>Key Associations</th><th>Clinical Notes</th></tr></thead><tbody id="anaAbTableBody"></tbody></table>
+  </div>
+
+  <div class="section" id="sec-ana-diseases">
+    <div class="section-title">Disease → Antibody Map</div>
+    <div class="section-subtitle">Which antibodies to expect with each condition.</div>
+    <div class="disease-grid" id="anaDiseaseGrid"></div>
+  </div>
+
+  <div class="section" id="sec-ana-myths">
+    <div class="section-title">Myth Busters</div>
+    <div class="section-subtitle">Common misconceptions about ANA and ENA testing.</div>
+    <div id="anaMythsContainer"></div>
+  </div>
+
+  <div class="section" id="sec-ana-quiz">
+    <div class="section-title">Test Yourself — ANA &amp; ENA</div>
+    <div class="section-subtitle">Clinical vignettes and true/false questions.</div>
+    <div class="quiz-header">
+      <div class="quiz-score">Score: <span id="anaQuizScore">0</span> / <span id="anaQuizTotal">0</span></div>
+      <div class="quiz-controls">
+        <button class="quiz-mode-btn active" data-mode="all" onclick="setQuizMode('ana','all')">All</button>
+        <button class="quiz-mode-btn" data-mode="vignette" onclick="setQuizMode('ana','vignette')">Vignettes</button>
+        <button class="quiz-mode-btn" data-mode="tf" onclick="setQuizMode('ana','tf')">True/False</button>
+        <button class="quiz-btn" onclick="resetQuiz('ana')" style="margin-left:8px;">Reset</button>
+      </div>
+    </div>
+    <div class="quiz-progress" id="anaQuizProgress"></div>
+    <div id="anaQuizContainer"></div>
+    <div class="quiz-nav">
+      <button class="quiz-btn" id="anaPrevBtn" onclick="navQuiz('ana',-1)" disabled>◂ Prev</button>
+      <button class="quiz-btn primary" id="anaNextBtn" onclick="navQuiz('ana',1)">Next ▸</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════ ANCA MODULE ══════════════ -->
+<div class="module-content" id="module-anca">
+  <div class="nav-tabs">
+    <button class="nav-tab active-anca" data-module="anca" data-tab="anca-patterns">IF Patterns</button>
+    <button class="nav-tab" data-module="anca" data-tab="anca-antibodies">Antibody Index</button>
+    <button class="nav-tab" data-module="anca" data-tab="anca-diseases">By Disease</button>
+    <button class="nav-tab" data-module="anca" data-tab="anca-myths">Myth Busters</button>
+    <button class="nav-tab" data-module="anca" data-tab="anca-quiz">Quiz</button>
+  </div>
+
+  <div class="section active" id="sec-anca-patterns">
+    <div class="section-title" style="color:var(--cyan-anca)">ANCA Immunofluorescence Patterns</div>
+    <div class="section-subtitle">Ethanol-fixed neutrophils — the substrate for ANCA IF. Click to expand.</div>
+    <div class="pattern-grid">
+      <div class="pattern-card" style="--card-accent:var(--cyan-anca)" onclick="toggleCard(this)">
+        <div class="if-pattern"><svg viewBox="0 0 56 56"><rect width="56" height="56" fill="#0a1214"/><circle cx="28" cy="28" r="20" fill="#0d2228" stroke="#00e5ff" stroke-width="0.4" opacity="0.8"/><circle cx="28" cy="28" r="8" fill="#0a1214" opacity="0.7"/><circle cx="20" cy="22" r="2.5" fill="#00e5ff" opacity="0.35"/><circle cx="36" cy="22" r="2" fill="#00e5ff" opacity="0.3"/><circle cx="20" cy="34" r="2" fill="#00e5ff" opacity="0.3"/><circle cx="36" cy="34" r="2.5" fill="#00e5ff" opacity="0.35"/><circle cx="28" cy="18" r="1.8" fill="#00e5ff" opacity="0.25"/><circle cx="28" cy="38" r="1.8" fill="#00e5ff" opacity="0.25"/><circle cx="17" cy="28" r="1.5" fill="#00e5ff" opacity="0.3"/><circle cx="39" cy="28" r="1.5" fill="#00e5ff" opacity="0.3"/><circle cx="23" cy="26" r="1.8" fill="#00e5ff" opacity="0.4"/><circle cx="33" cy="30" r="1.8" fill="#00e5ff" opacity="0.4"/></svg></div>
+        <div class="pattern-name" style="color:var(--cyan-anca)">c-ANCA (Cytoplasmic)</div>
+        <div class="pattern-desc">Diffuse, granular staining of the neutrophil cytoplasm with central interlobular accentuation. Nucleus remains unstained.</div>
+        <div class="expand-hint">▸ click to expand</div>
+        <div class="pattern-detail">
+          <div style="margin-bottom:8px;font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Target Antigen</div>
+          <span class="assoc-tag tag-anca">PR3 (Proteinase-3)</span>
+          <div style="margin-top:14px;margin-bottom:8px;font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Think of</div>
+          <span class="assoc-tag tag-disease">GPA (Granulomatosis with Polyangiitis)</span>
+          <div style="margin-top:10px;font-size:12px;color:var(--text-secondary);line-height:1.7;">c-ANCA/PR3 is ~90% specific for GPA when IF pattern AND ELISA are concordant. Always confirm IF with antigen-specific testing.</div>
+        </div>
+      </div>
+      <div class="pattern-card" style="--card-accent:var(--amber-warn)" onclick="toggleCard(this)">
+        <div class="if-pattern"><svg viewBox="0 0 56 56"><rect width="56" height="56" fill="#0a1214"/><circle cx="28" cy="28" r="20" fill="#0d2228" stroke="#ffaa00" stroke-width="0.3" opacity="0.6"/><circle cx="28" cy="28" r="10" fill="#1a150d" stroke="#ffaa00" stroke-width="2.5" opacity="0.5"/><circle cx="28" cy="28" r="8" fill="#ffaa00" opacity="0.15"/><circle cx="28" cy="28" r="6" fill="#1a150d" opacity="0.6"/></svg></div>
+        <div class="pattern-name" style="color:var(--amber-warn)">p-ANCA (Perinuclear)</div>
+        <div class="pattern-desc">Staining concentrated around the nucleus. Artefact of ethanol fixation — MPO migrates to the nuclear membrane.</div>
+        <div class="expand-hint">▸ click to expand</div>
+        <div class="pattern-detail">
+          <div style="margin-bottom:8px;font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Target Antigen</div>
+          <span class="assoc-tag tag-anca">MPO (Myeloperoxidase)</span>
+          <div style="margin-top:14px;margin-bottom:8px;font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Think of</div>
+          <span class="assoc-tag tag-disease">MPA</span><span class="assoc-tag tag-disease">EGPA</span><span class="assoc-tag tag-disease">Pauci-immune GN</span>
+          <div style="margin-top:10px;font-size:12px;color:var(--text-secondary);line-height:1.7;">p-ANCA/MPO = hallmark of MPA. Also ~40% EGPA. NB: p-ANCA on IF can be caused by non-vasculitis antibodies (anti-lactoferrin in IBD) — always confirm with MPO ELISA.</div>
+        </div>
+      </div>
+      <div class="pattern-card" style="--card-accent:var(--rhodamine-red)" onclick="toggleCard(this)">
+        <div class="if-pattern"><svg viewBox="0 0 56 56"><rect width="56" height="56" fill="#0a1214"/><circle cx="28" cy="28" r="20" fill="#1a1218" stroke="#ff3366" stroke-width="0.3" opacity="0.6"/><circle cx="28" cy="28" r="10" fill="none" stroke="#ff3366" stroke-width="0.8" opacity="0.3" stroke-dasharray="2,2"/><circle cx="22" cy="24" r="2" fill="#ff3366" opacity="0.25"/><circle cx="34" cy="24" r="1.5" fill="#ff3366" opacity="0.2"/><circle cx="28" cy="34" r="1.8" fill="#ff3366" opacity="0.2"/><circle cx="28" cy="22" r="1.2" fill="#ff3366" opacity="0.3"/></svg></div>
+        <div class="pattern-name" style="color:var(--rhodamine-red)">Atypical ANCA (x-ANCA)</div>
+        <div class="pattern-desc">Neither classic c-ANCA nor p-ANCA. Flat, diffuse or mixed — typically PR3/MPO ELISA negative.</div>
+        <div class="expand-hint">▸ click to expand</div>
+        <div class="pattern-detail">
+          <div style="margin-bottom:8px;font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Target Antigens</div>
+          <span class="assoc-tag" style="background:rgba(255,51,102,0.1);color:var(--rhodamine-red);border:1px solid rgba(255,51,102,0.2);">Lactoferrin, BPI, elastase, cathepsin G</span>
+          <div style="margin-top:14px;margin-bottom:8px;font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Think of</div>
+          <span class="assoc-tag tag-disease">IBD (especially UC)</span><span class="assoc-tag tag-disease">PSC</span><span class="assoc-tag tag-disease">Autoimmune hepatitis</span>
+          <div style="margin-top:10px;font-size:12px;color:var(--text-secondary);line-height:1.7;">NOT associated with primary vasculitis. Common trap — positive ANCA in IBD/liver disease ≠ vasculitis. PR3/MPO will be negative.</div>
+        </div>
+      </div>
+    </div>
+    <div class="info-box">
+      <div class="info-box-label">⚡ Key Testing Principle</div>
+      <div class="info-box-text">International guidelines (2017 revised consensus) now recommend <strong>antigen-specific immunoassays (PR3/MPO ELISA) as the primary screening method</strong> for AAV, rather than IF alone. IF + ELISA together gives the best sensitivity and specificity. A positive IF with negative PR3/MPO should prompt consideration of alternative diagnoses.</div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-anca-antibodies">
+    <div class="section-title" style="color:var(--cyan-anca)">ANCA Antibody Index</div>
+    <div class="section-subtitle">All ANCA-associated antibodies and their clinical significance.</div>
+    <table class="ab-table"><thead><tr><th>Antibody</th><th>IF Pattern</th><th>Key Associations</th><th>Clinical Notes</th></tr></thead><tbody id="ancaAbTableBody"></tbody></table>
+  </div>
+
+  <div class="section" id="sec-anca-diseases">
+    <div class="section-title" style="color:var(--cyan-anca)">Disease → Antibody &amp; Features</div>
+    <div class="section-subtitle">Chapel Hill 2012 classification — the AAV spectrum and mimics.</div>
+    <div class="disease-grid" id="ancaDiseaseGrid"></div>
+  </div>
+
+  <div class="section" id="sec-anca-myths">
+    <div class="section-title" style="color:var(--cyan-anca)">Myth Busters</div>
+    <div class="section-subtitle">Common misconceptions about ANCA and vasculitis.</div>
+    <div id="ancaMythsContainer"></div>
+  </div>
+
+  <div class="section" id="sec-anca-quiz">
+    <div class="section-title" style="color:var(--cyan-anca)">Test Yourself — ANCA &amp; Vasculitis</div>
+    <div class="section-subtitle">Clinical vignettes and true/false questions.</div>
+    <div class="quiz-header">
+      <div class="quiz-score">Score: <span id="ancaQuizScore">0</span> / <span id="ancaQuizTotal">0</span></div>
+      <div class="quiz-controls">
+        <button class="quiz-mode-btn active" data-mode="all" onclick="setQuizMode('anca','all')">All</button>
+        <button class="quiz-mode-btn" data-mode="vignette" onclick="setQuizMode('anca','vignette')">Vignettes</button>
+        <button class="quiz-mode-btn" data-mode="tf" onclick="setQuizMode('anca','tf')">True/False</button>
+        <button class="quiz-btn" onclick="resetQuiz('anca')" style="margin-left:8px;">Reset</button>
+      </div>
+    </div>
+    <div class="quiz-progress" id="ancaQuizProgress"></div>
+    <div id="ancaQuizContainer"></div>
+    <div class="quiz-nav">
+      <button class="quiz-btn" id="ancaPrevBtn" onclick="navQuiz('anca',-1)" disabled>◂ Prev</button>
+      <button class="quiz-btn primary" id="ancaNextBtn" onclick="navQuiz('anca',1)">Next ▸</button>
+    </div>
+  </div>
+</div>
+
+<div class="footnote">🔬 The Autoantibody Lab — a teaching resource for rheumatology trainees and medical students.</div>
+</div>
+
+<script>
+// ═══════════════ ANA DATA ═══════════════
+const anaAntibodies = [
+  {name:"Anti-dsDNA",aka:"",cat:"ena",diseases:["SLE"],notes:"Highly specific for SLE. Titres correlate with activity, especially nephritis. Homogeneous pattern.",malig:false},
+  {name:"Anti-Sm",aka:"Smith",cat:"ena",diseases:["SLE"],notes:"Most specific for SLE (~99%) but low sensitivity (~30%). Does not correlate with activity.",malig:false},
+  {name:"Anti-RNP",aka:"U1-RNP",cat:"ena",diseases:["MCTD","SLE"],notes:"High titres in isolation = hallmark of MCTD. Also SLE with other antibodies.",malig:false},
+  {name:"Anti-Ro",aka:"SSA",cat:"ena",diseases:["Sjögren's","SLE","Neonatal lupus"],notes:"Can be positive with NEGATIVE ANA. Congenital heart block. Subtypes: Ro52 and Ro60.",malig:false},
+  {name:"Anti-La",aka:"SSB",cat:"ena",diseases:["Sjögren's"],notes:"Almost always with anti-Ro. Rarely alone. May confer lower nephritis risk.",malig:false},
+  {name:"Anti-Scl-70",aka:"Topoisomerase I",cat:"ena",diseases:["Diffuse cutaneous SSc"],notes:"Diffuse skin + ILD in scleroderma. Nucleolar pattern.",malig:false},
+  {name:"Anti-centromere",aka:"CENP-B",cat:"ena",diseases:["Limited cutaneous SSc","PBC"],notes:"Discrete dot pattern. Limited skin, PAH, better prognosis in SSc.",malig:false},
+  {name:"Anti-histone",aka:"",cat:"ena",diseases:["Drug-induced lupus","SLE"],notes:">95% drug-induced lupus. Also ~70% idiopathic SLE.",malig:false},
+  {name:"Anti-ribosomal P",aka:"",cat:"ena",diseases:["SLE (neuropsychiatric)"],notes:"Neuropsychiatric lupus — psychosis, depression. Cytoplasmic pattern.",malig:false},
+  {name:"Anti-RNA Pol III",aka:"RNA Polymerase III",cat:"ena",diseases:["Diffuse cutaneous SSc"],notes:"Rapidly progressive skin + scleroderma renal crisis. Screen for malignancy.",malig:false},
+  {name:"Anti-Jo-1",aka:"Histidyl-tRNA synthetase",cat:"msa",diseases:["Antisynthetase syndrome"],notes:"Most common antisynthetase. Triad: myositis, ILD, mechanic's hands.",malig:false},
+  {name:"Anti-Mi-2",aka:"",cat:"msa",diseases:["Dermatomyositis"],notes:"Classic DM, good prognosis, strong cutaneous features, good treatment response.",malig:false},
+  {name:"Anti-MDA5",aka:"CADM-140",cat:"msa",diseases:["Amyopathic DM"],notes:"Amyopathic DM. HIGH RISK rapidly progressive ILD. Skin ulceration, palmar papules.",malig:false},
+  {name:"Anti-SRP",aka:"Signal Recognition Particle",cat:"msa",diseases:["IMNM"],notes:"Severe necrotising myopathy, very high CK. Poor response to standard IS.",malig:false},
+  {name:"Anti-NXP2",aka:"MJ, p140",cat:"msa",diseases:["Dermatomyositis"],notes:"Calcinosis (especially juvenile DM). Significant malignancy risk in adults.",malig:true},
+  {name:"Anti-TIF1-γ",aka:"p155/140",cat:"msa",diseases:["Dermatomyositis"],notes:"STRONGEST malignancy association in adult DM (50-70%). Juvenile DM: severe skin, NOT malignancy.",malig:true},
+  {name:"Anti-SAE",aka:"SUMO-activating enzyme",cat:"msa",diseases:["Dermatomyositis"],notes:"Skin-predominant DM initially, myopathy later. Dysphagia common.",malig:false},
+  {name:"Anti-HMGCR",aka:"HMG-CoA reductase",cat:"msa",diseases:["IMNM"],notes:"Statin-associated IMNM, but can occur statin-naïve. Needs immunosuppression.",malig:false},
+  {name:"Anti-PM-Scl",aka:"",cat:"maa",diseases:["Myositis-SSc overlap"],notes:"PM/DM + scleroderma overlap. Nucleolar pattern. Mechanic's hands, ILD.",malig:false},
+  {name:"Anti-Ku",aka:"p70/p80",cat:"maa",diseases:["Overlap myositis","SLE","SSc"],notes:"Overlap syndromes — not specific to one condition.",malig:false},
+  {name:"Anti-Ro52",aka:"TRIM21",cat:"maa",diseases:["Myositis","Sjögren's","ILD"],notes:"Multiple autoimmune conditions. In myositis → more severe ILD.",malig:false},
+];
+
+const anaDiseases = [
+  {name:"Systemic Lupus Erythematosus",aka:"SLE",abs:[{n:"Anti-dsDNA",spec:"high"},{n:"Anti-Sm",spec:"high"},{n:"Anti-RNP",spec:"mod"},{n:"Anti-Ro (SSA)",spec:"mod"},{n:"Anti-La (SSB)",spec:"mod"},{n:"Anti-histone",spec:"mod"},{n:"Anti-ribosomal P",spec:"assoc"}]},
+  {name:"Drug-Induced Lupus",aka:"",abs:[{n:"Anti-histone",spec:"high"},{n:"ANA (homogeneous)",spec:"high"}]},
+  {name:"Sjögren's Syndrome",aka:"",abs:[{n:"Anti-Ro (SSA)",spec:"high"},{n:"Anti-La (SSB)",spec:"high"},{n:"Anti-Ro52",spec:"mod"}]},
+  {name:"Mixed Connective Tissue Disease",aka:"MCTD",abs:[{n:"Anti-RNP (high titre)",spec:"high"}]},
+  {name:"Diffuse Cutaneous SSc",aka:"Scleroderma — diffuse",abs:[{n:"Anti-Scl-70",spec:"high"},{n:"Anti-RNA Pol III",spec:"high"}]},
+  {name:"Limited Cutaneous SSc",aka:"CREST syndrome",abs:[{n:"Anti-centromere",spec:"high"}]},
+  {name:"Scleroderma-Myositis Overlap",aka:"",abs:[{n:"Anti-PM-Scl",spec:"high"},{n:"Anti-Ku",spec:"mod"}]},
+  {name:"Dermatomyositis",aka:"DM",abs:[{n:"Anti-Mi-2",spec:"high"},{n:"Anti-TIF1-γ ⚠",spec:"high"},{n:"Anti-NXP2 ⚠",spec:"high"},{n:"Anti-MDA5",spec:"high"},{n:"Anti-SAE",spec:"mod"}]},
+  {name:"Antisynthetase Syndrome",aka:"",abs:[{n:"Anti-Jo-1",spec:"high"},{n:"Anti-Ro52",spec:"mod"}]},
+  {name:"Immune-Mediated Necrotising Myopathy",aka:"IMNM",abs:[{n:"Anti-SRP",spec:"high"},{n:"Anti-HMGCR",spec:"high"}]},
+  {name:"Neonatal Lupus / CHB",aka:"Congenital heart block",abs:[{n:"Anti-Ro (SSA)",spec:"high"},{n:"Anti-La (SSB)",spec:"mod"}]},
+];
+
+const anaMyths = [
+  {myth:true,text:"The ANA must be positive for an ENA to be positive.",explanation:"FALSE. Anti-Ro (SSA) can be positive with a completely negative ANA on HEp-2 IF. Ro antigen is partly cytoplasmic and lost during fixation. Always request anti-Ro/ENA if Sjögren's or neonatal lupus is suspected, regardless of ANA."},
+  {myth:true,text:"A positive ANA means the patient has an autoimmune disease.",explanation:"FALSE. Up to 20-30% of healthy individuals (especially women, elderly) can have a low-titre positive ANA. Titre, pattern, and clinical context all matter."},
+  {myth:true,text:"Anti-Sm is the most sensitive antibody for SLE.",explanation:"FALSE. Anti-Sm is the most SPECIFIC for SLE but has low sensitivity (~30%). Anti-dsDNA is more sensitive (~70%)."},
+  {myth:true,text:"A negative ANA excludes SLE.",explanation:"FALSE. ANA-negative SLE exists — particularly with anti-Ro antibodies. If clinical suspicion is high, check ENA regardless."},
+  {myth:false,text:"Anti-dsDNA titres can monitor SLE disease activity.",explanation:"TRUE. Titres often rise before/during flares, especially renal. Falling C3/C4 + rising dsDNA = classic pre-flare signal."},
+  {myth:false,text:"Anti-TIF1-γ and anti-NXP2 in adult DM should trigger malignancy screening.",explanation:"TRUE. Anti-TIF1-γ: 50-70% malignancy in adult DM. These associations do NOT apply to juvenile DM."},
+  {myth:true,text:"Anti-HMGCR myopathy always resolves when statins are stopped.",explanation:"FALSE. Distinct autoimmune entity requiring immunosuppression. Can occur in statin-naïve patients."},
+  {myth:false,text:"Anti-MDA5 DM requires urgent ILD screening.",explanation:"TRUE. High risk of rapidly progressive ILD, which can be fatal. Urgent HRCT and PFTs essential."},
+];
+
+const anaQuizQ = [
+  {type:"vignette",q:"A 32-year-old woman: malar rash, arthralgia, proteinuria. ANA 1:640 homogeneous. Which antibody is most specific for her likely diagnosis?",opts:["Anti-dsDNA","Anti-Sm","Anti-Ro (SSA)","Anti-histone"],correct:1,explanation:"Anti-Sm is the most specific antibody for SLE (~99% specificity), though only ~30% sensitivity."},
+  {type:"vignette",q:"A 55-year-old man on hydralazine for 2 years: polyarthralgia, fever, pleurisy. ANA positive, homogeneous. Which antibody is most likely?",opts:["Anti-dsDNA","Anti-Sm","Anti-histone","Anti-Ro (SSA)"],correct:2,explanation:"Drug-induced lupus: anti-histone >95%. Anti-dsDNA typically NEGATIVE (distinguishes from idiopathic SLE)."},
+  {type:"vignette",q:"A 45-year-old woman: Raynaud's, sclerodactyly, dysphagia, no proximal skin involvement. Centromere ANA pattern. Diagnosis?",opts:["Diffuse cutaneous SSc","MCTD","Limited cutaneous SSc (CREST)","Dermatomyositis"],correct:2,explanation:"Centromere pattern + limited skin + Raynaud's + oesophageal dysmotility = limited cutaneous SSc."},
+  {type:"vignette",q:"A 28-year-old woman: dry eyes, dry mouth, parotid swelling. ANA NEGATIVE. Should you test ENA?",opts:["No — negative ANA excludes Sjögren's","No — ENA always negative if ANA negative","Yes — anti-Ro can be positive with negative ANA","Yes — but only anti-La relevant"],correct:2,explanation:"Anti-Ro can be positive with negative ANA. Ro antigen lost during HEp-2 fixation. Always test when Sjögren's suspected."},
+  {type:"vignette",q:"A 60-year-old man: proximal weakness, heliotrope rash, Gottron's. Anti-TIF1-γ positive. Most important next step?",opts:["High-dose steroids","MRI proximal muscles","Comprehensive malignancy screening","Check anti-Jo-1"],correct:2,explanation:"Anti-TIF1-γ = strongest malignancy association in adult DM (50-70%). CT TAP + age-appropriate cancer screening critical."},
+  {type:"vignette",q:"A 40-year-old woman: myalgia, mechanic's hands, non-erosive arthritis, ground-glass on HRCT. Which antibody?",opts:["Anti-Mi-2","Anti-SRP","Anti-Jo-1","Anti-MDA5"],correct:2,explanation:"Antisynthetase syndrome: myositis + ILD + mechanic's hands. Anti-Jo-1 is most common."},
+  {type:"vignette",q:"A 50-year-old on atorvastatin: profound proximal weakness, CK >10,000. Stopping statin — no improvement at 3 months. Antibody?",opts:["Anti-Jo-1","Anti-Mi-2","Anti-HMGCR","Anti-Scl-70"],correct:2,explanation:"Anti-HMGCR IMNM: statin-triggered but autoimmune. Persists after withdrawal, needs immunosuppression."},
+  {type:"vignette",q:"A 38-year-old: DM rash, minimal weakness, rapidly progressive breathlessness + bilateral infiltrates. Which antibody?",opts:["Anti-Mi-2","Anti-TIF1-γ","Anti-MDA5","Anti-NXP2"],correct:2,explanation:"Anti-MDA5: amyopathic DM + rapidly progressive ILD. Can be fatal. Urgent aggressive immunosuppression."},
+  {type:"vignette",q:"Pregnant woman with SLE: anti-Ro and anti-La positive. What fetal complication to monitor?",opts:["Neural tube defects","Congenital heart block","Neonatal thrombocytopenia","Fetal growth restriction"],correct:1,explanation:"Anti-Ro/La cross placenta → congenital heart block. Serial fetal echo from ~16 weeks."},
+  {type:"vignette",q:"A 65-year-old with limited SSc: new hypertension and rapidly rising creatinine. Which antibody?",opts:["Anti-centromere","Anti-Scl-70","Anti-RNA Pol III","Anti-PM-Scl"],correct:2,explanation:"Scleroderma renal crisis: anti-RNA Pol III. Accelerated HTN + AKI. ACEi = treatment of choice."},
+  {type:"tf",q:"True or False: Anti-La (SSB) is commonly found without anti-Ro (SSA).",opts:["True","False"],correct:1,explanation:"False. Anti-La almost always co-occurs with anti-Ro. Isolated anti-La is very rare."},
+  {type:"tf",q:"True or False: A positive ANA at 1:80 in a healthy 70-year-old woman is likely clinically significant.",opts:["True","False"],correct:1,explanation:"False. Low-titre ANA increases with age. Up to 25-30% of healthy elderly have positive ANA."},
+  {type:"tf",q:"True or False: Anti-Mi-2 in DM is associated with good prognosis.",opts:["True","False"],correct:0,explanation:"True. Classic DM features, good treatment response, lower malignancy risk."},
+  {type:"tf",q:"True or False: Anti-NXP2 in juvenile DM is associated with calcinosis.",opts:["True","False"],correct:0,explanation:"True. In adults: malignancy. Same antibody, different implications by age."},
+  {type:"tf",q:"True or False: Anti-HMGCR myopathy only occurs in statin users.",opts:["True","False"],correct:1,explanation:"False. Can occur statin-naïve. Target is HMG-CoA reductase itself."},
+  {type:"tf",q:"True or False: A cytoplasmic IF pattern is technically ANA-negative.",opts:["True","False"],correct:0,explanation:"True (lab-dependent). Target is cytoplasmic, not nuclear. Some labs report 'ANA negative, cytoplasmic pattern noted'."},
+  {type:"tf",q:"True or False: Anti-Sm titres correlate with SLE disease activity.",opts:["True","False"],correct:1,explanation:"False. Unlike dsDNA, anti-Sm does NOT correlate with activity."},
+  {type:"tf",q:"True or False: MCTD requires positive anti-RNP.",opts:["True","False"],correct:0,explanation:"True. High-titre anti-U1-RNP is a defining criterion for MCTD."},
+];
+
+// ═══════════════ ANCA DATA ═══════════════
+const ancaAntibodies = [
+  {name:"PR3-ANCA",aka:"Proteinase-3",pattern:"c-ANCA",diseases:["GPA"],notes:"~90% GPA. Titre may correlate with activity but routine monitoring controversial. Can be seen in limited GPA (ENT-only)."},
+  {name:"MPO-ANCA",aka:"Myeloperoxidase",pattern:"p-ANCA",diseases:["MPA","EGPA","Pauci-immune GN","Drug-induced vasculitis"],notes:"Hallmark of MPA. Also ~40% EGPA. Drug-induced ANCA vasculitis (hydralazine, PTU, minocycline) is usually MPO-positive."},
+  {name:"Anti-GBM",aka:"Glomerular Basement Membrane",pattern:"—",diseases:["Goodpasture's","Double-positive vasculitis"],notes:"Not an ANCA — but must be checked alongside. ~30% of anti-GBM patients are also ANCA (usually MPO) positive. 'Double-positive' disease behaves more like vasculitis."},
+  {name:"Atypical ANCA",aka:"x-ANCA (lactoferrin, BPI, elastase)",pattern:"Atypical",diseases:["IBD (especially UC)","PSC","Autoimmune hepatitis"],notes:"NOT associated with primary vasculitis. Positive ANCA in IBD/liver disease ≠ vasculitis. PR3/MPO will be negative."},
+];
+
+const ancaDiseases = [
+  {name:"GPA",aka:"Granulomatosis with Polyangiitis (formerly Wegener's)",nameClass:"disease-name-anca",abs:[{n:"PR3-ANCA (c-ANCA)",spec:"high"},{n:"MPO-ANCA (p-ANCA)",spec:"assoc"}],features:["Nasal/sinus granulomata","Saddle-nose deformity","Pulmonary nodules/cavities","Rapidly progressive GN","Subglottic stenosis","Orbital pseudotumour","Mononeuritis multiplex"],note:"PR3-ANCA ~80-90%. MPO ~10%. Can present as 'limited' (ENT only) or 'generalised' (renal/pulmonary). Biopsy: granulomatous inflammation + necrotising vasculitis."},
+  {name:"MPA",aka:"Microscopic Polyangiitis",nameClass:"disease-name-anca",abs:[{n:"MPO-ANCA (p-ANCA)",spec:"high"},{n:"PR3-ANCA (c-ANCA)",spec:"assoc"}],features:["Rapidly progressive GN","Pulmonary haemorrhage","Mononeuritis multiplex","Purpura","Constitutional symptoms"],note:"MPO-ANCA ~60-70%. NO granulomata (key distinction from GPA). Pulmonary-renal syndrome common. Biopsy: pauci-immune necrotising vasculitis."},
+  {name:"EGPA",aka:"Eosinophilic GPA (formerly Churg-Strauss)",nameClass:"disease-name-anca",abs:[{n:"MPO-ANCA (p-ANCA)",spec:"mod"}],features:["Asthma (adult-onset/severe)","Eosinophilia >1.5×10⁹/L","Mononeuritis multiplex","Cardiomyopathy","Pulmonary infiltrates","Sinusitis","Purpura / skin nodules"],note:"Only ~40% ANCA-positive (usually MPO). ANCA+: vasculitic (GN, neuropathy). ANCA−: cardiac/eosinophilic. Three phases: allergic → eosinophilic → vasculitic."},
+  {name:"Anti-GBM Disease",aka:"Goodpasture's",nameClass:"disease-name-anca",abs:[{n:"Anti-GBM",spec:"high"},{n:"MPO-ANCA",spec:"assoc"}],features:["Rapidly progressive GN","Pulmonary haemorrhage","Linear IgG on renal biopsy IF"],note:"Not AAV, but tested concurrently. ~30% 'double-positive' (anti-GBM + ANCA, usually MPO). Double-positive may benefit from AAV treatment + plasma exchange."},
+  {name:"Drug-Induced ANCA Vasculitis",aka:"",nameClass:"disease-name-anca",abs:[{n:"MPO-ANCA",spec:"high"},{n:"Multi-ANCA positivity",spec:"high"}],features:["GN","Pulmonary haemorrhage","Skin vasculitis","Multi-ANCA positivity"],note:"Culprits: hydralazine, PTU/carbimazole, minocycline, levamisole-adulterated cocaine. Clue: multi-ANCA positive (PR3 AND MPO + anti-elastase/lactoferrin). May resolve with drug withdrawal."},
+  {name:"Renal-Limited Vasculitis",aka:"Pauci-immune GN",nameClass:"disease-name-anca",abs:[{n:"MPO-ANCA",spec:"high"},{n:"PR3-ANCA",spec:"mod"}],features:["Rapidly progressive GN","No extra-renal manifestations","Pauci-immune crescentic GN"],note:"Isolated renal AAV. Usually MPO. Treated same as systemic AAV. Some develop extra-renal features later."},
+];
+
+const ancaMyths = [
+  {myth:true,text:"A positive ANCA always means vasculitis.",explanation:"FALSE. Atypical ANCA (x-ANCA) is seen in IBD, PSC, autoimmune hepatitis. Always confirm with PR3/MPO-specific testing. p-ANCA without MPO specificity is not diagnostic of AAV."},
+  {myth:true,text:"ANCA titre should routinely guide treatment decisions.",explanation:"FALSE. Rising titres may predict relapse (especially PR3), but evidence does not support pre-emptive treatment based on titre alone. Treat the patient, not the titre."},
+  {myth:true,text:"GPA and MPA are distinguished primarily by ANCA type.",explanation:"FALSE. Distinguished by presence/absence of granulomatous inflammation, not ANCA specificity. ~10% GPA is MPO-positive. Some MPA is PR3-positive."},
+  {myth:false,text:"EGPA can be ANCA-negative.",explanation:"TRUE. Only ~40% ANCA-positive. ANCA-negative EGPA: more cardiac/eosinophilic. ANCA-positive: more vasculitic (GN, neuropathy, purpura)."},
+  {myth:true,text:"Pauci-immune means no antibodies are involved.",explanation:"FALSE. 'Pauci-immune' = few immune complex DEPOSITS on biopsy IF. The disease IS antibody-mediated (by ANCA activating neutrophils). Distinguishes AAV from immune-complex GN and anti-GBM."},
+  {myth:false,text:"Drug-induced ANCA vasculitis often shows multi-ANCA positivity.",explanation:"TRUE. Unlike primary AAV (usually single PR3 or MPO), drug-induced cases often positive for PR3 + MPO + anti-lactoferrin + anti-elastase. Important diagnostic clue."},
+  {myth:true,text:"Anti-GBM disease and AAV are mutually exclusive.",explanation:"FALSE. ~30% anti-GBM are also ANCA-positive (usually MPO). 'Double-positive' patients may have better prognosis than isolated anti-GBM."},
+  {myth:false,text:"International consensus now recommends PR3/MPO immunoassay as primary AAV screening.",explanation:"TRUE. 2017 revised consensus: high-quality antigen-specific immunoassays (PR3 and MPO) as primary screening, not IF alone. Major shift from prior IF-first approach."},
+];
+
+const ancaQuizQ = [
+  {type:"vignette",q:"A 58-year-old man: haemoptysis, rapidly progressive renal failure, purpura. Red cell casts on urinalysis. c-ANCA positive. Target antigen?",opts:["MPO","PR3","GBM","Lactoferrin"],correct:1,explanation:"c-ANCA = PR3 (Proteinase-3). With pulmonary-renal syndrome and c-ANCA → GPA."},
+  {type:"vignette",q:"A 65-year-old woman: bloody nasal discharge, recurrent sinusitis, saddle-nose deformity, pulmonary nodules. Diagnosis?",opts:["MPA","EGPA","GPA","Sarcoidosis"],correct:2,explanation:"Upper airway granulomatous disease + pulmonary nodules = classic GPA. MPA has NO granulomata."},
+  {type:"vignette",q:"A 45-year-old man with severe asthma since age 30: mononeuritis multiplex, eosinophilia 3.2×10⁹/L. ANCA negative. Diagnosis?",opts:["GPA","MPA","EGPA","Hypereosinophilic syndrome"],correct:2,explanation:"Adult-onset asthma + eosinophilia + neuropathy = EGPA. Only ~40% ANCA-positive."},
+  {type:"vignette",q:"A 70-year-old on hydralazine for 5 years: renal impairment, haematuria, pulmonary infiltrates. Both p-ANCA and c-ANCA positive, MPO and PR3 on ELISA. Diagnosis?",opts:["GPA","MPA","Drug-induced ANCA vasculitis","EGPA"],correct:2,explanation:"Multi-ANCA positivity (PR3 AND MPO) = hallmark of drug-induced ANCA vasculitis. Hydralazine is a classic culprit."},
+  {type:"vignette",q:"A 25-year-old man: haemoptysis, rapidly progressive GN, linear IgG on biopsy. Anti-GBM positive. MPO-ANCA also positive. Presentation?",opts:["Primary AAV","Isolated anti-GBM","Double-positive disease","Drug-induced vasculitis"],correct:2,explanation:"Anti-GBM + ANCA = 'double-positive'. Occurs in ~30% anti-GBM. May benefit from AAV treatment protocols."},
+  {type:"vignette",q:"A 60-year-old woman: pauci-immune crescentic GN on biopsy, MPO-ANCA positive, no extra-renal symptoms. Diagnosis?",opts:["MPA","GPA","Renal-limited vasculitis","Lupus nephritis"],correct:2,explanation:"Pauci-immune GN + ANCA + no extra-renal features = renal-limited vasculitis. Treated same as systemic AAV."},
+  {type:"vignette",q:"EGPA patient is ANCA-positive (MPO). Which organ complication MORE likely vs ANCA-negative EGPA?",opts:["Cardiomyopathy","Glomerulonephritis","Eosinophilic pneumonia","Asthma exacerbation"],correct:1,explanation:"ANCA-positive EGPA → vasculitic: GN, neuropathy, purpura. ANCA-negative → eosinophilic: cardiomyopathy, pulmonary infiltrates."},
+  {type:"vignette",q:"GPA patient in remission: rising PR3-ANCA, but well with normal bloods/urinalysis. Management?",opts:["Increase immunosuppression","Switch to rituximab","Close monitoring, no treatment change","Start plasma exchange"],correct:2,explanation:"Rising ANCA ≠ automatic escalation. Treat the patient, not the titre. Close clinical monitoring."},
+  {type:"vignette",q:"Renal biopsy: crescentic GN with 'full-house' IF (IgG, IgM, IgA, C3, C1q). Consistent with AAV?",opts:["Yes — typical of AAV","No — suggests lupus nephritis","No — this is anti-GBM","Yes — if ANCA positive"],correct:1,explanation:"AAV = pauci-immune (few/no deposits). 'Full-house' = lupus nephritis. Anti-GBM = linear IgG. IF pattern is key."},
+  {type:"vignette",q:"A 40-year-old with subglottic stenosis causing stridor. Most likely ANCA-associated condition?",opts:["MPA","EGPA","GPA","Renal-limited vasculitis"],correct:2,explanation:"Subglottic stenosis is characteristic of GPA. Does not occur in MPA or EGPA."},
+  {type:"tf",q:"True or False: The p-ANCA pattern is caused by MPO migrating to the nuclear membrane during ethanol fixation.",opts:["True","False"],correct:0,explanation:"True. In unfixed neutrophils, MPO is cytoplasmic. Ethanol fixation causes redistribution to the nucleus → perinuclear pattern."},
+  {type:"tf",q:"True or False: MPA can cause granulomatous inflammation.",opts:["True","False"],correct:1,explanation:"False. Absence of granulomata is the key distinction between MPA and GPA."},
+  {type:"tf",q:"True or False: A positive p-ANCA in UC means concurrent vasculitis.",opts:["True","False"],correct:1,explanation:"False. Atypical p-ANCA in ~60-70% UC. Target is lactoferrin/BPI, NOT MPO. Not vasculitis-related."},
+  {type:"tf",q:"True or False: EGPA classically progresses through three phases — allergic, eosinophilic, then vasculitic.",opts:["True","False"],correct:0,explanation:"True. (1) Allergic: asthma, rhinitis. (2) Eosinophilic: peripheral eosinophilia, infiltrates. (3) Vasculitic: systemic vasculitis. Phases may overlap."},
+  {type:"tf",q:"True or False: Pauci-immune crescentic GN means the disease is not antibody-mediated.",opts:["True","False"],correct:1,explanation:"False. 'Pauci-immune' = few immune deposits on IF. But ANCA activates neutrophils rather than depositing — the disease IS antibody-mediated."},
+  {type:"tf",q:"True or False: PR3-ANCA patients have higher relapse rates than MPO-ANCA patients.",opts:["True","False"],correct:0,explanation:"True. PR3/GPA has higher relapse rates. This influences maintenance therapy duration."},
+  {type:"tf",q:"True or False: Levamisole-adulterated cocaine can cause ANCA-positive vasculitis.",opts:["True","False"],correct:0,explanation:"True. Levamisole causes retiform purpura (ears/nose necrosis), multi-ANCA positivity, and sometimes frank vasculitis. Classic exam question."},
+  {type:"tf",q:"True or False: Rituximab is an accepted alternative to cyclophosphamide for AAV induction.",opts:["True","False"],correct:0,explanation:"True. RAVE and RITUXVAS trials: rituximab non-inferior to cyclophosphamide for induction. Preferred in relapsing disease and for maintenance."},
+];
+
+// ═══════════════ RENDER FUNCTIONS ═══════════════
+function renderAnaAbTable(filter='all'){
+  const tbody=document.getElementById('anaAbTableBody');
+  const d=filter==='all'?anaAntibodies:anaAntibodies.filter(a=>a.cat===filter);
+  tbody.innerHTML=d.map(ab=>{
+    const cl=ab.cat==='ena'?'cat-ena':ab.cat==='msa'?'cat-myositis-specific':'cat-myositis-associated';
+    const lb=ab.cat==='ena'?'ENA / Core':ab.cat==='msa'?'Myositis-Specific':'Myositis-Assoc';
+    const ml=ab.malig?'<div class="malig-flag">Malignancy association</div>':'';
+    return `<tr><td><div class="ab-name">${ab.name}</div>${ab.aka?`<div class="ab-aka">${ab.aka}</div>`:''}</td><td><span class="ab-category ${cl}">${lb}</span>${ml}</td><td style="color:var(--text-secondary);font-size:12px">${ab.diseases.join(', ')}</td><td style="color:var(--text-secondary);font-size:12px;max-width:300px">${ab.notes}</td></tr>`;
+  }).join('');
+}
+
+function renderAncaAbTable(){
+  document.getElementById('ancaAbTableBody').innerHTML=ancaAntibodies.map(ab=>`<tr><td><div class="ab-name-anca">${ab.name}</div>${ab.aka?`<div class="ab-aka">${ab.aka}</div>`:''}</td><td><span class="ab-category cat-anca-assoc">${ab.pattern}</span></td><td style="color:var(--text-secondary);font-size:12px">${ab.diseases.join(', ')}</td><td style="color:var(--text-secondary);font-size:12px;max-width:300px">${ab.notes}</td></tr>`).join('');
+}
+
+function renderDiseases(id,data,anca){
+  document.getElementById(id).innerHTML=data.map(d=>{
+    const nc=d.nameClass||(anca?'disease-name-anca':'disease-name');
+    const al=d.abs.map(a=>{const sc=a.spec==='high'?'spec-high':a.spec==='mod'?'spec-mod':'spec-assoc';const sl=a.spec==='high'?'Specific':a.spec==='mod'?'Common':'Associated';return `<li><span>${a.n}</span><span class="specificity ${sc}">${sl}</span></li>`;}).join('');
+    let fh='';if(d.features){fh=`<div class="clinical-features"><div class="clinical-features-label">Key Clinical Features</div>${d.features.map(f=>`<span class="feature-tag">${f}</span>`).join('')}</div>`;}
+    let nh='';if(d.note){nh=`<div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border-subtle);font-size:11px;color:var(--text-muted);line-height:1.7">${d.note}</div>`;}
+    return `<div class="disease-card"><div class="${nc}">${d.name}</div>${d.aka?`<div class="disease-aka">${d.aka}</div>`:'<div style="margin-bottom:10px"></div>'}<ul class="disease-ab-list">${al}</ul>${fh}${nh}</div>`;
+  }).join('');
+}
+
+function renderMyths(id,data){
+  document.getElementById(id).innerHTML=data.map(m=>{const c=m.myth?'myth':'fact';const l=m.myth?'✗ Common Myth':'✓ True Statement';return `<div class="myth-card ${c}"><div class="myth-label">${l}</div><div class="myth-text">"${m.text}"</div><div class="myth-explanation">${m.explanation}</div></div>`;}).join('');
+}
+
+// ═══════════════ QUIZ ENGINE ═══════════════
+const QS={ana:{cur:0,score:0,ans:[],mode:'all',qs:[...anaQuizQ],all:anaQuizQ},anca:{cur:0,score:0,ans:[],mode:'all',qs:[...ancaQuizQ],all:ancaQuizQ}};
+
+function setQuizMode(m,mode){
+  const s=QS[m];s.mode=mode;
+  const p=document.getElementById(m+'QuizContainer').closest('.section');
+  p.querySelectorAll('.quiz-mode-btn').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
+  s.qs=mode==='all'?[...s.all]:s.all.filter(q=>mode==='vignette'?q.type==='vignette':q.type==='tf');
+  resetQuiz(m);
+}
+
+function resetQuiz(m){const s=QS[m];s.cur=0;s.score=0;s.ans=new Array(s.qs.length).fill(null);document.getElementById(m+'QuizScore').textContent='0';document.getElementById(m+'QuizTotal').textContent='0';renderQuiz(m);}
+
+function renderQuiz(m){
+  const s=QS[m];if(!s.qs.length)return;
+  document.getElementById(m+'QuizProgress').innerHTML=s.qs.map((_,i)=>{let c='';if(i===s.cur)c='current';if(s.ans[i]!==null)c=s.ans[i]===true?'correct':'incorrect';return `<div class="progress-dot ${c}" onclick="jumpTo('${m}',${i})"></div>`;}).join('');
+  const q=s.qs[s.cur],tl=q.type==='vignette'?'<span class="quiz-q-type type-vignette">Vignette</span>':'<span class="quiz-q-type type-tf">True / False</span>',ia=s.ans[s.cur]!==null;
+  const oh=q.opts.map((o,i)=>{let c='quiz-option';if(ia){c+=' answered';if(i===q.correct)c+=' correct';else if(s.ans[s.cur]!==true&&i===s.ans[s.cur])c+=' incorrect';}return `<button class="${c}" onclick="answerQ('${m}',${i})" ${ia?'disabled':''}><span class="opt-letter">${String.fromCharCode(65+i)}</span><span>${o}</span></button>`;}).join('');
+  document.getElementById(m+'QuizContainer').innerHTML=`<div class="quiz-card"><div class="quiz-q-number">Question ${s.cur+1} of ${s.qs.length} ${tl}</div><div class="quiz-question">${q.q}</div><div class="quiz-options">${oh}</div><div class="quiz-explanation ${ia?'visible':''}"><strong>Explanation:</strong> ${q.explanation}</div></div>`;
+  document.getElementById(m+'PrevBtn').disabled=s.cur===0;const nb=document.getElementById(m+'NextBtn');nb.disabled=s.cur===s.qs.length-1;nb.textContent=s.cur===s.qs.length-1?'Done':'Next ▸';
+}
+
+function answerQ(m,i){const s=QS[m];if(s.ans[s.cur]!==null)return;const ok=i===s.qs[s.cur].correct;s.ans[s.cur]=ok?true:i;if(ok)s.score++;const t=s.ans.filter(a=>a!==null).length;document.getElementById(m+'QuizScore').textContent=s.score;document.getElementById(m+'QuizTotal').textContent=t;renderQuiz(m);}
+function navQuiz(m,d){const s=QS[m];s.cur=Math.max(0,Math.min(s.qs.length-1,s.cur+d));renderQuiz(m);}
+function jumpTo(m,i){QS[m].cur=i;renderQuiz(m);}
+
+// ═══════════════ NAVIGATION ═══════════════
+function switchModule(mod,btn){
+  document.querySelectorAll('.module-btn').forEach(b=>{b.classList.remove('active','active-anca');});
+  btn.classList.add(mod==='anca'?'active-anca':'active');
+  document.querySelectorAll('.module-content').forEach(m=>m.classList.remove('active'));
+  document.getElementById('module-'+mod).classList.add('active');
+}
+
+function toggleCard(card){card.classList.toggle('expanded');const h=card.querySelector('.expand-hint');if(h)h.textContent=card.classList.contains('expanded')?'▾ click to collapse':'▸ click to expand';}
+
+document.querySelectorAll('.nav-tab').forEach(tab=>{tab.addEventListener('click',()=>{
+  const mod=tab.dataset.module,ac=mod==='anca'?'active-anca':'active',parent=tab.closest('.module-content');
+  parent.querySelectorAll('.nav-tab').forEach(t=>{t.classList.remove('active','active-anca');});
+  tab.classList.add(ac);
+  parent.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('sec-'+tab.dataset.tab).classList.add('active');
+});});
+
+document.querySelectorAll('#anaFilterBar .filter-btn').forEach(btn=>{btn.addEventListener('click',()=>{
+  document.querySelectorAll('#anaFilterBar .filter-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderAnaAbTable(btn.dataset.filter);
+});});
+
+// ═══════════════ INIT ═══════════════
+renderAnaAbTable();
+renderAncaAbTable();
+renderDiseases('anaDiseaseGrid',anaDiseases,false);
+renderDiseases('ancaDiseaseGrid',ancaDiseases,true);
+renderMyths('anaMythsContainer',anaMyths);
+renderMyths('ancaMythsContainer',ancaMyths);
+resetQuiz('ana');
+resetQuiz('anca');
+</script>
+</body>
+</html>
