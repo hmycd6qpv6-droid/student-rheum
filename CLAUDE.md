@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-"The Autoantibody Lab" — a static, client-side rheumatology teaching web app for medical students and trainees. It covers two modules: **ANA & ENA** (including myositis antibodies) and **ANCA & Vasculitis**. Each module has seven tabs: IF Patterns, Antibody Index, Disease Map, Myth Busters, Quiz, Cases, and Summary.
+"The Autoantibody Lab" — a static, client-side rheumatology teaching web app for medical students and trainees. It covers three modules: **ANA & ENA** (including myositis antibodies), **ANCA & Vasculitis**, and **Joints & Serology** (joint patterns, RF, anti-CCP, HLA-B27, crystal arthropathies). Each module has seven tabs: IF/Joint Patterns, Antibody/Marker Index, Disease Map, Myth Busters, Quiz, Cases, and Summary.
 
 ## Development
 
@@ -22,7 +22,7 @@ There are no tests, linters, or CI pipelines.
 
 **Hub-and-spoke structure:**
 - `index.html` — Hub/landing page with module cards and progress display. Loads `js/hub.js`.
-- `module.html` — Module page (previously `index.html`). Loads `js/app.js`. Accepts `?module=ana|anca` and `?tab=...` query params.
+- `module.html` — Module page (previously `index.html`). Loads `js/app.js`. Accepts `?module=ana|anca|joints` and `?tab=...` query params.
 
 **JS modules (`js/`):**
 - `app.js` — Module page entry point. Imports all data and modules, defines column mappers, wires renderers, exposes functions to `window` for inline `onclick` handlers, and inits event listeners including query param handling.
@@ -30,10 +30,10 @@ There are no tests, linters, or CI pipelines.
 - `renderers.js` — Five pure rendering functions (`renderAbTable`, `renderPatterns`, `renderDiseases`, `renderMyths`, `renderSummaries`) that generate HTML strings and inject via `innerHTML`.
 - `quiz.js` — Quiz state machine (`QS` object holds per-module state). Saves best scores to localStorage on completion. Exports `setQuizMode`, `resetQuiz`, `answerQ`, `navQuiz`, `jumpTo`, `renderQuiz`.
 - `cases.js` — Branching clinical case engine. Vertical scrolling playthrough with presentation, decision, and conclusion nodes. Integrates with `progress.js` for persistence. Exports `initCases`, `renderCaseList`, `startCase`, `renderNode`, `advanceCase`, `selectCaseOption`.
-- `navigation.js` — Module switching (ANA/ANCA), tab navigation, expandable card toggle, filter bar listeners, query param handling. Exports `switchModule`, `switchTab`, `initFromQueryParams`, `toggleCard`, `initTabListeners`, `initFilterListeners`.
+- `navigation.js` — Module switching (ANA/ANCA/Joints), tab navigation, expandable card toggle, filter bar listeners, query param handling. Uses `activeClass()` helper for module-specific active states. Exports `switchModule`, `switchTab`, `initFromQueryParams`, `toggleCard`, `initTabListeners`, `initFilterListeners`.
 - `progress.js` — localStorage persistence under `rheum-lab-progress` key. Exports `loadProgress`, `saveProgress`, `getQuizBest`, `saveQuizScore`, `getCaseProgress`, `saveCaseProgress`, `getModuleProgress`, `saveLastVisited`, `restoreLastVisited`, `resetProgress`.
 
-**Data layer (`js/data/`):** Each file exports a single array of objects. Naming convention: `{module}-{content}.js`. Data files: `patterns.js`, `ana-antibodies.js`, `ana-diseases.js`, `ana-myths.js`, `ana-quiz.js`, `ana-cases.js`, `ana-summaries.js`, `anca-antibodies.js`, `anca-diseases.js`, `anca-myths.js`, `anca-quiz.js`, `anca-cases.js`, `anca-summaries.js`.
+**Data layer (`js/data/`):** Each file exports a single array of objects. Naming convention: `{module}-{content}.js`. Data files: `patterns.js`, `ana-antibodies.js`, `ana-diseases.js`, `ana-myths.js`, `ana-quiz.js`, `ana-cases.js`, `ana-summaries.js`, `anca-antibodies.js`, `anca-diseases.js`, `anca-myths.js`, `anca-quiz.js`, `anca-cases.js`, `anca-summaries.js`, `joints-patterns.js`, `joints-markers.js`, `joints-diseases.js`, `joints-myths.js`, `joints-quiz.js`, `joints-cases.js`, `joints-summaries.js`.
 
 **CSS (`css/`):** Split into `variables.css` (design tokens), `base.css`, `layout.css`, `components.css` (includes summary card styles), `hub.css` (hub page), `cases.css` (case engine), `print.css` (print media query for summaries). Dark theme with fluorescence microscopy-inspired palette (FITC green, DAPI blue, rhodamine red, amber, cyan).
 
@@ -41,7 +41,7 @@ There are no tests, linters, or CI pipelines.
 
 ## Key Conventions
 
-- Two parallel module structures (ANA and ANCA) follow identical patterns — tabs, sections, data shapes, and rendering all mirror each other. When adding content to one module, consider the other.
+- Three parallel module structures (ANA, ANCA, Joints) follow identical patterns — tabs, sections, data shapes, and rendering all mirror each other. When adding content to one module, consider the others.
 - Interactive elements use inline `onclick` attributes that call functions exposed on `window` from `app.js` or `cases.js`.
 - Tab navigation uses `data-module` and `data-tab` attributes; sections use `id="sec-{tab-name}"` convention.
 - Antibody data objects have: `name`, `aka`, `cat` (category), `diseases` (array), `notes`, and optionally `malig` (boolean).
@@ -49,5 +49,6 @@ There are no tests, linters, or CI pipelines.
 - Quiz questions have: `type` ("vignette" or "tf"), `q`, `opts` (array), `correct` (index), `explanation`.
 - Case data objects have: `id`, `title`, `summary`, `difficulty`, `nodes` (array of presentation/decision/conclusion nodes with guided branching).
 - Summary data objects have: `type` ("top5" | "comparison" | "shortcut" | "cheatsheet"), `title`, `content` (type-specific).
-- CSS active states differ per module: `.active` for ANA, `.active-anca` for ANCA (cyan accent).
+- CSS active states differ per module: `.active` for ANA (green), `.active-anca` for ANCA (cyan), `.active-joints` for Joints (amber).
+- Joints marker data objects use `cat` values: `"sero"`, `"genetic"`, `"acute"` with corresponding CSS classes `cat-joints-sero`, `cat-joints-genetic`, `cat-joints-acute`.
 - Progress is persisted in localStorage under `rheum-lab-progress` key.

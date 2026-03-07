@@ -26,7 +26,7 @@ export function renderCaseList(containerId, cases, module) {
   const el = document.getElementById(containerId);
   if (!el) return;
 
-  const accentVar = module === 'anca' ? 'var(--cyan-anca)' : 'var(--fitc-green)';
+  const accentVar = module === 'anca' ? 'var(--cyan-anca)' : module === 'joints' ? 'var(--amber-joints)' : 'var(--fitc-green)';
 
   el.innerHTML = `<div class="case-grid">${cases.map(c => {
     const prog = getCaseProgress(c.id);

@@ -5,6 +5,12 @@ import { ancaAntibodies } from './data/anca-antibodies.js';
 import { ancaDiseases } from './data/anca-diseases.js';
 import { ancaMyths } from './data/anca-myths.js';
 import { anaPatterns, ancaPatterns } from './data/patterns.js';
+import { jointsPatterns } from './data/joints-patterns.js';
+import { jointsMarkers } from './data/joints-markers.js';
+import { jointsDiseases } from './data/joints-diseases.js';
+import { jointsMyths } from './data/joints-myths.js';
+import { jointsSummaries } from './data/joints-summaries.js';
+import { jointsCases } from './data/joints-cases.js';
 import { renderAbTable, renderPatterns, renderDiseases, renderMyths, renderSummaries } from './renderers.js';
 import { anaSummaries } from './data/ana-summaries.js';
 import { ancaSummaries } from './data/anca-summaries.js';
@@ -27,9 +33,21 @@ function ancaColumnMapper(ab) {
   return `<span class="ab-category cat-anca-assoc">${ab.pattern}</span>`;
 }
 
+// Joints column mapper: category badge
+function jointsColumnMapper(marker) {
+  const cl = marker.cat === 'sero' ? 'cat-joints-sero' : marker.cat === 'genetic' ? 'cat-joints-genetic' : 'cat-joints-acute';
+  const lb = marker.cat === 'sero' ? 'Serological' : marker.cat === 'genetic' ? 'Genetic' : 'Acute Phase';
+  return `<span class="ab-category ${cl}">${lb}</span>`;
+}
+
 // Helper for ANA table rendering with filter
 function renderAnaTable(filter = 'all') {
   renderAbTable({ targetId: 'anaAbTableBody', data: anaAntibodies, nameClass: 'ab-name', columnMapper: anaColumnMapper, filter });
+}
+
+// Helper for Joints table rendering with filter
+function renderJointsTable(filter = 'all') {
+  renderAbTable({ targetId: 'jointsMarkerTableBody', data: jointsMarkers, nameClass: 'ab-name-joints', columnMapper: jointsColumnMapper, filter });
 }
 
 // Expose functions to window for onclick attributes
@@ -44,20 +62,30 @@ window.jumpTo = jumpTo;
 // Render all content
 renderPatterns('anaPatternGrid', anaPatterns);
 renderPatterns('ancaPatternGrid', ancaPatterns);
+renderPatterns('jointsPatternGrid', jointsPatterns);
 renderAnaTable();
 renderAbTable({ targetId: 'ancaAbTableBody', data: ancaAntibodies, nameClass: 'ab-name-anca', columnMapper: ancaColumnMapper });
+renderJointsTable();
 renderDiseases('anaDiseaseGrid', anaDiseases, false);
 renderDiseases('ancaDiseaseGrid', ancaDiseases, true);
+renderDiseases('jointsDiseaseGrid', jointsDiseases, false);
 renderMyths('anaMythsContainer', anaMyths);
 renderMyths('ancaMythsContainer', ancaMyths);
+renderMyths('jointsMythsContainer', jointsMyths);
 renderSummaries('anaSummaryContainer', anaSummaries);
 renderSummaries('ancaSummaryContainer', ancaSummaries);
+renderSummaries('jointsSummaryContainer', jointsSummaries);
 resetQuiz('ana');
 resetQuiz('anca');
+resetQuiz('joints');
 initCases('anaCaseContainer', anaCases, 'ana');
 initCases('ancaCaseContainer', ancaCases, 'anca');
+initCases('jointsCaseContainer', jointsCases, 'joints');
 
 // Init event listeners
 initTabListeners();
-initFilterListeners(renderAnaTable);
+initFilterListeners(
+  { barId: 'anaFilterBar', renderFn: renderAnaTable },
+  { barId: 'jointsFilterBar', renderFn: renderJointsTable }
+);
 initFromQueryParams();

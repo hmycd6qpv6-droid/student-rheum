@@ -18,6 +18,7 @@
 .tag-antibody { background:rgba(57,255,20,0.1); color:var(--fitc-green); border:1px solid rgba(57,255,20,0.2); }
 .tag-disease { background:rgba(68,136,255,0.1); color:var(--dapi-blue); border:1px solid rgba(68,136,255,0.2); }
 .tag-anca { background:rgba(0,229,255,0.1); color:var(--cyan-anca); border:1px solid rgba(0,229,255,0.2); }
+.tag-joints { background:rgba(255,204,0,0.1); color:var(--amber-joints); border:1px solid rgba(255,204,0,0.2); }
 
 .filter-bar { display:flex; gap:8px; margin-bottom:24px; flex-wrap:wrap; }
 .filter-btn { padding:6px 14px; border:1px solid var(--border-subtle); background:transparent; color:var(--text-secondary); font-family:var(--font-mono); font-size:11px; border-radius:6px; cursor:pointer; transition:all 0.2s; text-transform:uppercase; letter-spacing:0.5px; }
@@ -31,12 +32,16 @@
 .ab-table td { padding:14px 16px; font-size:13px; vertical-align:top; }
 .ab-name { font-weight:600; color:var(--fitc-green); white-space:nowrap; }
 .ab-name-anca { font-weight:600; color:var(--cyan-anca); white-space:nowrap; }
+.ab-name-joints { font-weight:600; color:var(--amber-joints); white-space:nowrap; }
 .ab-aka { font-size:11px; color:var(--text-muted); font-weight:300; }
 .ab-category { font-size:10px; padding:2px 8px; border-radius:3px; text-transform:uppercase; letter-spacing:0.5px; font-weight:600; white-space:nowrap; }
 .cat-ena { background:rgba(68,136,255,0.15); color:var(--dapi-blue); }
 .cat-myositis-specific { background:rgba(255,51,102,0.15); color:var(--rhodamine-red); }
 .cat-myositis-associated { background:rgba(255,170,0,0.15); color:var(--amber-warn); }
 .cat-anca-assoc { background:rgba(0,229,255,0.15); color:var(--cyan-anca); }
+.cat-joints-sero { background:rgba(255,204,0,0.15); color:var(--amber-joints); }
+.cat-joints-genetic { background:rgba(68,136,255,0.15); color:var(--dapi-blue); }
+.cat-joints-acute { background:rgba(255,51,102,0.15); color:var(--rhodamine-red); }
 .malig-flag { display:inline-flex; align-items:center; gap:4px; background:rgba(255,51,102,0.12); color:var(--rhodamine-red); padding:2px 8px; border-radius:3px; font-size:10px; font-weight:600; border:1px solid rgba(255,51,102,0.25); margin-top:4px; }
 .malig-flag::before { content:'⚠'; }
 
@@ -45,6 +50,7 @@
 .disease-card:hover { border-color:var(--border-glow); transform:translateY(-1px); }
 .disease-name { font-family:var(--font-display); font-size:16px; font-weight:600; margin-bottom:4px; color:var(--dapi-blue); }
 .disease-name-anca { font-family:var(--font-display); font-size:16px; font-weight:600; margin-bottom:4px; color:var(--cyan-anca); }
+.disease-name-joints { font-family:var(--font-display); font-size:16px; font-weight:600; margin-bottom:4px; color:var(--amber-joints); }
 .disease-aka { font-size:11px; color:var(--text-muted); margin-bottom:14px; }
 .disease-ab-list { list-style:none; padding:0; }
 .disease-ab-list li { padding:6px 0; border-bottom:1px solid rgba(255,255,255,0.03); font-size:12px; display:flex; justify-content:space-between; align-items:center; }

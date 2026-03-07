@@ -30,6 +30,7 @@
 <div class="module-switcher">
   <button class="module-btn active" onclick="switchModule('ana',this)">ANA &amp; ENA<span class="module-sub">+ Myositis Antibodies</span></button>
   <button class="module-btn" onclick="switchModule('anca',this)">ANCA &amp; Vasculitis<span class="module-sub">Chapel Hill Classification</span></button>
+  <button class="module-btn" onclick="switchModule('joints',this)">Joints &amp; Serology<span class="module-sub">Patterns &amp; Markers</span></button>
 </div>
 
 <!-- ANA MODULE -->
@@ -177,6 +178,81 @@
     <div class="section-title" style="color:var(--cyan-anca)">Quick Reference — ANCA &amp; Vasculitis</div>
     <div class="section-subtitle">Cheat sheets, comparison tables, and high-yield summaries.</div>
     <div id="ancaSummaryContainer"></div>
+  </div>
+</div>
+
+<!-- JOINTS MODULE -->
+<div class="module-content" id="module-joints">
+  <div class="nav-tabs">
+    <button class="nav-tab active-joints" data-module="joints" data-tab="joints-patterns">Joint Patterns</button>
+    <button class="nav-tab" data-module="joints" data-tab="joints-markers">Marker Index</button>
+    <button class="nav-tab" data-module="joints" data-tab="joints-diseases">Disease Map</button>
+    <button class="nav-tab" data-module="joints" data-tab="joints-myths">Myth Busters</button>
+    <button class="nav-tab" data-module="joints" data-tab="joints-quiz">Quiz</button>
+    <button class="nav-tab" data-module="joints" data-tab="joints-cases">Cases</button>
+    <button class="nav-tab" data-module="joints" data-tab="joints-summary">Summary</button>
+  </div>
+
+  <div class="section active" id="sec-joints-patterns">
+    <div class="section-title" style="color:var(--amber-joints)">Joint Distribution Patterns</div>
+    <div class="section-subtitle">Recognise the pattern, narrow the diagnosis. Click any pattern to reveal associated markers and diseases.</div>
+    <div class="pattern-grid" id="jointsPatternGrid"></div>
+  </div>
+
+  <div class="section" id="sec-joints-markers">
+    <div class="section-title" style="color:var(--amber-joints)">Serological Marker Index</div>
+    <div class="section-subtitle">Filter by category.</div>
+    <div class="filter-bar" id="jointsFilterBar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="sero">Serological</button>
+      <button class="filter-btn" data-filter="genetic">Genetic</button>
+      <button class="filter-btn" data-filter="acute">Acute Phase</button>
+    </div>
+    <table class="ab-table"><thead><tr><th>Marker</th><th>Category</th><th>Key Associations</th><th>Clinical Notes</th></tr></thead><tbody id="jointsMarkerTableBody"></tbody></table>
+  </div>
+
+  <div class="section" id="sec-joints-diseases">
+    <div class="section-title" style="color:var(--amber-joints)">Disease &rarr; Marker &amp; Features</div>
+    <div class="section-subtitle">Joint patterns, serological markers, and clinical features for each condition.</div>
+    <div class="disease-grid" id="jointsDiseaseGrid"></div>
+  </div>
+
+  <div class="section" id="sec-joints-myths">
+    <div class="section-title" style="color:var(--amber-joints)">Myth Busters</div>
+    <div class="section-subtitle">Common misconceptions about joint patterns and serology.</div>
+    <div id="jointsMythsContainer"></div>
+  </div>
+
+  <div class="section" id="sec-joints-quiz">
+    <div class="section-title" style="color:var(--amber-joints)">Test Yourself &mdash; Joints &amp; Serology</div>
+    <div class="section-subtitle">Clinical vignettes and true/false questions.</div>
+    <div class="quiz-header">
+      <div class="quiz-score">Score: <span id="jointsQuizScore">0</span> / <span id="jointsQuizTotal">0</span></div>
+      <div class="quiz-controls">
+        <button class="quiz-mode-btn active" data-mode="all" onclick="setQuizMode('joints','all')">All</button>
+        <button class="quiz-mode-btn" data-mode="vignette" onclick="setQuizMode('joints','vignette')">Vignettes</button>
+        <button class="quiz-mode-btn" data-mode="tf" onclick="setQuizMode('joints','tf')">True/False</button>
+        <button class="quiz-btn" onclick="resetQuiz('joints')" style="margin-left:8px;">Reset</button>
+      </div>
+    </div>
+    <div class="quiz-progress" id="jointsQuizProgress"></div>
+    <div id="jointsQuizContainer"></div>
+    <div class="quiz-nav">
+      <button class="quiz-btn" id="jointsPrevBtn" onclick="navQuiz('joints',-1)" disabled>&#9666; Prev</button>
+      <button class="quiz-btn primary" id="jointsNextBtn" onclick="navQuiz('joints',1)">Next &#9656;</button>
+    </div>
+  </div>
+
+  <div class="section" id="sec-joints-cases">
+    <div class="section-title" style="color:var(--amber-joints)">Clinical Cases &mdash; Joints &amp; Serology</div>
+    <div class="section-subtitle">Work through branching clinical scenarios to test your reasoning.</div>
+    <div id="jointsCaseContainer"></div>
+  </div>
+
+  <div class="section" id="sec-joints-summary">
+    <div class="section-title" style="color:var(--amber-joints)">Quick Reference &mdash; Joints &amp; Serology</div>
+    <div class="section-subtitle">Cheat sheets, comparison tables, and high-yield summaries.</div>
+    <div id="jointsSummaryContainer"></div>
   </div>
 </div>
 

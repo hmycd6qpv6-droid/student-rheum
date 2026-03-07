@@ -1,8 +1,8 @@
 /* hub.js — Landing page logic for The Autoantibody Lab */
 import { getModuleProgress } from './progress.js';
 
-const QUIZ_TOTALS = { ana: 18, anca: 18 };
-const CASE_TOTALS = { ana: 4, anca: 4 };
+const QUIZ_TOTALS = { ana: 18, anca: 18, joints: 18 };
+const CASE_TOTALS = { ana: 4, anca: 4, joints: 4 };
 
 const MODULES = [
   {
@@ -35,6 +35,22 @@ const MODULES = [
       { label: 'Quiz', tab: 'anca-quiz' },
       { label: 'Cases', tab: 'anca-cases' },
       { label: 'Summary', tab: 'anca-summary' }
+    ]
+  },
+  {
+    key: 'joints',
+    accent: 'joints',
+    title: 'Joints & Serology',
+    sub: 'Patterns & Markers',
+    desc: 'Joint distribution patterns, serological markers (RF, anti-CCP, HLA-B27), and crystal arthropathies. Pattern recognition for RA, SpA, PsA, gout, and more.',
+    tabs: [
+      { label: 'Joint Patterns', tab: 'joints-patterns' },
+      { label: 'Marker Index', tab: 'joints-markers' },
+      { label: 'Disease Map', tab: 'joints-diseases' },
+      { label: 'Myth Busters', tab: 'joints-myths' },
+      { label: 'Quiz', tab: 'joints-quiz' },
+      { label: 'Cases', tab: 'joints-cases' },
+      { label: 'Summary', tab: 'joints-summary' }
     ]
   }
 ];
@@ -103,7 +119,7 @@ function renderQuickLinks() {
   for (const mod of MODULES) {
     for (const t of mod.tabs) {
       links.push(`<a href="module.html?module=${mod.key}&tab=${t.tab}" class="quick-link">
-        <span class="ql-icon">${mod.key === 'ana' ? '\u{1F52C}' : '\u{1FA78}'}</span>
+        <span class="ql-icon">${mod.key === 'ana' ? '\u{1F52C}' : mod.key === 'joints' ? '\u{1F9B4}' : '\u{1FA78}'}</span>
         ${mod.title} &rsaquo; ${t.label}
       </a>`);
     }

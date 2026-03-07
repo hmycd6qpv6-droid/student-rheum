@@ -1,10 +1,12 @@
 import { anaQuizQ } from './data/ana-quiz.js';
 import { ancaQuizQ } from './data/anca-quiz.js';
+import { jointsQuizQ } from './data/joints-quiz.js';
 import { saveQuizScore } from './progress.js';
 
 export const QS = {
   ana: { cur: 0, score: 0, ans: [], mode: 'all', qs: [...anaQuizQ], all: anaQuizQ },
-  anca: { cur: 0, score: 0, ans: [], mode: 'all', qs: [...ancaQuizQ], all: ancaQuizQ }
+  anca: { cur: 0, score: 0, ans: [], mode: 'all', qs: [...ancaQuizQ], all: ancaQuizQ },
+  joints: { cur: 0, score: 0, ans: [], mode: 'all', qs: [...jointsQuizQ], all: jointsQuizQ }
 };
 
 export function setQuizMode(m, mode) {

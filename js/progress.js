@@ -6,7 +6,8 @@ function defaultProgress() {
   return {
     quiz: {
       ana:  { all: null, vignettes: null, tf: null },
-      anca: { all: null, vignettes: null, tf: null }
+      anca: { all: null, vignettes: null, tf: null },
+      joints: { all: null, vignettes: null, tf: null }
     },
     cases: {},
     lastVisited: null

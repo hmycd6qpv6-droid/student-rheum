@@ -28,7 +28,7 @@
 /* ── Module card grid ─────────────────────────────────────── */
 .module-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 24px;
   margin-bottom: 48px;
 }
@@ -94,6 +94,22 @@
 .module-card[data-accent="anca"] .progress-fill {
   background: var(--cyan-anca);
   box-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+}
+
+/* Joints accent */
+.module-card[data-accent="joints"]::before {
+  background: var(--amber-joints);
+}
+.module-card[data-accent="joints"]:hover {
+  border-color: var(--border-joints);
+  box-shadow: 0 8px 32px rgba(255, 204, 0, 0.08);
+}
+.module-card[data-accent="joints"] .module-card-title {
+  color: var(--amber-joints);
+}
+.module-card[data-accent="joints"] .progress-fill {
+  background: var(--amber-joints);
+  box-shadow: 0 0 8px rgba(255, 204, 0, 0.4);
 }
 
 .module-card-title {
