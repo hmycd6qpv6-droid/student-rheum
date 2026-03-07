@@ -13,10 +13,8 @@
   }
 
   /* Hide navigation and non-summary elements */
-  .back-to-hub,
-  .hero,
-  .module-switcher,
-  .nav-tabs,
+  .toolbar,
+  .tab-rail,
   .footnote,
   #sec-ana-patterns,
   #sec-ana-antibodies,

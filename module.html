@@ -11,30 +11,26 @@
 <link rel="stylesheet" href="css/components.css">
 <link rel="stylesheet" href="css/cases.css">
 <link rel="stylesheet" href="css/print.css">
-<style>
-.back-to-hub { display:inline-block; padding:12px 0 0 0; color:var(--text-muted); font-size:12px; text-decoration:none; font-family:var(--font-mono); transition:color 0.2s; }
-.back-to-hub:hover { color:var(--fitc-green); }
-</style>
 </head>
 <body>
-<div class="container">
 
-<a href="index.html" class="back-to-hub">&larr; Back to Hub</a>
-
-<div class="hero">
-  <h1>Rheum<strong>Lab</strong></h1>
-  <p>Autoantibodies, serology, and joint patterns — an interactive clinical reference.</p>
-</div>
-
-<div class="module-switcher">
-  <button class="module-btn" data-module="joints" onclick="switchModule('joints',this)">Joints &amp; Serology<span class="module-sub">Patterns &amp; Markers</span></button>
-  <button class="module-btn" data-module="ana" onclick="switchModule('ana',this)">ANA &amp; ENA<span class="module-sub">+ Myositis Antibodies</span></button>
-  <button class="module-btn" data-module="anca" onclick="switchModule('anca',this)">ANCA &amp; Vasculitis<span class="module-sub">Chapel Hill Classification</span></button>
+<div class="toolbar">
+  <a href="index.html" class="toolbar-back">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 3L5 8l5 5"/></svg>
+    Hub
+  </a>
+  <div class="toolbar-divider"></div>
+  <span class="toolbar-logo">Rheum<strong>Lab</strong></span>
+  <div class="module-seg">
+    <button data-module="joints" onclick="switchModule('joints',this)">Joints</button>
+    <button data-module="ana" onclick="switchModule('ana',this)">ANA</button>
+    <button data-module="anca" onclick="switchModule('anca',this)">ANCA</button>
+  </div>
 </div>
 
 <!-- ANA MODULE -->
 <div class="module-content" id="module-ana">
-  <div class="nav-tabs">
+  <div class="tab-rail">
     <button class="nav-tab active" data-module="ana" data-tab="ana-patterns">IF Patterns</button>
     <button class="nav-tab" data-module="ana" data-tab="ana-antibodies">Antibody Index</button>
     <button class="nav-tab" data-module="ana" data-tab="ana-diseases">By Disease</button>
@@ -44,6 +40,7 @@
     <button class="nav-tab" data-module="ana" data-tab="ana-summary">Summary</button>
   </div>
 
+  <div class="container">
   <div class="section active" id="sec-ana-patterns">
     <div class="section-title">Immunofluorescence Patterns</div>
     <div class="section-subtitle">Click any pattern to reveal associated antibodies and diseases.</div>
@@ -105,11 +102,12 @@
     <div class="section-subtitle">Cheat sheets, comparison tables, and high-yield summaries.</div>
     <div id="anaSummaryContainer"></div>
   </div>
+  </div>
 </div>
 
 <!-- ANCA MODULE -->
 <div class="module-content" id="module-anca">
-  <div class="nav-tabs">
+  <div class="tab-rail">
     <button class="nav-tab active-anca" data-module="anca" data-tab="anca-patterns">IF Patterns</button>
     <button class="nav-tab" data-module="anca" data-tab="anca-antibodies">Antibody Index</button>
     <button class="nav-tab" data-module="anca" data-tab="anca-diseases">By Disease</button>
@@ -119,6 +117,7 @@
     <button class="nav-tab" data-module="anca" data-tab="anca-summary">Summary</button>
   </div>
 
+  <div class="container">
   <div class="section active" id="sec-anca-patterns">
     <div class="section-title" style="color:var(--cyan-anca)">ANCA Immunofluorescence Patterns</div>
     <div class="section-subtitle">Ethanol-fixed neutrophils — the substrate for ANCA IF. Click to expand.</div>
@@ -178,11 +177,12 @@
     <div class="section-subtitle">Cheat sheets, comparison tables, and high-yield summaries.</div>
     <div id="ancaSummaryContainer"></div>
   </div>
+  </div>
 </div>
 
 <!-- JOINTS MODULE -->
 <div class="module-content" id="module-joints">
-  <div class="nav-tabs">
+  <div class="tab-rail">
     <button class="nav-tab active-joints" data-module="joints" data-tab="joints-patterns">Joint Patterns</button>
     <button class="nav-tab" data-module="joints" data-tab="joints-markers">Marker Index</button>
     <button class="nav-tab" data-module="joints" data-tab="joints-diseases">Disease Map</button>
@@ -192,6 +192,7 @@
     <button class="nav-tab" data-module="joints" data-tab="joints-summary">Summary</button>
   </div>
 
+  <div class="container">
   <div class="section active" id="sec-joints-patterns">
     <div class="section-title" style="color:var(--amber-joints)">Joint Distribution Patterns</div>
     <div class="section-subtitle">Recognise the pattern, narrow the diagnosis. Click any pattern to reveal associated markers and diseases.</div>
@@ -253,8 +254,10 @@
     <div class="section-subtitle">Cheat sheets, comparison tables, and high-yield summaries.</div>
     <div id="jointsSummaryContainer"></div>
   </div>
+  </div>
 </div>
 
+<div class="container">
 <div class="footnote">RheumLab</div>
 </div>
 
@@ -293,7 +296,7 @@
   const requestedTab = params.get('tab');
   const requestedModule = normalizeModule(params.get('module')) || normalizeModule(requestedTab?.split('-')[0]) || loadSelectedModule() || 'joints';
 
-  document.querySelectorAll('.module-btn').forEach(btn => {
+  document.querySelectorAll('.module-seg button').forEach(btn => {
     btn.classList.remove('active', 'active-anca', 'active-joints');
   });
 
@@ -301,7 +304,7 @@
     moduleEl.classList.remove('active');
   });
 
-  const moduleButton = document.querySelector(`.module-btn[data-module="${requestedModule}"]`);
+  const moduleButton = document.querySelector(`.module-seg button[data-module="${requestedModule}"]`);
   const moduleContent = document.getElementById(`module-${requestedModule}`);
 
   if (moduleButton) {

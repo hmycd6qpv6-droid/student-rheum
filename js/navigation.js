@@ -12,7 +12,7 @@ function normalizeModule(mod) {
 }
 
 function getModuleButton(mod) {
-  return document.querySelector(`.module-btn[data-module="${mod}"]`);
+  return document.querySelector(`.module-seg button[data-module="${mod}"]`);
 }
 
 function getModuleFromTab(tabValue) {
@@ -42,7 +42,7 @@ export function switchModule(mod, btn) {
   if (!normalizedMod) return;
 
   saveSelectedModule(normalizedMod);
-  document.querySelectorAll('.module-btn').forEach(b => { b.classList.remove('active', 'active-anca', 'active-joints'); });
+  document.querySelectorAll('.module-seg button').forEach(b => { b.classList.remove('active', 'active-anca', 'active-joints'); });
   const nextBtn = btn || getModuleButton(normalizedMod);
   if (nextBtn) nextBtn.classList.add(activeClass(normalizedMod));
   document.querySelectorAll('.module-content').forEach(m => m.classList.remove('active'));
