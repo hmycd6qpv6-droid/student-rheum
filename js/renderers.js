@@ -61,6 +61,70 @@ export function renderMyths(id, data) {
   }).join('');
 }
 
+export function renderAnaPositivity(containerId, data) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  const ctd = data.filter(d => d.group === 'ctd');
+  const dm = data.filter(d => d.group === 'dm');
+  const asys = data.filter(d => d.group === 'asys');
+  const imnm = data.filter(d => d.group === 'imnm');
+
+  function dotChar(level) {
+    return level === 'positive' ? '\u25cf' : level === 'variable' ? '\u25d0' : '\u25cb';
+  }
+  function dotClass(level) {
+    return level === 'positive' ? 'dot-pos' : level === 'variable' ? 'dot-var' : 'dot-neg';
+  }
+
+  function detailHtml(d) {
+    const patternTags = d.pattern.split(',').map(p => `<span class="assoc-tag tag-antibody">${p.trim()}</span>`).join('');
+    const abTags = d.abs.map(a => `<span class="assoc-tag" style="background:rgba(255,51,102,0.1);color:var(--rhodamine-red);border:1px solid rgba(255,51,102,0.2);">${a}</span>`).join('');
+    return `<div class="ana-pos-detail">
+      <div class="ana-pos-detail-row"><span class="ana-pos-detail-label">IFA Pattern</span>${patternTags}</div>
+      <div class="ana-pos-detail-row"><span class="ana-pos-detail-label">Key Antibodies</span>${abTags}</div>
+      <div class="ana-pos-detail-note">${d.note}</div>
+    </div>`;
+  }
+
+  function barRow(d) {
+    return `<div class="ana-pos-row" onclick="this.classList.toggle('expanded')">
+      <div class="ana-pos-row-main">
+        <span class="ana-pos-label">${d.name}</span>
+        <div class="ana-pos-track"><div class="ana-pos-fill" style="width:${d.percent}%"></div></div>
+        <span class="ana-pos-pct">${d.percentLabel}</span>
+      </div>
+      ${detailHtml(d)}
+    </div>`;
+  }
+
+  function qualRow(d) {
+    return `<div class="ana-pos-row" onclick="this.classList.toggle('expanded')">
+      <div class="ana-pos-row-main">
+        <span class="ana-pos-label">${d.name}</span>
+        <span class="ana-pos-dot ${dotClass(d.level)}">${dotChar(d.level)}</span>
+        <span class="ana-pos-level-label">${d.levelLabel}</span>
+      </div>
+      ${detailHtml(d)}
+    </div>`;
+  }
+
+  function qualGroup(label, items) {
+    return `<div class="ana-pos-group-label">${label}</div>${items.map(qualRow).join('')}`;
+  }
+
+  container.innerHTML = `
+    <div class="ana-pos-section">
+      <div class="ana-pos-header">ANA \u22651:160 Positivity by CTD</div>
+      <div class="ana-pos-subheader">Click any row for IFA pattern, key antibodies, and clinical notes.</div>
+      ${ctd.map(barRow).join('')}
+      <div class="ana-pos-divider">Inflammatory Myopathies &mdash; by antibody subtype</div>
+      ${qualGroup('Dermatomyositis', dm)}
+      ${qualGroup('Antisynthetase Syndrome', asys)}
+      ${qualGroup('IMNM', imnm)}
+    </div>`;
+}
+
 export function renderSummaries(containerId, summaries) {
   const container = document.getElementById(containerId);
   if (!container) return;
