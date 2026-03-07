@@ -1,0 +1,181 @@
+@media print {
+  /* Reset dark background to white */
+  body {
+    background: #fff !important;
+    color: #000 !important;
+    font-size: 11pt;
+  }
+
+  .container {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Hide navigation and non-summary elements */
+  .back-to-hub,
+  .hero,
+  .module-switcher,
+  .nav-tabs,
+  .footnote,
+  #sec-ana-patterns,
+  #sec-ana-antibodies,
+  #sec-ana-diseases,
+  #sec-ana-myths,
+  #sec-ana-quiz,
+  #sec-ana-cases,
+  #sec-anca-patterns,
+  #sec-anca-antibodies,
+  #sec-anca-diseases,
+  #sec-anca-myths,
+  #sec-anca-quiz,
+  #sec-anca-cases,
+  .quiz-header,
+  .quiz-nav,
+  .quiz-progress {
+    display: none !important;
+  }
+
+  /* Show summary sections regardless of active state */
+  .module-content,
+  .section,
+  #sec-ana-summary,
+  #sec-anca-summary {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: static !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  /* Section titles */
+  .section-title {
+    color: #000 !important;
+    font-size: 16pt !important;
+    margin-bottom: 4pt !important;
+    page-break-after: avoid;
+  }
+
+  .section-subtitle {
+    color: #444 !important;
+    font-size: 10pt !important;
+    margin-bottom: 12pt !important;
+  }
+
+  /* Summary cards */
+  .summary-card {
+    background: #fff !important;
+    border: 1px solid #ccc !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
+    padding: 12pt !important;
+    margin-bottom: 12pt !important;
+    page-break-inside: avoid;
+  }
+
+  .summary-card-title {
+    color: #000 !important;
+    font-size: 12pt !important;
+    border-bottom: 1px solid #ccc !important;
+    padding-bottom: 6pt !important;
+    margin-bottom: 8pt !important;
+  }
+
+  .summary-card-icon {
+    display: none !important;
+  }
+
+  /* Top5 lists */
+  .summary-top5-list li {
+    color: #000 !important;
+    border-bottom: 1px solid #eee !important;
+    padding: 4pt 0 !important;
+    font-size: 10pt !important;
+  }
+
+  .summary-top5-number {
+    color: #333 !important;
+    background: #eee !important;
+    border: none !important;
+  }
+
+  /* Cheatsheet tables */
+  .summary-cheatsheet-table {
+    border-collapse: collapse !important;
+  }
+
+  .summary-cheatsheet-table th {
+    background: #f0f0f0 !important;
+    color: #000 !important;
+    border: 1px solid #ccc !important;
+    font-size: 9pt !important;
+    padding: 4pt 8pt !important;
+  }
+
+  .summary-cheatsheet-table td {
+    color: #000 !important;
+    border: 1px solid #ccc !important;
+    font-size: 9pt !important;
+    padding: 4pt 8pt !important;
+    background: #fff !important;
+  }
+
+  .summary-ab-name {
+    color: #000 !important;
+    font-weight: 700 !important;
+  }
+
+  /* Comparison tables */
+  .summary-comparison-table {
+    border-collapse: collapse !important;
+  }
+
+  .summary-comparison-table th {
+    background: #f0f0f0 !important;
+    color: #000 !important;
+    border: 1px solid #ccc !important;
+    font-size: 9pt !important;
+    padding: 4pt 6pt !important;
+  }
+
+  .summary-comparison-table td {
+    color: #000 !important;
+    border: 1px solid #ccc !important;
+    font-size: 9pt !important;
+    padding: 4pt 6pt !important;
+    background: #fff !important;
+  }
+
+  .summary-comparison-table tr:nth-child(even) td {
+    background: #f8f8f8 !important;
+  }
+
+  /* Shortcut cards */
+  .summary-shortcut-scenario {
+    color: #000 !important;
+    background: #f0f0f0 !important;
+    border: 1px solid #ccc !important;
+    font-size: 9pt !important;
+  }
+
+  .summary-shortcut-arrow {
+    color: #333 !important;
+  }
+
+  .summary-shortcut-action {
+    color: #222 !important;
+    font-size: 9pt !important;
+  }
+
+  /* General print resets */
+  * {
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
+
+  a {
+    color: #000 !important;
+    text-decoration: none !important;
+  }
+}

@@ -110,3 +110,46 @@
 .info-box-text strong { color:var(--text-primary); }
 
 .footnote { text-align:center; padding:48px 0; font-size:11px; color:var(--text-muted); border-top:1px solid var(--border-subtle); margin-top:48px; }
+
+/* Summary / Cheat Sheet Cards */
+.summary-card { background:var(--bg-card); border:1px solid var(--border-subtle); border-radius:var(--radius); padding:24px; margin-bottom:20px; position:relative; overflow:hidden; transition:all 0.3s; }
+.summary-card:hover { border-color:var(--border-glow); transform:translateY(-1px); }
+.summary-card-header { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+.summary-card-icon { font-size:16px; color:var(--fitc-green); }
+.summary-card-badge { font-size:10px; text-transform:uppercase; letter-spacing:1.5px; font-weight:600; color:var(--text-muted); }
+.summary-card-title { font-family:var(--font-display); font-size:17px; font-weight:600; margin-bottom:16px; padding-bottom:12px; border-bottom:1px solid var(--border-subtle); }
+
+/* Top 5 */
+.summary-top5 .summary-card-title { color:var(--amber-warn); }
+.summary-top5-list { list-style:none; padding:0; margin:0; counter-reset:none; }
+.summary-top5-list li { display:flex; align-items:flex-start; gap:12px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.03); font-size:13px; color:var(--text-secondary); line-height:1.7; }
+.summary-top5-list li:last-child { border-bottom:none; }
+.summary-top5-number { display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; border:1px solid var(--amber-warn); color:var(--amber-warn); font-size:11px; font-weight:700; flex-shrink:0; margin-top:2px; }
+
+/* Cheatsheet table */
+.summary-cheatsheet .summary-card-title { color:var(--fitc-green); }
+.summary-cheatsheet-table { width:100%; border-collapse:collapse; }
+.summary-cheatsheet-table thead th { text-align:left; padding:8px 12px; font-size:10px; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); border-bottom:1px solid var(--border-subtle); font-weight:600; }
+.summary-cheatsheet-table tbody td { padding:10px 12px; font-size:12px; color:var(--text-secondary); border-bottom:1px solid rgba(255,255,255,0.03); vertical-align:top; line-height:1.6; }
+.summary-cheatsheet-table tbody tr:last-child td { border-bottom:none; }
+.summary-cheatsheet-table tbody tr:hover { background:rgba(57,255,20,0.03); }
+.summary-ab-name { font-weight:600; color:var(--fitc-green); white-space:nowrap; }
+
+/* Shortcut / Decision Guide */
+.summary-shortcut .summary-card-title { color:var(--dapi-blue); }
+.summary-shortcut-list { display:flex; flex-direction:column; gap:10px; }
+.summary-shortcut-item { display:flex; align-items:flex-start; gap:10px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.03); }
+.summary-shortcut-item:last-child { border-bottom:none; }
+.summary-shortcut-scenario { display:inline-block; padding:4px 10px; border-radius:4px; font-size:11px; font-weight:600; background:rgba(68,136,255,0.12); color:var(--dapi-blue); border:1px solid rgba(68,136,255,0.2); white-space:nowrap; flex-shrink:0; }
+.summary-shortcut-arrow { color:var(--text-muted); font-size:14px; margin-top:2px; flex-shrink:0; }
+.summary-shortcut-action { font-size:13px; color:var(--text-secondary); line-height:1.6; }
+
+/* Comparison table */
+.summary-comparison .summary-card-title { color:var(--cyan-anca); }
+.summary-table-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.summary-comparison-table { width:100%; border-collapse:collapse; min-width:600px; }
+.summary-comparison-table thead th { text-align:left; padding:10px 12px; font-size:10px; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); border-bottom:1px solid var(--border-subtle); font-weight:600; background:rgba(255,255,255,0.02); }
+.summary-comparison-table tbody td { padding:10px 12px; font-size:12px; color:var(--text-secondary); border-bottom:1px solid rgba(255,255,255,0.03); vertical-align:top; line-height:1.6; }
+.summary-comparison-table tbody tr:hover { background:rgba(0,229,255,0.03); }
+.summary-comparison-table tbody tr:last-child td { border-bottom:none; }
+.summary-row-label { font-weight:600; color:var(--text-primary); white-space:nowrap; }

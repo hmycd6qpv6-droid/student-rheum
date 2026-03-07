@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-"The Autoantibody Lab" — a static, client-side rheumatology teaching web app for medical students and trainees. It covers two modules: **ANA & ENA** (including myositis antibodies) and **ANCA & Vasculitis**. Each module has five tabs: IF Patterns, Antibody Index, Disease Map, Myth Busters, and Quiz.
+"The Autoantibody Lab" — a static, client-side rheumatology teaching web app for medical students and trainees. It covers two modules: **ANA & ENA** (including myositis antibodies) and **ANCA & Vasculitis**. Each module has seven tabs: IF Patterns, Antibody Index, Disease Map, Myth Busters, Quiz, Cases, and Summary.
 
 ## Development
 
@@ -20,26 +20,34 @@ There are no tests, linters, or CI pipelines.
 
 ## Architecture
 
-**Entry point:** `index.html` loads CSS files and bootstraps via `<script type="module" src="js/app.js">`.
+**Hub-and-spoke structure:**
+- `index.html` — Hub/landing page with module cards and progress display. Loads `js/hub.js`.
+- `module.html` — Module page (previously `index.html`). Loads `js/app.js`. Accepts `?module=ana|anca` and `?tab=...` query params.
 
 **JS modules (`js/`):**
-- `app.js` — Entry point. Imports all data and modules, defines column mappers (ANA category badges, ANCA pattern badges), wires `renderAnaTable` with filter support, exposes functions to `window` for inline `onclick` handlers, calls all renderers, and inits event listeners.
-- `renderers.js` — Four pure rendering functions (`renderAbTable`, `renderPatterns`, `renderDiseases`, `renderMyths`) that generate HTML strings and inject via `innerHTML` into container elements.
-- `quiz.js` — Quiz state machine (`QS` object holds per-module state). Exports `setQuizMode`, `resetQuiz`, `answerQ`, `navQuiz`, `jumpTo`, `renderQuiz`.
-- `navigation.js` — Module switching (ANA/ANCA), tab navigation, expandable card toggle, filter bar listeners.
+- `app.js` — Module page entry point. Imports all data and modules, defines column mappers, wires renderers, exposes functions to `window` for inline `onclick` handlers, and inits event listeners including query param handling.
+- `hub.js` — Hub page entry point. Renders module cards with progress data from localStorage, and quick-access links.
+- `renderers.js` — Five pure rendering functions (`renderAbTable`, `renderPatterns`, `renderDiseases`, `renderMyths`, `renderSummaries`) that generate HTML strings and inject via `innerHTML`.
+- `quiz.js` — Quiz state machine (`QS` object holds per-module state). Saves best scores to localStorage on completion. Exports `setQuizMode`, `resetQuiz`, `answerQ`, `navQuiz`, `jumpTo`, `renderQuiz`.
+- `cases.js` — Branching clinical case engine. Vertical scrolling playthrough with presentation, decision, and conclusion nodes. Integrates with `progress.js` for persistence. Exports `initCases`, `renderCaseList`, `startCase`, `renderNode`, `advanceCase`, `selectCaseOption`.
+- `navigation.js` — Module switching (ANA/ANCA), tab navigation, expandable card toggle, filter bar listeners, query param handling. Exports `switchModule`, `switchTab`, `initFromQueryParams`, `toggleCard`, `initTabListeners`, `initFilterListeners`.
+- `progress.js` — localStorage persistence under `rheum-lab-progress` key. Exports `loadProgress`, `saveProgress`, `getQuizBest`, `saveQuizScore`, `getCaseProgress`, `saveCaseProgress`, `getModuleProgress`, `saveLastVisited`, `restoreLastVisited`, `resetProgress`.
 
-**Data layer (`js/data/`):** Each file exports a single array of objects. Naming convention: `{module}-{content}.js` (e.g., `ana-antibodies.js`, `anca-quiz.js`). Data files: `patterns.js` (exports both `anaPatterns` and `ancaPatterns`), `ana-antibodies.js`, `ana-diseases.js`, `ana-myths.js`, `ana-quiz.js`, `anca-antibodies.js`, `anca-diseases.js`, `anca-myths.js`, `anca-quiz.js`.
+**Data layer (`js/data/`):** Each file exports a single array of objects. Naming convention: `{module}-{content}.js`. Data files: `patterns.js`, `ana-antibodies.js`, `ana-diseases.js`, `ana-myths.js`, `ana-quiz.js`, `ana-cases.js`, `ana-summaries.js`, `anca-antibodies.js`, `anca-diseases.js`, `anca-myths.js`, `anca-quiz.js`, `anca-cases.js`, `anca-summaries.js`.
 
-**CSS (`css/`):** Split into `variables.css` (design tokens/custom properties), `base.css`, `layout.css`, `components.css`. Dark theme with fluorescence microscopy-inspired palette (FITC green, DAPI blue, rhodamine red, amber, cyan).
+**CSS (`css/`):** Split into `variables.css` (design tokens), `base.css`, `layout.css`, `components.css` (includes summary card styles), `hub.css` (hub page), `cases.css` (case engine), `print.css` (print media query for summaries). Dark theme with fluorescence microscopy-inspired palette (FITC green, DAPI blue, rhodamine red, amber, cyan).
 
-**Legacy file:** `ana-ena-teaching.html` is the original monolithic version before decomposition into modules. The active app is `index.html`.
+**Legacy file:** `ana-ena-teaching.html` is the original monolithic version before decomposition into modules.
 
 ## Key Conventions
 
 - Two parallel module structures (ANA and ANCA) follow identical patterns — tabs, sections, data shapes, and rendering all mirror each other. When adding content to one module, consider the other.
-- Interactive elements use inline `onclick` attributes that call functions exposed on `window` from `app.js`.
+- Interactive elements use inline `onclick` attributes that call functions exposed on `window` from `app.js` or `cases.js`.
 - Tab navigation uses `data-module` and `data-tab` attributes; sections use `id="sec-{tab-name}"` convention.
 - Antibody data objects have: `name`, `aka`, `cat` (category), `diseases` (array), `notes`, and optionally `malig` (boolean).
 - Pattern data objects have: `name`, `accent`, `desc`, `svg` (inline SVG string), `antibodies`, `diseases`, and optionally `detail`, `nameColor`, `targetLabel`, `antibodyTagClass`.
 - Quiz questions have: `type` ("vignette" or "tf"), `q`, `opts` (array), `correct` (index), `explanation`.
+- Case data objects have: `id`, `title`, `summary`, `difficulty`, `nodes` (array of presentation/decision/conclusion nodes with guided branching).
+- Summary data objects have: `type` ("top5" | "comparison" | "shortcut" | "cheatsheet"), `title`, `content` (type-specific).
 - CSS active states differ per module: `.active` for ANA, `.active-anca` for ANCA (cyan accent).
+- Progress is persisted in localStorage under `rheum-lab-progress` key.

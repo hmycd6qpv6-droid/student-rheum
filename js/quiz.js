@@ -1,5 +1,6 @@
 import { anaQuizQ } from './data/ana-quiz.js';
 import { ancaQuizQ } from './data/anca-quiz.js';
+import { saveQuizScore } from './progress.js';
 
 export const QS = {
   ana: { cur: 0, score: 0, ans: [], mode: 'all', qs: [...anaQuizQ], all: anaQuizQ },
@@ -62,6 +63,10 @@ export function answerQ(m, i) {
   const t = s.ans.filter(a => a !== null).length;
   document.getElementById(m + 'QuizScore').textContent = s.score;
   document.getElementById(m + 'QuizTotal').textContent = t;
+  // Save best score when all questions answered
+  if (t === s.qs.length) {
+    saveQuizScore(m, s.mode, s.score, s.qs.length);
+  }
   renderQuiz(m);
 }
 

@@ -1,6 +1,16 @@
 export function switchModule(mod, btn) {
   document.querySelectorAll('.module-btn').forEach(b => { b.classList.remove('active', 'active-anca'); });
-  btn.classList.add(mod === 'anca' ? 'active-anca' : 'active');
+  if (!btn) {
+    const allBtns = document.querySelectorAll('.module-btn');
+    allBtns.forEach(b => {
+      const text = b.textContent.toLowerCase();
+      if ((mod === 'ana' && text.includes('ana') && !text.includes('anca')) ||
+          (mod === 'anca' && text.includes('anca'))) {
+        btn = b;
+      }
+    });
+  }
+  if (btn) btn.classList.add(mod === 'anca' ? 'active-anca' : 'active');
   document.querySelectorAll('.module-content').forEach(m => m.classList.remove('active'));
   document.getElementById('module-' + mod).classList.add('active');
 }
@@ -23,6 +33,30 @@ export function initTabListeners() {
       document.getElementById('sec-' + tab.dataset.tab).classList.add('active');
     });
   });
+}
+
+export function switchTab(tabValue) {
+  const tab = document.querySelector(`.nav-tab[data-tab="${tabValue}"]`);
+  if (!tab) return;
+  const mod = tab.dataset.module;
+  const ac = mod === 'anca' ? 'active-anca' : 'active';
+  const parent = tab.closest('.module-content');
+  parent.querySelectorAll('.nav-tab').forEach(t => { t.classList.remove('active', 'active-anca'); });
+  tab.classList.add(ac);
+  parent.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('sec-' + tabValue).classList.add('active');
+}
+
+export function initFromQueryParams() {
+  const params = new URLSearchParams(window.location.search);
+  const mod = params.get('module');
+  const tab = params.get('tab');
+  if (mod) {
+    switchModule(mod);
+  }
+  if (tab) {
+    switchTab(tab);
+  }
 }
 
 export function initFilterListeners(renderAbTableFn) {

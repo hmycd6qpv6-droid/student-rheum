@@ -5,9 +5,14 @@ import { ancaAntibodies } from './data/anca-antibodies.js';
 import { ancaDiseases } from './data/anca-diseases.js';
 import { ancaMyths } from './data/anca-myths.js';
 import { anaPatterns, ancaPatterns } from './data/patterns.js';
-import { renderAbTable, renderPatterns, renderDiseases, renderMyths } from './renderers.js';
+import { renderAbTable, renderPatterns, renderDiseases, renderMyths, renderSummaries } from './renderers.js';
+import { anaSummaries } from './data/ana-summaries.js';
+import { ancaSummaries } from './data/anca-summaries.js';
 import { setQuizMode, resetQuiz, answerQ, navQuiz, jumpTo } from './quiz.js';
-import { switchModule, toggleCard, initTabListeners, initFilterListeners } from './navigation.js';
+import { switchModule, toggleCard, initTabListeners, initFilterListeners, initFromQueryParams } from './navigation.js';
+import { anaCases } from './data/ana-cases.js';
+import { ancaCases } from './data/anca-cases.js';
+import { initCases } from './cases.js';
 
 // ANA column mapper: category badge + malignancy flag
 function anaColumnMapper(ab) {
@@ -45,9 +50,14 @@ renderDiseases('anaDiseaseGrid', anaDiseases, false);
 renderDiseases('ancaDiseaseGrid', ancaDiseases, true);
 renderMyths('anaMythsContainer', anaMyths);
 renderMyths('ancaMythsContainer', ancaMyths);
+renderSummaries('anaSummaryContainer', anaSummaries);
+renderSummaries('ancaSummaryContainer', ancaSummaries);
 resetQuiz('ana');
 resetQuiz('anca');
+initCases('anaCaseContainer', anaCases, 'ana');
+initCases('ancaCaseContainer', ancaCases, 'anca');
 
 // Init event listeners
 initTabListeners();
 initFilterListeners(renderAnaTable);
+initFromQueryParams();

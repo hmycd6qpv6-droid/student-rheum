@@ -1,0 +1,233 @@
+/* hub.css — Landing page styles for The Autoantibody Lab */
+
+/* ── Container & hero (mirrored from layout.css) ──────────── */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
+
+.hero { padding: 60px 0 32px; text-align: center; }
+.hero-badge { display: inline-block; padding: 4px 16px; border: 1px solid var(--border-glow); border-radius: 20px; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--fitc-green); margin-bottom: 24px; background: rgba(57,255,20,0.05); animation: pulse-glow 3s ease-in-out infinite; }
+.hero h1 { font-family: var(--font-display); font-size: clamp(32px,5vw,48px); font-weight: 700; letter-spacing: -1px; margin-bottom: 12px; background: linear-gradient(135deg,var(--fitc-green) 0%,var(--dapi-blue) 50%,var(--rhodamine-red) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { font-size: 14px; color: var(--text-secondary); max-width: 620px; margin: 0 auto; font-weight: 300; }
+
+/* ── Welcome section ──────────────────────────────────────── */
+.welcome {
+  max-width: 680px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+.welcome p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  font-weight: 300;
+}
+.welcome strong {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+/* ── Module card grid ─────────────────────────────────────── */
+.module-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.module-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  padding: 32px 28px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+}
+.module-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.module-card:hover {
+  border-color: var(--border-glow);
+  background: var(--bg-card-hover);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+.module-card:hover::before {
+  opacity: 1;
+}
+
+/* ANA accent */
+.module-card[data-accent="ana"]::before {
+  background: var(--fitc-green);
+}
+.module-card[data-accent="ana"]:hover {
+  border-color: var(--border-glow);
+  box-shadow: 0 8px 32px rgba(57, 255, 20, 0.08);
+}
+.module-card[data-accent="ana"] .module-card-title {
+  color: var(--fitc-green);
+}
+.module-card[data-accent="ana"] .progress-fill {
+  background: var(--fitc-green);
+  box-shadow: 0 0 8px rgba(57, 255, 20, 0.4);
+}
+
+/* ANCA accent */
+.module-card[data-accent="anca"]::before {
+  background: var(--cyan-anca);
+}
+.module-card[data-accent="anca"]:hover {
+  border-color: rgba(0, 229, 255, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 229, 255, 0.08);
+}
+.module-card[data-accent="anca"] .module-card-title {
+  color: var(--cyan-anca);
+}
+.module-card[data-accent="anca"] .progress-fill {
+  background: var(--cyan-anca);
+  box-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+}
+
+.module-card-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+.module-card-sub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+.module-card-desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+/* ── Progress indicator ───────────────────────────────────── */
+.progress-section {
+  margin-top: auto;
+}
+.progress-stats {
+  display: flex;
+  gap: 16px;
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.3px;
+}
+.progress-stats span {
+  color: var(--text-secondary);
+}
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.6s ease;
+  min-width: 0;
+}
+
+.module-card-arrow {
+  position: absolute;
+  bottom: 28px;
+  right: 28px;
+  font-size: 18px;
+  color: var(--text-muted);
+  transition: all 0.3s;
+}
+.module-card:hover .module-card-arrow {
+  transform: translateX(4px);
+  color: var(--text-secondary);
+}
+
+/* ── Quick-access strip ───────────────────────────────────── */
+.quick-access {
+  margin-bottom: 48px;
+}
+.quick-access-label {
+  text-align: center;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+.quick-links {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.quick-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-decoration: none;
+  transition: all 0.2s;
+  letter-spacing: 0.3px;
+}
+.quick-link:hover {
+  border-color: var(--border-glow);
+  color: var(--text-primary);
+  background: var(--glass);
+}
+.quick-link .ql-icon {
+  font-size: 13px;
+}
+
+/* ── Footer ───────────────────────────────────────────────── */
+.hub-footer {
+  text-align: center;
+  padding: 48px 0 32px;
+  font-size: 11px;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .container { padding: 0 16px; }
+  .hero { padding: 40px 0 20px; }
+  .module-grid {
+    grid-template-columns: 1fr;
+  }
+  .module-card {
+    padding: 24px 20px 22px;
+  }
+  .module-card-arrow {
+    bottom: 22px;
+    right: 20px;
+  }
+  .welcome {
+    margin-bottom: 36px;
+  }
+}

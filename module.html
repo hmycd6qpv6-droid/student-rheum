@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Autoantibody Lab — Rheumatology Teaching</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/variables.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/layout.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/cases.css">
+<link rel="stylesheet" href="css/print.css">
+<style>
+.back-to-hub { display:inline-block; padding:12px 0 0 0; color:var(--text-muted); font-size:12px; text-decoration:none; font-family:var(--font-mono); transition:color 0.2s; }
+.back-to-hub:hover { color:var(--fitc-green); }
+</style>
+</head>
+<body>
+<div class="container">
+
+<a href="index.html" class="back-to-hub">&larr; Back to Hub</a>
+
+<div class="hero">
+  <div class="hero-badge">🔬 Immunofluorescence Lab</div>
+  <h1>The Autoantibody Lab</h1>
+  <p>Interactive guides to autoantibodies — patterns, targets, and clinical associations for rheumatology trainees and medical students.</p>
+</div>
+
+<div class="module-switcher">
+  <button class="module-btn active" onclick="switchModule('ana',this)">ANA &amp; ENA<span class="module-sub">+ Myositis Antibodies</span></button>
+  <button class="module-btn" onclick="switchModule('anca',this)">ANCA &amp; Vasculitis<span class="module-sub">Chapel Hill Classification</span></button>
+</div>
+
+<!-- ANA MODULE -->
+<div class="module-content active" id="module-ana">
+  <div class="nav-tabs">
+    <button class="nav-tab active" data-module="ana" data-tab="ana-patterns">IF Patterns</button>
+    <button class="nav-tab" data-module="ana" data-tab="ana-antibodies">Antibody Index</button>
+    <button class="nav-tab" data-module="ana" data-tab="ana-diseases">By Disease</button>
+    <button class="nav-tab" data-module="ana" data-tab="ana-myths">Myth Busters</button>
+    <button class="nav-tab" data-module="ana" data-tab="ana-quiz">Quiz</button>
+    <button class="nav-tab" data-module="ana" data-tab="ana-cases">Cases</button>
+    <button class="nav-tab" data-module="ana" data-tab="ana-summary">Summary</button>
+  </div>
+
+  <div class="section active" id="sec-ana-patterns">
+    <div class="section-title">Immunofluorescence Patterns</div>
+    <div class="section-subtitle">Click any pattern to reveal associated antibodies and diseases.</div>
+    <div class="pattern-grid" id="anaPatternGrid"></div>
+  </div>
+
+  <div class="section" id="sec-ana-antibodies">
+    <div class="section-title">Antibody Index</div>
+    <div class="section-subtitle">Filter by category.</div>
+    <div class="filter-bar" id="anaFilterBar">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="ena">ENA / Core</button>
+      <button class="filter-btn" data-filter="msa">Myositis-Specific</button>
+      <button class="filter-btn" data-filter="maa">Myositis-Associated</button>
+    </div>
+    <table class="ab-table"><thead><tr><th>Antibody</th><th>Category</th><th>Key Associations</th><th>Clinical Notes</th></tr></thead><tbody id="anaAbTableBody"></tbody></table>
+  </div>
+
+  <div class="section" id="sec-ana-diseases">
+    <div class="section-title">Disease → Antibody Map</div>
+    <div class="section-subtitle">Which antibodies to expect with each condition.</div>
+    <div class="disease-grid" id="anaDiseaseGrid"></div>
+  </div>
+
+  <div class="section" id="sec-ana-myths">
+    <div class="section-title">Myth Busters</div>
+    <div class="section-subtitle">Common misconceptions about ANA and ENA testing.</div>
+    <div id="anaMythsContainer"></div>
+  </div>
+
+  <div class="section" id="sec-ana-quiz">
+    <div class="section-title">Test Yourself — ANA &amp; ENA</div>
+    <div class="section-subtitle">Clinical vignettes and true/false questions.</div>
+    <div class="quiz-header">
+      <div class="quiz-score">Score: <span id="anaQuizScore">0</span> / <span id="anaQuizTotal">0</span></div>
+      <div class="quiz-controls">
+        <button class="quiz-mode-btn active" data-mode="all" onclick="setQuizMode('ana','all')">All</button>
+        <button class="quiz-mode-btn" data-mode="vignette" onclick="setQuizMode('ana','vignette')">Vignettes</button>
+        <button class="quiz-mode-btn" data-mode="tf" onclick="setQuizMode('ana','tf')">True/False</button>
+        <button class="quiz-btn" onclick="resetQuiz('ana')" style="margin-left:8px;">Reset</button>
+      </div>
+    </div>
+    <div class="quiz-progress" id="anaQuizProgress"></div>
+    <div id="anaQuizContainer"></div>
+    <div class="quiz-nav">
+      <button class="quiz-btn" id="anaPrevBtn" onclick="navQuiz('ana',-1)" disabled>◂ Prev</button>
+      <button class="quiz-btn primary" id="anaNextBtn" onclick="navQuiz('ana',1)">Next ▸</button>
+    </div>
+  </div>
+
+  <div class="section" id="sec-ana-cases">
+    <div class="section-title">Clinical Cases — ANA &amp; ENA</div>
+    <div class="section-subtitle">Work through branching clinical scenarios to test your reasoning.</div>
+    <div id="anaCaseContainer"></div>
+  </div>
+
+  <div class="section" id="sec-ana-summary">
+    <div class="section-title">Quick Reference — ANA &amp; ENA</div>
+    <div class="section-subtitle">Cheat sheets, comparison tables, and high-yield summaries.</div>
+    <div id="anaSummaryContainer"></div>
+  </div>
+</div>
+
+<!-- ANCA MODULE -->
+<div class="module-content" id="module-anca">
+  <div class="nav-tabs">
+    <button class="nav-tab active-anca" data-module="anca" data-tab="anca-patterns">IF Patterns</button>
+    <button class="nav-tab" data-module="anca" data-tab="anca-antibodies">Antibody Index</button>
+    <button class="nav-tab" data-module="anca" data-tab="anca-diseases">By Disease</button>
+    <button class="nav-tab" data-module="anca" data-tab="anca-myths">Myth Busters</button>
+    <button class="nav-tab" data-module="anca" data-tab="anca-quiz">Quiz</button>
+    <button class="nav-tab" data-module="anca" data-tab="anca-cases">Cases</button>
+    <button class="nav-tab" data-module="anca" data-tab="anca-summary">Summary</button>
+  </div>
+
+  <div class="section active" id="sec-anca-patterns">
+    <div class="section-title" style="color:var(--cyan-anca)">ANCA Immunofluorescence Patterns</div>
+    <div class="section-subtitle">Ethanol-fixed neutrophils — the substrate for ANCA IF. Click to expand.</div>
+    <div class="pattern-grid" id="ancaPatternGrid"></div>
+    <div class="info-box">
+      <div class="info-box-label">⚡ Key Testing Principle</div>
+      <div class="info-box-text">International guidelines (2017 revised consensus) now recommend <strong>antigen-specific immunoassays (PR3/MPO ELISA) as the primary screening method</strong> for AAV, rather than IF alone. IF + ELISA together gives the best sensitivity and specificity. A positive IF with negative PR3/MPO should prompt consideration of alternative diagnoses.</div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-anca-antibodies">
+    <div class="section-title" style="color:var(--cyan-anca)">ANCA Antibody Index</div>
+    <div class="section-subtitle">All ANCA-associated antibodies and their clinical significance.</div>
+    <table class="ab-table"><thead><tr><th>Antibody</th><th>IF Pattern</th><th>Key Associations</th><th>Clinical Notes</th></tr></thead><tbody id="ancaAbTableBody"></tbody></table>
+  </div>
+
+  <div class="section" id="sec-anca-diseases">
+    <div class="section-title" style="color:var(--cyan-anca)">Disease → Antibody &amp; Features</div>
+    <div class="section-subtitle">Chapel Hill 2012 classification — the AAV spectrum and mimics.</div>
+    <div class="disease-grid" id="ancaDiseaseGrid"></div>
+  </div>
+
+  <div class="section" id="sec-anca-myths">
+    <div class="section-title" style="color:var(--cyan-anca)">Myth Busters</div>
+    <div class="section-subtitle">Common misconceptions about ANCA and vasculitis.</div>
+    <div id="ancaMythsContainer"></div>
+  </div>
+
+  <div class="section" id="sec-anca-quiz">
+    <div class="section-title" style="color:var(--cyan-anca)">Test Yourself — ANCA &amp; Vasculitis</div>
+    <div class="section-subtitle">Clinical vignettes and true/false questions.</div>
+    <div class="quiz-header">
+      <div class="quiz-score">Score: <span id="ancaQuizScore">0</span> / <span id="ancaQuizTotal">0</span></div>
+      <div class="quiz-controls">
+        <button class="quiz-mode-btn active" data-mode="all" onclick="setQuizMode('anca','all')">All</button>
+        <button class="quiz-mode-btn" data-mode="vignette" onclick="setQuizMode('anca','vignette')">Vignettes</button>
+        <button class="quiz-mode-btn" data-mode="tf" onclick="setQuizMode('anca','tf')">True/False</button>
+        <button class="quiz-btn" onclick="resetQuiz('anca')" style="margin-left:8px;">Reset</button>
+      </div>
+    </div>
+    <div class="quiz-progress" id="ancaQuizProgress"></div>
+    <div id="ancaQuizContainer"></div>
+    <div class="quiz-nav">
+      <button class="quiz-btn" id="ancaPrevBtn" onclick="navQuiz('anca',-1)" disabled>◂ Prev</button>
+      <button class="quiz-btn primary" id="ancaNextBtn" onclick="navQuiz('anca',1)">Next ▸</button>
+    </div>
+  </div>
+
+  <div class="section" id="sec-anca-cases">
+    <div class="section-title" style="color:var(--cyan-anca)">Clinical Cases — ANCA &amp; Vasculitis</div>
+    <div class="section-subtitle">Work through branching clinical scenarios to test your reasoning.</div>
+    <div id="ancaCaseContainer"></div>
+  </div>
+
+  <div class="section" id="sec-anca-summary">
+    <div class="section-title" style="color:var(--cyan-anca)">Quick Reference — ANCA &amp; Vasculitis</div>
+    <div class="section-subtitle">Cheat sheets, comparison tables, and high-yield summaries.</div>
+    <div id="ancaSummaryContainer"></div>
+  </div>
+</div>
+
+<div class="footnote">🔬 The Autoantibody Lab — a teaching resource for rheumatology trainees and medical students.</div>
+</div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

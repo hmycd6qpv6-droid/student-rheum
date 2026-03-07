@@ -60,3 +60,53 @@ export function renderMyths(id, data) {
     return `<div class="myth-card ${c}"><div class="myth-label">${l}</div><div class="myth-text">\u201c${m.text}\u201d</div><div class="myth-explanation">${m.explanation}</div></div>`;
   }).join('');
 }
+
+export function renderSummaries(containerId, summaries) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  const icons = { top5: '\u2605', cheatsheet: '\u2261', shortcut: '\u2192', comparison: '\u2194' };
+  const labels = { top5: 'High-Yield', cheatsheet: 'Cheat Sheet', shortcut: 'Decision Guide', comparison: 'Comparison' };
+
+  container.innerHTML = summaries.map(card => {
+    let body = '';
+
+    if (card.type === 'top5') {
+      body = `<ol class="summary-top5-list">${card.content.map((item, i) =>
+        `<li><span class="summary-top5-number">${i + 1}</span><span>${item}</span></li>`
+      ).join('')}</ol>`;
+    }
+
+    else if (card.type === 'cheatsheet') {
+      body = `<table class="summary-cheatsheet-table"><thead><tr><th>Antibody</th><th>Key Associations</th></tr></thead><tbody>${card.content.map(row =>
+        `<tr><td class="summary-ab-name">${row.antibody}</td><td>${row.diseases}</td></tr>`
+      ).join('')}</tbody></table>`;
+    }
+
+    else if (card.type === 'shortcut') {
+      body = `<div class="summary-shortcut-list">${card.content.map(item =>
+        `<div class="summary-shortcut-item"><span class="summary-shortcut-scenario">${item.scenario}</span><span class="summary-shortcut-arrow">\u2192</span><span class="summary-shortcut-action">${item.action}</span></div>`
+      ).join('')}</div>`;
+    }
+
+    else if (card.type === 'comparison') {
+      const c = card.content;
+      body = `<div class="summary-table-wrap"><table class="summary-comparison-table"><thead><tr>${c.headers.map(h =>
+        `<th>${h}</th>`
+      ).join('')}</tr></thead><tbody>${c.rows.map(row =>
+        `<tr>${row.map((cell, i) =>
+          `<td${i === 0 ? ' class="summary-row-label"' : ''}>${cell}</td>`
+        ).join('')}</tr>`
+      ).join('')}</tbody></table></div>`;
+    }
+
+    return `<div class="summary-card summary-${card.type}">
+      <div class="summary-card-header">
+        <span class="summary-card-icon">${icons[card.type]}</span>
+        <span class="summary-card-badge">${labels[card.type]}</span>
+      </div>
+      <div class="summary-card-title">${card.title}</div>
+      ${body}
+    </div>`;
+  }).join('');
+}
