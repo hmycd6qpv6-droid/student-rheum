@@ -27,13 +27,13 @@
 </div>
 
 <div class="module-switcher">
-  <button class="module-btn active" onclick="switchModule('ana',this)">ANA &amp; ENA<span class="module-sub">+ Myositis Antibodies</span></button>
-  <button class="module-btn" onclick="switchModule('anca',this)">ANCA &amp; Vasculitis<span class="module-sub">Chapel Hill Classification</span></button>
-  <button class="module-btn" onclick="switchModule('joints',this)">Joints &amp; Serology<span class="module-sub">Patterns &amp; Markers</span></button>
+  <button class="module-btn" data-module="ana" onclick="switchModule('ana',this)">ANA &amp; ENA<span class="module-sub">+ Myositis Antibodies</span></button>
+  <button class="module-btn" data-module="anca" onclick="switchModule('anca',this)">ANCA &amp; Vasculitis<span class="module-sub">Chapel Hill Classification</span></button>
+  <button class="module-btn" data-module="joints" onclick="switchModule('joints',this)">Joints &amp; Serology<span class="module-sub">Patterns &amp; Markers</span></button>
 </div>
 
 <!-- ANA MODULE -->
-<div class="module-content active" id="module-ana">
+<div class="module-content" id="module-ana">
   <div class="nav-tabs">
     <button class="nav-tab active" data-module="ana" data-tab="ana-patterns">IF Patterns</button>
     <button class="nav-tab" data-module="ana" data-tab="ana-antibodies">Antibody Index</button>
@@ -258,6 +258,85 @@
 <div class="footnote">RheumLab</div>
 </div>
 
-<script type="module" src="js/app.js"></script>
+<script>
+(() => {
+  const validModules = new Set(['ana', 'anca', 'joints']);
+  const selectedModuleKey = 'rheum-lab-selected-module';
+
+  function activeClass(mod) {
+    return mod === 'anca' ? 'active-anca' : mod === 'joints' ? 'active-joints' : 'active';
+  }
+
+  function normalizeModule(mod) {
+    if (typeof mod !== 'string') return null;
+    const value = mod.trim().toLowerCase();
+    return validModules.has(value) ? value : null;
+  }
+
+  function loadSelectedModule() {
+    try {
+      return normalizeModule(sessionStorage.getItem(selectedModuleKey));
+    } catch {
+      return null;
+    }
+  }
+
+  function saveSelectedModule(mod) {
+    try {
+      sessionStorage.setItem(selectedModuleKey, mod);
+    } catch {
+      // Ignore storage failures.
+    }
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  const requestedTab = params.get('tab');
+  const requestedModule = normalizeModule(params.get('module')) || normalizeModule(requestedTab?.split('-')[0]) || loadSelectedModule() || 'ana';
+
+  document.querySelectorAll('.module-btn').forEach(btn => {
+    btn.classList.remove('active', 'active-anca', 'active-joints');
+  });
+
+  document.querySelectorAll('.module-content').forEach(moduleEl => {
+    moduleEl.classList.remove('active');
+  });
+
+  const moduleButton = document.querySelector(`.module-btn[data-module="${requestedModule}"]`);
+  const moduleContent = document.getElementById(`module-${requestedModule}`);
+
+  if (moduleButton) {
+    moduleButton.classList.add(activeClass(requestedModule));
+  }
+
+  if (moduleContent) {
+    moduleContent.classList.add('active');
+  }
+
+  saveSelectedModule(requestedModule);
+
+  if (requestedTab) {
+    const requestedTabButton = document.querySelector(`.nav-tab[data-tab="${requestedTab}"]`);
+    const requestedSection = document.getElementById(`sec-${requestedTab}`);
+
+    if (requestedTabButton && requestedSection) {
+      const moduleEl = requestedTabButton.closest('.module-content');
+      const mod = requestedTabButton.dataset.module;
+
+      if (moduleEl) {
+        moduleEl.querySelectorAll('.nav-tab').forEach(tab => {
+          tab.classList.remove('active', 'active-anca', 'active-joints');
+        });
+        moduleEl.querySelectorAll('.section').forEach(section => {
+          section.classList.remove('active');
+        });
+      }
+
+      requestedTabButton.classList.add(activeClass(mod));
+      requestedSection.classList.add('active');
+    }
+  }
+})();
+</script>
+<script type="module" src="js/app.js?v=20260307b"></script>
 </body>
 </html>

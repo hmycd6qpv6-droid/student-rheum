@@ -101,7 +101,7 @@ function renderModuleCards() {
   if (!grid) return;
 
   grid.innerHTML = MODULES.map(mod => `
-    <a href="module.html?module=${mod.key}" class="module-card" data-accent="${mod.accent}">
+    <a href="module.html?module=${mod.key}" class="module-card" data-accent="${mod.accent}" data-module="${mod.key}">
       <div class="module-card-title">${mod.title}</div>
       <div class="module-card-sub">${mod.sub}</div>
       <div class="module-card-desc">${mod.desc}</div>
@@ -109,6 +109,16 @@ function renderModuleCards() {
       <span class="module-card-arrow">&rsaquo;</span>
     </a>
   `).join('');
+
+  grid.querySelectorAll('.module-card').forEach(card => {
+    card.addEventListener('click', () => {
+      try {
+        sessionStorage.setItem('rheum-lab-selected-module', card.dataset.module || 'ana');
+      } catch {
+        // Ignore storage failures and fall back to query params only.
+      }
+    });
+  });
 }
 
 // ── Init ──────────────────────────────────────────────────

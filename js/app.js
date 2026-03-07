@@ -15,7 +15,7 @@ import { renderAbTable, renderPatterns, renderDiseases, renderMyths, renderSumma
 import { anaSummaries } from './data/ana-summaries.js';
 import { ancaSummaries } from './data/anca-summaries.js';
 import { setQuizMode, resetQuiz, answerQ, navQuiz, jumpTo } from './quiz.js';
-import { switchModule, toggleCard, initTabListeners, initFilterListeners, initFromQueryParams } from './navigation.js';
+import { switchModule, toggleCard, initTabListeners, initFilterListeners, initFromQueryParams } from './navigation.js?v=20260307b';
 import { anaCases } from './data/ana-cases.js';
 import { ancaCases } from './data/anca-cases.js';
 import { initCases } from './cases.js';
@@ -59,6 +59,13 @@ window.answerQ = answerQ;
 window.navQuiz = navQuiz;
 window.jumpTo = jumpTo;
 
+// Init navigation (no dependency on rendered content)
+initTabListeners();
+initFilterListeners(
+  { barId: 'anaFilterBar', renderFn: renderAnaTable },
+  { barId: 'jointsFilterBar', renderFn: renderJointsTable }
+);
+
 // Render all content
 renderPatterns('anaPatternGrid', anaPatterns);
 renderPatterns('ancaPatternGrid', ancaPatterns);
@@ -82,10 +89,5 @@ initCases('anaCaseContainer', anaCases, 'ana');
 initCases('ancaCaseContainer', ancaCases, 'anca');
 initCases('jointsCaseContainer', jointsCases, 'joints');
 
-// Init event listeners
-initTabListeners();
-initFilterListeners(
-  { barId: 'anaFilterBar', renderFn: renderAnaTable },
-  { barId: 'jointsFilterBar', renderFn: renderJointsTable }
-);
+// Apply requested module/tab after all content is initialised.
 initFromQueryParams();

@@ -1,23 +1,53 @@
+const VALID_MODULES = new Set(['ana', 'anca', 'joints']);
+const SELECTED_MODULE_KEY = 'rheum-lab-selected-module';
+
 function activeClass(mod) {
   return mod === 'anca' ? 'active-anca' : mod === 'joints' ? 'active-joints' : 'active';
 }
 
-export function switchModule(mod, btn) {
-  document.querySelectorAll('.module-btn').forEach(b => { b.classList.remove('active', 'active-anca', 'active-joints'); });
-  if (!btn) {
-    const allBtns = document.querySelectorAll('.module-btn');
-    allBtns.forEach(b => {
-      const text = b.textContent.toLowerCase();
-      if ((mod === 'ana' && text.includes('ana') && !text.includes('anca')) ||
-          (mod === 'anca' && text.includes('anca')) ||
-          (mod === 'joints' && text.includes('joints'))) {
-        btn = b;
-      }
-    });
+function normalizeModule(mod) {
+  if (typeof mod !== 'string') return null;
+  const value = mod.trim().toLowerCase();
+  return VALID_MODULES.has(value) ? value : null;
+}
+
+function getModuleButton(mod) {
+  return document.querySelector(`.module-btn[data-module="${mod}"]`);
+}
+
+function getModuleFromTab(tabValue) {
+  if (typeof tabValue !== 'string') return null;
+  const [mod] = tabValue.split('-');
+  return normalizeModule(mod);
+}
+
+function saveSelectedModule(mod) {
+  try {
+    sessionStorage.setItem(SELECTED_MODULE_KEY, mod);
+  } catch {
+    // Ignore storage failures.
   }
-  if (btn) btn.classList.add(activeClass(mod));
+}
+
+function loadSelectedModule() {
+  try {
+    return normalizeModule(sessionStorage.getItem(SELECTED_MODULE_KEY));
+  } catch {
+    return null;
+  }
+}
+
+export function switchModule(mod, btn) {
+  const normalizedMod = normalizeModule(mod);
+  if (!normalizedMod) return;
+
+  saveSelectedModule(normalizedMod);
+  document.querySelectorAll('.module-btn').forEach(b => { b.classList.remove('active', 'active-anca', 'active-joints'); });
+  const nextBtn = btn || getModuleButton(normalizedMod);
+  if (nextBtn) nextBtn.classList.add(activeClass(normalizedMod));
   document.querySelectorAll('.module-content').forEach(m => m.classList.remove('active'));
-  document.getElementById('module-' + mod).classList.add('active');
+  const nextModule = document.getElementById('module-' + normalizedMod);
+  if (nextModule) nextModule.classList.add('active');
 }
 
 export function toggleCard(card) {
@@ -44,6 +74,7 @@ export function switchTab(tabValue) {
   const tab = document.querySelector(`.nav-tab[data-tab="${tabValue}"]`);
   if (!tab) return;
   const mod = tab.dataset.module;
+  switchModule(mod);
   const ac = activeClass(mod);
   const parent = tab.closest('.module-content');
   parent.querySelectorAll('.nav-tab').forEach(t => { t.classList.remove('active', 'active-anca', 'active-joints'); });
@@ -54,8 +85,8 @@ export function switchTab(tabValue) {
 
 export function initFromQueryParams() {
   const params = new URLSearchParams(window.location.search);
-  const mod = params.get('module');
   const tab = params.get('tab');
+  const mod = normalizeModule(params.get('module')) || getModuleFromTab(tab) || loadSelectedModule();
   if (mod) {
     switchModule(mod);
   }
