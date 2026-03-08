@@ -275,7 +275,7 @@ Mr Davies was started on methotrexate with bridging steroids. His arthritis resp
           "Ultrasound can confirm synovitis and detect early erosions",
           "Treatment is the same as seropositive RA \u2014 methotrexate first-line"
         ],
-        relatedAntibodies: ["Anti-CarP", "14-3-3 Eta", "RF (negative)", "Anti-CCP (negative)"]
+        relatedAntibodies: ["Anti-CarP", "RF (negative)", "Anti-CCP (negative)"]
       }
     ]
   },

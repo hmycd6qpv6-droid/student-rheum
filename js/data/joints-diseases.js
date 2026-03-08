@@ -35,7 +35,7 @@ export const jointsDiseases = [
     name:"Psoriatic Arthritis",aka:"PsA",nameClass:"disease-name-joints",
     abs:[{n:"RF usually negative",spec:"assoc"},{n:"HLA-B27 (axial PsA)",spec:"mod"}],
     features:["5 patterns: DIP, oligoarticular, polyarticular, axial, mutilans","Dactylitis ('sausage digit')","Enthesitis","Nail pitting/onycholysis","Psoriatic skin plaques"],
-    note:"RF negative in ~90%. CASPAR criteria. Skin psoriasis precedes arthritis in ~75%, but arthritis can present first (psoriasis sine arthritis). Check nails, scalp, natal cleft, and umbilicus for hidden psoriasis. PsA is erosive in ~50% within 2 years.",
+    note:"RF negative in ~90%. CASPAR criteria. Skin psoriasis precedes arthritis in ~75%, but arthritis can present first (arthritis sine psoriasis). Check nails, scalp, natal cleft, and umbilicus for hidden psoriasis. PsA is erosive in ~50% within 2 years.",
     hint:"RF− usually; dactylitis; enthesitis; nail pitting/onycholysis; check scalp/natal cleft for psoriasis",
     patterns:[
       {size:"small",symmetry:"asymmetric",count:"oligo",limb:"upper"},
@@ -99,7 +99,7 @@ export const jointsDiseases = [
     abs:[{n:"All serology negative",spec:"assoc"}],
     features:["Mechanical pain (worse with use, better with rest)","DIP and PIP involvement (Heberden's and Bouchard's nodes)","1st CMC joint","Knee (medial compartment)","Hip","No early morning stiffness (or <30 min)"],
     note:"Serology is negative — OA is a clinical and radiographic diagnosis. CRP/ESR typically normal. Erosive OA (inflammatory subset) can mimic RA at the DIPs/PIPs. Distinguish from PsA: no nail changes, no dactylitis, no enthesitis, no axial involvement.",
-    hint:"Serology negative; mechanical pain; Heberden's/Bouchard's nodes; DIP/PIP/1st CMC; no significant morning stiffness",
+    hint:"Serology negative; mechanical pain (use>rest); Heberden's (DIP) & Bouchard's (PIP) nodes; 1st CMC; stiffness <30 min",
     patterns:[
       {size:"small",symmetry:"symmetric",count:"poly",limb:"upper"},
       {size:"large",symmetry:"either",count:"mono",limb:"lower"},

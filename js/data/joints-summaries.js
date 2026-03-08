@@ -39,6 +39,23 @@ export const jointsSummaries = [
   },
   {
     type: 'comparison',
+    title: 'Gout vs CPPD (Pseudogout)',
+    content: {
+      headers: ['Feature', 'Gout', 'CPPD'],
+      rows: [
+        ['Crystal shape', 'Needle-shaped', 'Rhomboid / rectangular'],
+        ['Birefringence', 'Strongly negatively birefringent', 'Weakly positively birefringent'],
+        ['Classic joint', '1st MTP (podagra)', 'Knee, wrist'],
+        ['X-ray clue', 'Tophi, punched-out erosions with overhanging edges', 'Chondrocalcinosis (menisci, triangular fibrocartilage)'],
+        ['Serum urate', 'Often elevated (but can be normal in flare)', 'Normal'],
+        ['Metabolic screen', 'Not routinely needed', 'Haemochromatosis, hyperparathyroidism, hypomagnesaemia'],
+        ['ULT target', '<360 µmol/L (<300 if tophi)', 'No ULT available'],
+        ['Acute treatment', 'Colchicine, NSAIDs, steroids', 'Colchicine, NSAIDs, steroids']
+      ]
+    }
+  },
+  {
+    type: 'comparison',
     title: 'RA vs PsA vs AS vs Reactive Arthritis',
     content: {
       headers: ['Feature', 'RA', 'PsA', 'AS', 'Reactive'],
