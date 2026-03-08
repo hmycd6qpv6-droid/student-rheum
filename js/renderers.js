@@ -148,6 +148,51 @@ export function renderAnaPositivity(containerId, data) {
     </div>`;
 }
 
+export function renderClues(containerId, clues) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+
+  container.innerHTML = clues.map(clue => {
+    const featureItems = clue.features.map(f => `<li>${f}</li>`).join('');
+    const suspectItems = clue.suspects.map(s =>
+      `<div class="clue-suspect"><span class="clue-suspect-name">${s.disease}</span><span class="clue-suspect-clue">${s.clue}</span></div>`
+    ).join('');
+    const testItems = clue.tests.map(t =>
+      `<div class="clue-test"><span class="clue-test-ab">${t.antibody}</span><span class="clue-test-reason">${t.reason}</span></div>`
+    ).join('');
+    const flagItems = clue.redFlags.map(f => `<div class="clue-flag-item">${f}</div>`).join('');
+
+    return `<div class="clue-card" onclick="toggleCard(this)">
+      <div class="clue-card-header">
+        <div class="clue-icon">${clue.icon}</div>
+        <div class="clue-card-title-group">
+          <div class="clue-card-title">${clue.title}</div>
+          <div class="clue-card-teaser">${clue.teaser}</div>
+        </div>
+      </div>
+      <div class="expand-hint">\u25b8 click to expand</div>
+      <div class="clue-detail">
+        <div class="clue-section">
+          <div class="clue-section-label">What you see</div>
+          <ul class="clue-features">${featureItems}</ul>
+        </div>
+        <div class="clue-section">
+          <div class="clue-section-label">Think of\u2026</div>
+          <div class="clue-suspects">${suspectItems}</div>
+        </div>
+        <div class="clue-section">
+          <div class="clue-section-label">Test for\u2026</div>
+          <div class="clue-tests">${testItems}</div>
+        </div>
+        <div class="clue-section clue-red-flags">
+          <div class="clue-section-label clue-flag-label">Red flags</div>
+          ${flagItems}
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
 export function renderSummaries(containerId, summaries) {
   const container = document.getElementById(containerId);
   if (!container) return;

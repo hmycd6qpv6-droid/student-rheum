@@ -4,7 +4,8 @@ import {
   renderDiseases,
   renderMyths,
   renderSummaries,
-  renderAnaPositivity
+  renderAnaPositivity,
+  renderClues
 } from './renderers.js';
 import {
   startNavigation,
@@ -76,6 +77,12 @@ function createView(moduleName, sectionsHtml) {
 
 function createAnaView() {
   return createView('ana', [
+    sectionMarkup(
+      'ana-clues',
+      'Clinical Clues',
+      'What does the patient look like? Tap a presentation to explore.',
+      '<div id="anaCluesContainer"></div>'
+    ),
     sectionMarkup(
       'ana-patterns',
       'Immunofluorescence Patterns',
@@ -250,8 +257,9 @@ function createJointsView() {
 const MODULES = {
   ana: {
     title: 'ANA & ENA',
-    defaultTab: 'ana-patterns',
+    defaultTab: 'ana-clues',
     tabs: [
+      { id: 'ana-clues', label: 'Clinical Clues', kind: 'light' },
       { id: 'ana-patterns', label: 'IF Patterns', kind: 'light' },
       { id: 'ana-antibodies', label: 'Antibody Index', kind: 'light' },
       { id: 'ana-diseases', label: 'By Disease', kind: 'light' },
@@ -263,22 +271,25 @@ const MODULES = {
     createView: createAnaView,
     loadLightData: async () => {
       const [
+        { anaClues },
         { anaAntibodies },
         { anaDiseases },
         { anaMyths },
         { anaPatterns },
         { anaPositivity }
       ] = await Promise.all([
+        import('./data/ana-clues.js'),
         import('./data/ana-antibodies.js'),
         import('./data/ana-diseases.js'),
         import('./data/ana-myths.js'),
         import('./data/patterns.js'),
         import('./data/ana-positivity.js')
       ]);
-      return { anaAntibodies, anaDiseases, anaMyths, anaPatterns, anaPositivity };
+      return { anaClues, anaAntibodies, anaDiseases, anaMyths, anaPatterns, anaPositivity };
     },
     renderLight: state => {
-      const { anaAntibodies, anaDiseases, anaMyths, anaPatterns, anaPositivity } = state.lightData;
+      const { anaClues, anaAntibodies, anaDiseases, anaMyths, anaPatterns, anaPositivity } = state.lightData;
+      renderClues('anaCluesContainer', anaClues);
       renderPatterns('anaPatternGrid', anaPatterns);
       initANAPrimer(document.getElementById('sec-ana-patterns'));
       renderAbTable({
