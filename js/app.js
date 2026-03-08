@@ -15,6 +15,7 @@ import {
 } from './navigation.js?v=20260307c';
 import { initQuiz, setQuizMode, resetQuiz, answerQ, navQuiz, jumpTo } from './quiz.js';
 import { initCases } from './cases.js';
+import { initDiagnosisGuide } from './diagnosis-guide.js';
 
 const contentRoot = document.getElementById('module-content-root');
 const tabRail = document.getElementById('module-tab-rail');
@@ -190,8 +191,8 @@ function createJointsView() {
     sectionMarkup(
       'joints-patterns',
       'Joint Distribution Patterns',
-      'Recognise the pattern, narrow the diagnosis. Click any pattern to reveal associated markers and diseases.',
-      '<div class="pattern-grid" id="jointsPatternGrid"></div>',
+      'Use the diagnostic guide below to narrow the diagnosis, then explore the pattern cards.',
+      '<div id="jointsGuideContainer"></div><div class="pattern-grid" id="jointsPatternGrid"></div>',
       accentStyle
     ),
     sectionMarkup(
@@ -394,6 +395,7 @@ const MODULES = {
     renderLight: state => {
       const { jointsPatterns, jointsMarkers, jointsDiseases, jointsMyths } = state.lightData;
       renderPatterns('jointsPatternGrid', jointsPatterns);
+      initDiagnosisGuide('jointsGuideContainer', jointsDiseases);
       renderAbTable({
         targetId: 'jointsMarkerTableBody',
         data: jointsMarkers,
