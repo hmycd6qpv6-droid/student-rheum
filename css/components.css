@@ -167,6 +167,9 @@
 .guide-option-btn:hover { border-color:var(--amber-joints); background:rgba(255,204,0,0.05); transform:translateY(-1px); }
 .guide-option-label { font-family:var(--font-mono); font-size:13px; font-weight:600; color:var(--text-primary); }
 .guide-option-hint { font-size:11px; color:var(--text-muted); line-height:1.4; }
+.guide-option-btn.guide-option-disabled { opacity:0.35; cursor:not-allowed; border-color:var(--border-subtle); }
+.guide-option-btn.guide-option-disabled:hover { border-color:var(--border-subtle); background:transparent; transform:none; }
+.guide-option-dead { font-size:10px; font-family:var(--font-mono); color:var(--text-muted); opacity:0.7; margin-top:2px; }
 .guide-card-results { border-color:rgba(255,204,0,0.3); }
 .guide-result-label { font-family:var(--font-mono); font-size:10px; text-transform:uppercase; letter-spacing:1.5px; color:var(--text-muted); margin-bottom:8px; }
 .guide-result-summary { display:flex; align-items:center; flex-wrap:wrap; gap:4px; margin-bottom:8px; }

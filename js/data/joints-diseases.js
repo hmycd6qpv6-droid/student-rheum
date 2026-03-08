@@ -6,7 +6,8 @@ export const jointsDiseases = [
     note:"~70–80% of RA. Anti-CCP positive = higher erosion risk and poorer prognosis. Double-positive (RF+ CCP+) = strongest predictor of persistent, erosive disease. 2010 ACR/EULAR criteria include serology.",
     hint:"RF+, anti-CCP+; symmetric MCPs/PIPs/wrists; morning stiffness >30 min; erosive course",
     patterns:[
-      {size:"small",symmetry:"symmetric",count:"poly",limb:"upper"}
+      {size:"small",symmetry:"symmetric",count:"poly",limb:"upper"},
+      {size:"small",symmetry:"symmetric",count:"poly",limb:"lower"}
     ]
   },
   {
@@ -16,7 +17,8 @@ export const jointsDiseases = [
     note:"~20–30% of RA is seronegative. Must exclude PsA, CPPD, and SpA mimics. Anti-CarP may help identify truly inflammatory seronegative disease. Clinical diagnosis relies on pattern recognition, synovitis on imaging, and response to DMARDs.",
     hint:"RF−/CCP−; symmetric polyarthritis; diagnosis of exclusion — rule out PsA and SpA mimics",
     patterns:[
-      {size:"small",symmetry:"symmetric",count:"poly",limb:"upper"}
+      {size:"small",symmetry:"symmetric",count:"poly",limb:"upper"},
+      {size:"small",symmetry:"symmetric",count:"poly",limb:"lower"}
     ]
   },
   {
@@ -39,7 +41,9 @@ export const jointsDiseases = [
       {size:"small",symmetry:"asymmetric",count:"oligo",limb:"upper"},
       {size:"large",symmetry:"asymmetric",count:"oligo",limb:"lower"},
       {size:"small",symmetry:"symmetric",count:"poly",limb:"upper"},
-      {size:"large",symmetry:"symmetric",count:"oligo",limb:"axial"}
+      {size:"large",symmetry:"symmetric",count:"oligo",limb:"axial"},
+      {size:"small",symmetry:"asymmetric",count:"poly",limb:"upper"},
+      {size:"small",symmetry:"asymmetric",count:"poly",limb:"lower"}
     ]
   },
   {
@@ -49,7 +53,8 @@ export const jointsDiseases = [
     note:"Classic triad: can't see (eyes), can't pee (urethritis), can't climb a tree (arthritis). HLA-B27 positive in ~50–80%. Self-limiting in most but ~15–20% develop chronic SpA. Culture/PCR urethral or stool for Chlamydia, Salmonella, Shigella, Yersinia, Campylobacter.",
     hint:"Preceding GI/GU infection 1–4 wks; asymmetric lower limb oligo; can't see/pee/climb a tree",
     patterns:[
-      {size:"large",symmetry:"asymmetric",count:"oligo",limb:"lower"}
+      {size:"large",symmetry:"asymmetric",count:"oligo",limb:"lower"},
+      {size:"large",symmetry:"asymmetric",count:"mono",limb:"lower"}
     ]
   },
   {
@@ -71,7 +76,9 @@ export const jointsDiseases = [
     note:"Serum urate can be NORMAL during acute flare (up to 40% of cases). Gold standard = MSU crystals in synovial fluid (needle-shaped, negatively birefringent). Dual-energy CT can detect urate deposits non-invasively. Treat-to-target urate <360 µmol/L (or <300 if tophi).",
     hint:"Serum urate can be normal acutely; MSU crystals needle-shaped, negatively birefringent; 1st MTP",
     patterns:[
-      {size:"large",symmetry:"asymmetric",count:"mono",limb:"lower"}
+      {size:"large",symmetry:"asymmetric",count:"mono",limb:"lower"},
+      {size:"small",symmetry:"asymmetric",count:"mono",limb:"lower"},
+      {size:"large",symmetry:"asymmetric",count:"oligo",limb:"lower"}
     ]
   },
   {
@@ -82,7 +89,9 @@ export const jointsDiseases = [
     hint:"CPP crystals rhomboid, weakly positively birefringent; chondrocalcinosis on X-ray; check metabolic causes",
     patterns:[
       {size:"large",symmetry:"asymmetric",count:"mono",limb:"upper"},
-      {size:"large",symmetry:"asymmetric",count:"mono",limb:"lower"}
+      {size:"large",symmetry:"asymmetric",count:"mono",limb:"lower"},
+      {size:"large",symmetry:"asymmetric",count:"oligo",limb:"upper"},
+      {size:"large",symmetry:"symmetric",count:"poly",limb:"upper"}
     ]
   },
   {
@@ -93,7 +102,8 @@ export const jointsDiseases = [
     hint:"Serology negative; mechanical pain; Heberden's/Bouchard's nodes; DIP/PIP/1st CMC; no significant morning stiffness",
     patterns:[
       {size:"small",symmetry:"symmetric",count:"poly",limb:"upper"},
-      {size:"large",symmetry:"either",count:"mono",limb:"lower"}
+      {size:"large",symmetry:"either",count:"mono",limb:"lower"},
+      {size:"large",symmetry:"symmetric",count:"oligo",limb:"lower"}
     ]
   },
   {
@@ -117,6 +127,17 @@ export const jointsDiseases = [
     patterns:[
       {size:"both",symmetry:"either",count:"mono",limb:"upper"},
       {size:"both",symmetry:"either",count:"mono",limb:"lower"}
+    ]
+  },
+  {
+    name:"Septic Arthritis",aka:"Infectious / Bacterial Arthritis",nameClass:"disease-name-joints",
+    abs:[{n:"Synovial fluid WCC >50,000",spec:"high"},{n:"Blood cultures",spec:"mod"},{n:"CRP/ESR markedly elevated",spec:"mod"}],
+    features:["Acute hot swollen joint — EMERGENCY","Monoarthritis (90%)","Fever, rigors","Inability to weight-bear","Risk factors: prosthetic joint, immunosuppression, IVDU, skin breach"],
+    note:"S. aureus is the most common organism. Aspirate BEFORE antibiotics — Gram stain and culture are essential. WCC >50,000 with >90% neutrophils is highly suggestive. Do NOT delay treatment: joint destruction occurs within hours to days. Gonococcal arthritis is the most common cause in young sexually active adults.",
+    hint:"Aspirate before antibiotics; WCC >50k; S. aureus #1; acute hot joint = emergency until proven otherwise",
+    patterns:[
+      {size:"large",symmetry:"asymmetric",count:"mono",limb:"upper"},
+      {size:"large",symmetry:"asymmetric",count:"mono",limb:"lower"}
     ]
   },
 ];

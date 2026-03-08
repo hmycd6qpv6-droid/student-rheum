@@ -50,6 +50,25 @@ function matchesPattern(pattern, answers) {
   return true;
 }
 
+function canReachMatch(diseases, partialAnswers, remainingQuestions) {
+  if (remainingQuestions.length === 0) {
+    return diseases.some(d => d.patterns.some(p => matchesPattern(p, partialAnswers)));
+  }
+  const [nextQ, ...rest] = remainingQuestions;
+  return nextQ.options.some(opt =>
+    canReachMatch(diseases, [...partialAnswers, opt.value], rest)
+  );
+}
+
+function getViableOptions(diseases, answeredSoFar, stepIndex) {
+  const q = QUESTIONS[stepIndex];
+  const remaining = QUESTIONS.slice(stepIndex + 1);
+  return q.options.map(opt => ({
+    ...opt,
+    disabled: !canReachMatch(diseases, [...answeredSoFar, opt.value], remaining)
+  }));
+}
+
 function patternTagsHtml(pattern) {
   return [
     SIZE_LABELS[pattern.size],
@@ -68,6 +87,7 @@ export function initDiagnosisGuide(containerId, diseases) {
   function renderStep() {
     const q = QUESTIONS[state.step];
     const progressPct = Math.round((state.step / QUESTIONS.length) * 100);
+    const viableOptions = getViableOptions(diseases, state.answers, state.step);
 
     container.innerHTML = `
       <div class="guide-card">
@@ -76,17 +96,18 @@ export function initDiagnosisGuide(containerId, diseases) {
         <div class="guide-step-title">${q.title}</div>
         <div class="guide-step-subtitle">${q.subtitle}</div>
         <div class="guide-options">
-          ${q.options.map(opt => `
-            <button class="guide-option-btn" data-value="${opt.value}">
+          ${viableOptions.map(opt => `
+            <button class="guide-option-btn${opt.disabled ? ' guide-option-disabled' : ''}" data-value="${opt.value}"${opt.disabled ? ' disabled' : ''}>
               <span class="guide-option-label">${opt.label}</span>
               <span class="guide-option-hint">${opt.hint}</span>
+              ${opt.disabled ? '<span class="guide-option-dead">No matching conditions</span>' : ''}
             </button>
           `).join('')}
         </div>
       </div>
     `;
 
-    container.querySelectorAll('.guide-option-btn').forEach(btn => {
+    container.querySelectorAll('.guide-option-btn:not(:disabled)').forEach(btn => {
       btn.addEventListener('click', () => {
         state.answers.push(btn.dataset.value);
         state.step++;
