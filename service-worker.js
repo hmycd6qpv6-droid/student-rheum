@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rheumlab-static-v20260308b';
+const CACHE_NAME = 'rheumlab-static-v20260308c';
 const APP_SHELL = [
   './index.html',
   './module.html',
@@ -46,6 +46,8 @@ const APP_SHELL = [
   './assets/fonts/ibm-plex-mono-600.woff2',
   './assets/fonts/space-grotesk-300.woff2',
   './assets/fonts/space-grotesk-600.woff2',
+  './assets/pwa/icon.svg',
+  './assets/pwa/icon-maskable.svg',
   './assets/pwa/apple-touch-icon.png',
   './assets/pwa/icon-64.png',
   './assets/pwa/icon-192.png',

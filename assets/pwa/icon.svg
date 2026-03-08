@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+<title id="title">RheumLab icon</title>
+<desc id="desc">A simple black and white RL monogram.</desc>
+<rect width="512" height="512" rx="112" fill="#ffffff"/>
+<rect x="24" y="24" width="464" height="464" rx="88" fill="none" stroke="#111111" stroke-width="8"/>
+<text x="82" y="344" fill="#111111" font-family="Space Grotesk, Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="288" font-weight="300" letter-spacing="-16">R</text>
+<text x="266" y="344" fill="#111111" font-family="Space Grotesk, Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="288" font-weight="700" letter-spacing="-10">L</text>
+</svg>

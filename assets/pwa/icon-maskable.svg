@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+<title id="title">RheumLab maskable icon</title>
+<desc id="desc">A simple black and white RL monogram sized for maskable icon usage.</desc>
+<rect width="512" height="512" fill="#ffffff"/>
+<text x="86" y="336" fill="#111111" font-family="Space Grotesk, Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="270" font-weight="300" letter-spacing="-14">R</text>
+<text x="258" y="336" fill="#111111" font-family="Space Grotesk, Avenir Next, Helvetica Neue, Arial, sans-serif" font-size="270" font-weight="700" letter-spacing="-8">L</text>
+</svg>
