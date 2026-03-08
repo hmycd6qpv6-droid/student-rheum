@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rheumlab-static-v20260308';
+const CACHE_NAME = 'rheumlab-static-v20260308b';
 const APP_SHELL = [
   './index.html',
   './module.html',
@@ -53,6 +53,8 @@ const APP_SHELL = [
   './assets/pwa/icon-maskable-512.png'
 ];
 
+const APP_SHELL_URLS = new Set(APP_SHELL.map(path => toAbsoluteUrl(path)));
+
 function toAbsoluteUrl(path) {
   return new URL(path, self.registration.scope).toString();
 }
@@ -83,15 +85,35 @@ async function cacheFirst(request) {
   return networkResponse;
 }
 
-async function handleNavigation(request) {
+async function networkFirst(request) {
   try {
-    return await cacheFirst(request);
+    const networkResponse = await fetch(request);
+    if (networkResponse.ok && request.method === 'GET') {
+      const cache = await caches.open(CACHE_NAME);
+      cache.put(request, networkResponse.clone());
+    }
+    return networkResponse;
   } catch {
-    const url = new URL(request.url);
-    const isModulePage = url.pathname.endsWith('/module.html') || url.pathname.endsWith('module.html');
-    const fallbackPath = isModulePage ? './module.html' : './index.html';
-    return caches.match(toAbsoluteUrl(fallbackPath), { ignoreSearch: true });
+    return caches.match(request, { ignoreSearch: true });
   }
+}
+
+async function handleNavigation(request) {
+  const networkResponse = await networkFirst(request);
+  if (networkResponse) return networkResponse;
+
+  const url = new URL(request.url);
+  const isModulePage = url.pathname.endsWith('/module.html') || url.pathname.endsWith('module.html');
+  const fallbackPath = isModulePage ? './module.html' : './index.html';
+  return caches.match(toAbsoluteUrl(fallbackPath), { ignoreSearch: true });
+}
+
+function isAppShellRequest(requestUrl) {
+  if (APP_SHELL_URLS.has(requestUrl.toString())) return true;
+
+  const withoutSearch = new URL(requestUrl.toString());
+  withoutSearch.search = '';
+  return APP_SHELL_URLS.has(withoutSearch.toString());
 }
 
 self.addEventListener('install', event => {
@@ -117,6 +139,8 @@ self.addEventListener('fetch', event => {
     event.respondWith(handleNavigation(request));
     return;
   }
+
+  if (!isAppShellRequest(url)) return;
 
   event.respondWith(
     cacheFirst(request).catch(() => caches.match(request, { ignoreSearch: true }))
