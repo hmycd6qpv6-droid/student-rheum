@@ -104,6 +104,7 @@ function buildPrimerHTML(seen) {
       <div class="primer-step-title" id="primerStepTitle"></div>
       <div class="primer-step-body" id="primerStepBody"></div>
       <div class="primer-card-footer">
+        <button class="primer-back hidden" id="primerBackBtn" onclick="window.primerBack()">← Back</button>
         <button class="primer-next" id="primerNextBtn" onclick="window.primerNext()">Next →</button>
       </div>
     </div>
@@ -149,12 +150,14 @@ function renderStep(n) {
   const title = document.getElementById('primerStepTitle');
   const body = document.getElementById('primerStepBody');
   const btn = document.getElementById('primerNextBtn');
+  const backBtn = document.getElementById('primerBackBtn');
 
   if (icon) icon.innerHTML = step.icon;
   if (label) label.textContent = `Step ${n + 1} of ${STEPS.length}`;
   if (title) title.textContent = step.title;
   if (body) body.innerHTML = step.body;
-  if (btn) btn.textContent = n < STEPS.length - 1 ? 'Next →' : 'Show results →';
+  if (btn) { btn.textContent = n < STEPS.length - 1 ? 'Next →' : 'Show results →'; btn.disabled = false; }
+  if (backBtn) backBtn.classList.toggle('hidden', n === 0);
 }
 
 function animateCounter(el, target) {
@@ -178,6 +181,7 @@ function showStats() {
     stats.querySelectorAll('.primer-counter').forEach(el => {
       animateCounter(el, parseInt(el.dataset.target, 10));
     });
+    setTimeout(() => stats.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
   }
   if (dismiss) dismiss.classList.remove('hidden');
 }
@@ -188,6 +192,17 @@ function primerNext() {
     renderStep(currentStep);
   } else {
     showStats();
+  }
+}
+
+function primerBack() {
+  if (currentStep > 0) {
+    currentStep--;
+    renderStep(currentStep);
+    const stats = document.getElementById('primerStats');
+    const dismiss = document.getElementById('primerDismiss');
+    if (stats) stats.classList.add('hidden');
+    if (dismiss) dismiss.classList.add('hidden');
   }
 }
 
@@ -205,6 +220,14 @@ function primerDismiss() {
   const chevron = document.querySelector('#anaPrimer .primer-toggle-chevron');
   if (chevron) chevron.textContent = '▸';
   localStorage.setItem('rheum-lab-ana-primer-seen', '1');
+  const grid = document.getElementById('anaPatternGrid');
+  if (grid) setTimeout(() => {
+    const toolbar = document.querySelector('.toolbar');
+    const tabRail = document.querySelector('.tab-rail');
+    const offset = (toolbar ? toolbar.offsetHeight : 0) + (tabRail ? tabRail.offsetHeight : 0);
+    const top = grid.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }, 50);
 }
 
 export function initANAPrimer(sectionEl) {
@@ -216,6 +239,7 @@ export function initANAPrimer(sectionEl) {
   gridEl.insertAdjacentHTML('beforebegin', buildPrimerHTML(seen));
 
   window.primerNext = primerNext;
+  window.primerBack = primerBack;
   window.togglePrimer = togglePrimer;
   window.primerDismiss = primerDismiss;
 

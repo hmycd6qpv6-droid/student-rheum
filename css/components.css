@@ -357,7 +357,20 @@
 }
 .primer-step-body strong { color: var(--text-primary); }
 
-.primer-card-footer { display: flex; justify-content: flex-end; }
+.primer-card-footer { display: flex; justify-content: space-between; align-items: center; }
+
+.primer-back {
+  padding: 8px 14px;
+  min-height: 40px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+.primer-back:hover { color: var(--text-secondary); }
 
 .primer-next {
   padding: 10px 20px;
