@@ -16,6 +16,7 @@ import {
 import { initQuiz, setQuizMode, resetQuiz, answerQ, navQuiz, jumpTo } from './quiz.js';
 import { initCases } from './cases.js';
 import { initDiagnosisGuide } from './diagnosis-guide.js';
+import { initANAPrimer } from './primer.js';
 
 const contentRoot = document.getElementById('module-content-root');
 const tabRail = document.getElementById('module-tab-rail');
@@ -279,6 +280,7 @@ const MODULES = {
     renderLight: state => {
       const { anaAntibodies, anaDiseases, anaMyths, anaPatterns, anaPositivity } = state.lightData;
       renderPatterns('anaPatternGrid', anaPatterns);
+      initANAPrimer(document.getElementById('sec-ana-patterns'));
       renderAbTable({
         targetId: 'anaAbTableBody',
         data: anaAntibodies,
