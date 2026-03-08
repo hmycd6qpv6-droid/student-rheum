@@ -1,0 +1,74 @@
+{
+  "id": "./",
+  "name": "RheumLab",
+  "short_name": "RheumLab",
+  "description": "Interactive rheumatology teaching app for autoantibodies, serology, vasculitis, and joint pattern recognition.",
+  "lang": "en-GB",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0a0e14",
+  "theme_color": "#0a0e14",
+  "categories": ["education", "medical", "reference"],
+  "icons": [
+    {
+      "src": "./assets/pwa/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/pwa/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/pwa/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Joints & Serology",
+      "short_name": "Joints",
+      "description": "Open the joints and serology module.",
+      "url": "./module.html?module=joints",
+      "icons": [
+        {
+          "src": "./assets/pwa/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "ANA & ENA",
+      "short_name": "ANA",
+      "description": "Open the ANA and ENA module.",
+      "url": "./module.html?module=ana",
+      "icons": [
+        {
+          "src": "./assets/pwa/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "ANCA & Vasculitis",
+      "short_name": "ANCA",
+      "description": "Open the ANCA and vasculitis module.",
+      "url": "./module.html?module=anca",
+      "icons": [
+        {
+          "src": "./assets/pwa/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}

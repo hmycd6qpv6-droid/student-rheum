@@ -18,6 +18,7 @@ import { initQuiz, setQuizMode, resetQuiz, answerQ, navQuiz, jumpTo } from './qu
 import { initCases } from './cases.js';
 import { initDiagnosisGuide } from './diagnosis-guide.js';
 import { initANAPrimer } from './primer.js';
+import { registerPWA } from './pwa.js';
 
 const contentRoot = document.getElementById('module-content-root');
 const tabRail = document.getElementById('module-tab-rail');
@@ -25,6 +26,8 @@ const moduleSwitcher = document.getElementById('module-switcher');
 
 const moduleCache = new Map();
 let routeToken = 0;
+
+registerPWA();
 
 function anaColumnMapper(ab) {
   const className = ab.cat === 'ena' ? 'cat-ena' : ab.cat === 'msa' ? 'cat-myositis-specific' : 'cat-myositis-associated';
