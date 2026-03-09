@@ -3,7 +3,7 @@ export const anaClues = [
     id: 'hands',
     title: 'Hands',
     teaser: 'Raynaud\'s, swollen joints, sclerodactyly, and skin changes of the fingers',
-    icon: '<svg viewBox="0 0 56 56" fill="none"><path d="M28 48 L28 40 L22 40 Q16 40 16 34 L16 28 Q16 24 20 24 L20 14 Q20 10 22 10 L22 24" stroke="#39ff14" stroke-width="1.3" fill="rgba(57,255,20,0.04)"/><path d="M22 24 L22 10 Q22 6 24.5 6 L24.5 24" stroke="#39ff14" stroke-width="1.3" fill="none"/><path d="M24.5 24 L24.5 8 Q24.5 4 27 4 L27 24" stroke="#39ff14" stroke-width="1.3" fill="none"/><path d="M27 24 L27 8 Q27 5 29.5 5 L29.5 24" stroke="#39ff14" stroke-width="1.3" fill="none"/><path d="M29.5 24 L29.5 12 Q29.5 9 32 12 L32 24 Q32 28 36 30 L38 32 Q40 34 38 36 L34 40 L28 40" stroke="#39ff14" stroke-width="1.3" fill="none"/><circle cx="22" cy="22" r="2.2" fill="rgba(255,51,102,0.3)" stroke="#ff3366" stroke-width="1"/><circle cx="25" cy="22" r="2.2" fill="rgba(255,51,102,0.3)" stroke="#ff3366" stroke-width="1"/><circle cx="28" cy="22" r="2.2" fill="rgba(255,51,102,0.3)" stroke="#ff3366" stroke-width="1"/></svg>',
+    icon: '<svg viewBox="0 0 56 56" fill="none"><path d="M14 30 Q14 26 16.5 24 L16.5 16 Q16.5 12.5 18.5 12.5 Q20.5 12.5 20.5 16 L20.5 23 L20.5 10 Q20.5 6.5 22.5 6.5 Q24.5 6.5 24.5 10 L24.5 22 L24.5 7 Q24.5 3.5 26.5 3.5 Q28.5 3.5 28.5 7 L28.5 22 L28.5 9 Q28.5 5.5 30.5 5.5 Q32.5 5.5 32.5 9 L32.5 24 Q32.5 24 34 22 Q35.5 19.5 37.5 21 Q39.5 22.5 37 26 L34 31 Q32 34 32 37 L32 42 Q32 46 28 48 L24 48 Q18 48 16 44 L14 38 Z" stroke="#39ff14" stroke-width="1.3" fill="rgba(57,255,20,0.05)" stroke-linejoin="round"/><circle cx="20.5" cy="24" r="2" fill="rgba(255,51,102,0.3)" stroke="#ff3366" stroke-width="0.9"/><circle cx="24.5" cy="24" r="2" fill="rgba(255,51,102,0.3)" stroke="#ff3366" stroke-width="0.9"/><circle cx="28.5" cy="24" r="2" fill="rgba(255,51,102,0.3)" stroke="#ff3366" stroke-width="0.9"/></svg>',
     features: [
       'Raynaud\'s phenomenon \u2014 triphasic colour change (white \u2192 blue \u2192 red)',
       'Sclerodactyly \u2014 skin tightening of fingers with loss of skin creases',
@@ -210,7 +210,7 @@ export const anaClues = [
     id: 'blood-clots',
     title: 'Blood Clots',
     teaser: 'DVT/PE, arterial thrombosis, livedo reticularis, and the APS antibody panel',
-    icon: '<svg viewBox="0 0 56 56" fill="none"><line x1="12" y1="14" x2="12" y2="42" stroke="#39ff14" stroke-width="1.5"/><line x1="44" y1="14" x2="44" y2="42" stroke="#39ff14" stroke-width="1.5"/><path d="M12 14 Q28 8 44 14" stroke="#39ff14" stroke-width="1.3" fill="none"/><path d="M12 42 Q28 48 44 42" stroke="#39ff14" stroke-width="1.3" fill="none"/><ellipse cx="28" cy="28" rx="8" ry="5" fill="rgba(255,51,102,0.2)" stroke="#ff3366" stroke-width="1.2"/><line x1="20" y1="28" x2="22" y2="28" stroke="#ff3366" stroke-width="1"/><line x1="34" y1="28" x2="36" y2="28" stroke="#ff3366" stroke-width="1"/></svg>',
+    icon: '<svg viewBox="0 0 56 56" fill="none"><path d="M22 2 Q16 4 16 14 L15 22 Q13 28 14 34 Q15 40 16 42 L16 46 L36 47 Q40 48 40 50 Q40 52 36 52 L16 52 Q20 48 22 42 Q30 34 28 24 Q26 14 24 2 Z" stroke="#39ff14" stroke-width="1.3" stroke-linejoin="round" fill="rgba(57,255,20,0.05)"/><ellipse cx="22" cy="34" rx="4" ry="2.8" fill="rgba(255,51,102,0.25)" stroke="#ff3366" stroke-width="1"/></svg>',
     features: [
       'Deep vein thrombosis or pulmonary embolism (especially unprovoked or recurrent)',
       'Arterial thrombosis \u2014 stroke or TIA in a young patient',
