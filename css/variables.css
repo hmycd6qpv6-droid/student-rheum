@@ -31,25 +31,25 @@
 }
 
 :root {
-  --bg-dark: #0a0e14;
-  --bg-card: rgba(16, 24, 32, 0.85);
-  --bg-card-hover: rgba(20, 32, 44, 0.95);
-  --fitc-green: #39ff14;
-  --fitc-green-glow: rgba(57, 255, 20, 0.3);
-  --dapi-blue: #4488ff;
-  --rhodamine-red: #ff3366;
-  --amber-warn: #ffaa00;
-  --cyan-anca: #00e5ff;
-  --amber-joints: #ffcc00;
-  --amber-joints-glow: rgba(255,204,0,0.3);
-  --border-joints: rgba(255,204,0,0.25);
-  --text-primary: #e0e8f0;
-  --text-secondary: #8899aa;
-  --text-muted: #6b7f94;
-  --border-subtle: rgba(57, 255, 20, 0.12);
-  --border-glow: rgba(57, 255, 20, 0.25);
-  --glass: rgba(255,255,255,0.03);
+  --bg-dark: #f4f6f5;
+  --bg-card: #ffffff;
+  --bg-card-hover: #fbfcfb;
+  --fitc-green: #006747;
+  --fitc-green-glow: rgba(0,103,71,0.15);
+  --dapi-blue: #005EB8;
+  --rhodamine-red: #B71C1C;
+  --amber-warn: #B25F00;
+  --cyan-anca: #007287;
+  --amber-joints: #8C520A;
+  --amber-joints-glow: rgba(140,82,10,0.15);
+  --border-joints: rgba(140,82,10,0.3);
+  --text-primary: #1c2a24;
+  --text-secondary: #46554e;
+  --text-muted: #67766f;
+  --border-subtle: #dfe5e2;
+  --border-glow: #b7c6bf;
+  --glass: rgba(20,45,35,0.03);
   --radius: 8px;
-  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', 'SF Mono', 'Consolas', 'Liberation Mono', monospace;
-  --font-display: 'Space Grotesk', 'Avenir Next', 'Segoe UI', sans-serif;
+  --font-mono: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
 }

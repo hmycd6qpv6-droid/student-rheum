@@ -3,55 +3,55 @@ let currentStep = 0;
 function svgBloodDrop() {
   return `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M32 10C32 10 18 30 18 40c0 7.7 6.3 14 14 14s14-6.3 14-14c0-10-14-30-14-30z"
-      fill="rgba(255,51,102,0.18)" stroke="#ff3366" stroke-width="1.5"/>
-    <path d="M25 40c0 4 2.5 7.5 6 9" stroke="rgba(255,51,102,0.5)" stroke-width="1.5" stroke-linecap="round"/>
+      fill="rgba(183,28,28,0.18)" stroke="#B71C1C" stroke-width="1.5"/>
+    <path d="M25 40c0 4 2.5 7.5 6 9" stroke="rgba(183,28,28,0.5)" stroke-width="1.5" stroke-linecap="round"/>
   </svg>`;
 }
 
 function svgCellSlide() {
   return `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="4" y="26" width="56" height="12" rx="2" fill="rgba(68,136,255,0.08)" stroke="rgba(68,136,255,0.3)" stroke-width="1"/>
-    <ellipse cx="18" cy="32" rx="7" ry="8" fill="rgba(57,255,20,0.07)" stroke="rgba(57,255,20,0.35)" stroke-width="1"/>
-    <ellipse cx="18" cy="32" rx="3" ry="3.5" fill="rgba(57,255,20,0.25)"/>
-    <ellipse cx="33" cy="32" rx="8" ry="7" fill="rgba(57,255,20,0.07)" stroke="rgba(57,255,20,0.35)" stroke-width="1"/>
-    <ellipse cx="33" cy="32" rx="3.5" ry="3" fill="rgba(57,255,20,0.25)"/>
-    <ellipse cx="49" cy="32" rx="6" ry="7" fill="rgba(57,255,20,0.07)" stroke="rgba(57,255,20,0.35)" stroke-width="1"/>
-    <ellipse cx="49" cy="32" rx="2.5" ry="3" fill="rgba(57,255,20,0.25)"/>
+    <rect x="4" y="26" width="56" height="12" rx="2" fill="rgba(0,94,184,0.08)" stroke="rgba(0,94,184,0.3)" stroke-width="1"/>
+    <ellipse cx="18" cy="32" rx="7" ry="8" fill="rgba(0,103,71,0.07)" stroke="rgba(0,103,71,0.35)" stroke-width="1"/>
+    <ellipse cx="18" cy="32" rx="3" ry="3.5" fill="rgba(0,103,71,0.25)"/>
+    <ellipse cx="33" cy="32" rx="8" ry="7" fill="rgba(0,103,71,0.07)" stroke="rgba(0,103,71,0.35)" stroke-width="1"/>
+    <ellipse cx="33" cy="32" rx="3.5" ry="3" fill="rgba(0,103,71,0.25)"/>
+    <ellipse cx="49" cy="32" rx="6" ry="7" fill="rgba(0,103,71,0.07)" stroke="rgba(0,103,71,0.35)" stroke-width="1"/>
+    <ellipse cx="49" cy="32" rx="2.5" ry="3" fill="rgba(0,103,71,0.25)"/>
   </svg>`;
 }
 
 function svgTagLatching() {
   return `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M32 42V30M30 30L22 18M34 30L42 18" stroke="#ffaa00" stroke-width="2" stroke-linecap="round"/>
-    <circle cx="22" cy="15" r="5" fill="rgba(255,170,0,0.15)" stroke="#ffaa00" stroke-width="1.5"/>
-    <circle cx="42" cy="15" r="5" fill="rgba(255,170,0,0.15)" stroke="#ffaa00" stroke-width="1.5"/>
-    <circle cx="32" cy="49" r="7" fill="rgba(57,255,20,0.25)" stroke="#39ff14" stroke-width="1.5"/>
-    <text x="32" y="53" text-anchor="middle" font-size="6" fill="#39ff14" font-family="monospace" font-weight="600">FITC</text>
+    <path d="M32 42V30M30 30L22 18M34 30L42 18" stroke="#B25F00" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="22" cy="15" r="5" fill="rgba(178,95,0,0.15)" stroke="#B25F00" stroke-width="1.5"/>
+    <circle cx="42" cy="15" r="5" fill="rgba(178,95,0,0.15)" stroke="#B25F00" stroke-width="1.5"/>
+    <circle cx="32" cy="49" r="7" fill="rgba(0,103,71,0.25)" stroke="#006747" stroke-width="1.5"/>
+    <text x="32" y="53" text-anchor="middle" font-size="6" fill="#006747" font-family="monospace" font-weight="600">FITC</text>
   </svg>`;
 }
 
 function svgUVGlow() {
   return `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="32" cy="40" r="10" fill="rgba(57,255,20,0.3)" stroke="#39ff14" stroke-width="1.5"/>
-    <circle cx="32" cy="40" r="16" stroke="rgba(57,255,20,0.2)" stroke-width="1" stroke-dasharray="3 3"/>
-    <circle cx="32" cy="40" r="22" stroke="rgba(57,255,20,0.1)" stroke-width="1" stroke-dasharray="2 4"/>
-    <path d="M28 12h8l-2 10h-4z" fill="rgba(68,136,255,0.25)" stroke="#4488ff" stroke-width="1" stroke-linejoin="round"/>
-    <line x1="32" y1="22" x2="32" y2="28" stroke="#4488ff" stroke-width="1.5" stroke-dasharray="2 2" opacity="0.6"/>
+    <circle cx="32" cy="40" r="10" fill="rgba(0,103,71,0.3)" stroke="#006747" stroke-width="1.5"/>
+    <circle cx="32" cy="40" r="16" stroke="rgba(0,103,71,0.2)" stroke-width="1" stroke-dasharray="3 3"/>
+    <circle cx="32" cy="40" r="22" stroke="rgba(0,103,71,0.1)" stroke-width="1" stroke-dasharray="2 4"/>
+    <path d="M28 12h8l-2 10h-4z" fill="rgba(0,94,184,0.25)" stroke="#005EB8" stroke-width="1" stroke-linejoin="round"/>
+    <line x1="32" y1="22" x2="32" y2="28" stroke="#005EB8" stroke-width="1.5" stroke-dasharray="2 2" opacity="0.6"/>
   </svg>`;
 }
 
 function svgPatternRead() {
   return `<svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="12" y="20" width="40" height="36" rx="3" fill="rgba(57,255,20,0.05)" stroke="rgba(57,255,20,0.3)" stroke-width="1"/>
-    <circle cx="32" cy="38" r="10" fill="rgba(57,255,20,0.08)" stroke="rgba(57,255,20,0.4)" stroke-width="1"/>
-    <circle cx="27" cy="35" r="1.5" fill="#39ff14" opacity="0.9"/>
-    <circle cx="33" cy="33" r="2" fill="#39ff14" opacity="0.7"/>
-    <circle cx="29" cy="40" r="1.5" fill="#39ff14" opacity="0.8"/>
-    <circle cx="36" cy="39" r="1" fill="#39ff14" opacity="0.6"/>
-    <circle cx="32" cy="44" r="1.5" fill="#39ff14" opacity="0.5"/>
-    <line x1="24" y1="20" x2="24" y2="12" stroke="rgba(68,136,255,0.5)" stroke-width="2"/>
-    <circle cx="24" cy="10" r="3" fill="rgba(68,136,255,0.3)" stroke="#4488ff" stroke-width="1"/>
-    <circle cx="24" cy="10" r="1.5" fill="rgba(68,136,255,0.5)"/>
+    <rect x="12" y="20" width="40" height="36" rx="3" fill="rgba(0,103,71,0.05)" stroke="rgba(0,103,71,0.3)" stroke-width="1"/>
+    <circle cx="32" cy="38" r="10" fill="rgba(0,103,71,0.08)" stroke="rgba(0,103,71,0.4)" stroke-width="1"/>
+    <circle cx="27" cy="35" r="1.5" fill="#006747" opacity="0.9"/>
+    <circle cx="33" cy="33" r="2" fill="#006747" opacity="0.7"/>
+    <circle cx="29" cy="40" r="1.5" fill="#006747" opacity="0.8"/>
+    <circle cx="36" cy="39" r="1" fill="#006747" opacity="0.6"/>
+    <circle cx="32" cy="44" r="1.5" fill="#006747" opacity="0.5"/>
+    <line x1="24" y1="20" x2="24" y2="12" stroke="rgba(0,94,184,0.5)" stroke-width="2"/>
+    <circle cx="24" cy="10" r="3" fill="rgba(0,94,184,0.3)" stroke="#005EB8" stroke-width="1"/>
+    <circle cx="24" cy="10" r="1.5" fill="rgba(0,94,184,0.5)"/>
   </svg>`;
 }
 

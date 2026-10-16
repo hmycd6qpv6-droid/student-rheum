@@ -37,7 +37,7 @@ export function renderPatterns(containerId, patterns) {
     const abLabel = p.targetLabel || 'Associated Antibodies';
     const abTags = p.antibodyTagClass
       ? p.antibodies.map(a => `<span class="assoc-tag ${p.antibodyTagClass}">${a}</span>`).join('')
-      : p.antibodies.map(a => `<span class="assoc-tag" style="background:rgba(255,51,102,0.1);color:var(--rhodamine-red);border:1px solid rgba(255,51,102,0.2);">${a}</span>`).join('');
+      : p.antibodies.map(a => `<span class="assoc-tag" style="background:rgba(183,28,28,0.1);color:var(--rhodamine-red);border:1px solid rgba(183,28,28,0.2);">${a}</span>`).join('');
     const diseaseTags = p.diseases.map(d => `<span class="assoc-tag tag-disease">${d}</span>`).join('');
     const detailHtml = p.detail ? `<div style="margin-top:10px;font-size:12px;color:var(--text-secondary);line-height:1.7;">${p.detail}</div>` : '';
     return `<div class="pattern-card" style="--card-accent:${p.accent}" onclick="toggleCard(this)">
@@ -102,7 +102,7 @@ export function renderAnaPositivity(containerId, data) {
 
   function detailHtml(d) {
     const patternTags = d.pattern.split(',').map(p => `<span class="assoc-tag tag-antibody">${p.trim()}</span>`).join('');
-    const abTags = d.abs.map(a => `<span class="assoc-tag" style="background:rgba(255,51,102,0.1);color:var(--rhodamine-red);border:1px solid rgba(255,51,102,0.2);">${a}</span>`).join('');
+    const abTags = d.abs.map(a => `<span class="assoc-tag" style="background:rgba(183,28,28,0.1);color:var(--rhodamine-red);border:1px solid rgba(183,28,28,0.2);">${a}</span>`).join('');
     return `<div class="ana-pos-detail">
       <div class="ana-pos-detail-row"><span class="ana-pos-detail-label">IFA Pattern</span>${patternTags}</div>
       <div class="ana-pos-detail-row"><span class="ana-pos-detail-label">Key Antibodies</span>${abTags}</div>

@@ -6,7 +6,7 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(10, 14, 20, 0.92);
+  background: rgba(255,255,255,0.96);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border-subtle);
@@ -55,7 +55,7 @@
 /* ── Module segmented control ── */
 .module-seg {
   display: flex;
-  background: rgba(255,255,255,0.03);
+  background: rgba(20,45,35,0.048);
   border: 1px solid var(--border-subtle);
   border-radius: 6px;
   overflow: hidden;
@@ -87,20 +87,20 @@
 }
 .module-seg button:hover {
   color: var(--text-secondary);
-  background: rgba(255,255,255,0.03);
+  background: rgba(20,45,35,0.048);
 }
 .module-seg button.active {
-  background: rgba(57,255,20,0.08);
+  background: rgba(0,103,71,0.08);
   color: var(--fitc-green);
   box-shadow: inset 0 -2px 0 var(--fitc-green);
 }
 .module-seg button.active-anca {
-  background: rgba(0,229,255,0.08);
+  background: rgba(0,114,135,0.08);
   color: var(--cyan-anca);
   box-shadow: inset 0 -2px 0 var(--cyan-anca);
 }
 .module-seg button.active-joints {
-  background: rgba(255,204,0,0.08);
+  background: rgba(140,82,10,0.08);
   color: var(--amber-joints);
   box-shadow: inset 0 -2px 0 var(--amber-joints);
 }
@@ -114,10 +114,10 @@
   position: sticky;
   top: 56px;
   z-index: 99;
-  background: rgba(10, 14, 20, 0.88);
+  background: rgba(255,255,255,0.94);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid rgba(20,45,35,0.064);
   display: flex;
   justify-content: center;
   gap: 0;
@@ -146,7 +146,7 @@
 }
 .nav-tab:hover {
   color: var(--text-secondary);
-  background: rgba(255,255,255,0.02);
+  background: rgba(20,45,35,0.032);
 }
 .nav-tab.active {
   color: var(--fitc-green);

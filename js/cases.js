@@ -15,9 +15,9 @@ function difficultyColor(d) {
 }
 
 function difficultyBg(d) {
-  if (d === 'beginner') return 'rgba(57,255,20,0.12)';
-  if (d === 'intermediate') return 'rgba(255,170,0,0.12)';
-  return 'rgba(255,51,102,0.12)';
+  if (d === 'beginner') return 'rgba(0,103,71,0.12)';
+  if (d === 'intermediate') return 'rgba(178,95,0,0.12)';
+  return 'rgba(183,28,28,0.12)';
 }
 
 /* ── Case List ──────────────────────────────────────────────── */

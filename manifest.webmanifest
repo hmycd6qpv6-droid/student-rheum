@@ -7,8 +7,8 @@
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#0a0e14",
-  "theme_color": "#0a0e14",
+  "background_color": "#f4f6f5",
+  "theme_color": "#006747",
   "categories": ["education", "medical", "reference"],
   "icons": [
     {

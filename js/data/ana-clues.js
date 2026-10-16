@@ -3,7 +3,7 @@ export const anaClues = [
     id: 'hands',
     title: 'Hands',
     teaser: 'Raynaud\'s, swollen joints, sclerodactyly, and skin changes of the fingers',
-    icon: '<svg viewBox="0 0 56 56" fill="none"><path d="M14 30 Q14 26 16.5 24 L16.5 16 Q16.5 12.5 18.5 12.5 Q20.5 12.5 20.5 16 L20.5 23 L20.5 10 Q20.5 6.5 22.5 6.5 Q24.5 6.5 24.5 10 L24.5 22 L24.5 7 Q24.5 3.5 26.5 3.5 Q28.5 3.5 28.5 7 L28.5 22 L28.5 9 Q28.5 5.5 30.5 5.5 Q32.5 5.5 32.5 9 L32.5 24 Q32.5 24 34 22 Q35.5 19.5 37.5 21 Q39.5 22.5 37 26 L34 31 Q32 34 32 37 L32 42 Q32 46 28 48 L24 48 Q18 48 16 44 L14 38 Z" stroke="#39ff14" stroke-width="1.3" fill="rgba(57,255,20,0.05)" stroke-linejoin="round"/><circle cx="20.5" cy="24" r="2" fill="rgba(255,51,102,0.3)" stroke="#ff3366" stroke-width="0.9"/><circle cx="24.5" cy="24" r="2" fill="rgba(255,51,102,0.3)" stroke="#ff3366" stroke-width="0.9"/><circle cx="28.5" cy="24" r="2" fill="rgba(255,51,102,0.3)" stroke="#ff3366" stroke-width="0.9"/></svg>',
+    icon: '<svg viewBox="0 0 56 56" fill="none"><path d="M14 30 Q14 26 16.5 24 L16.5 16 Q16.5 12.5 18.5 12.5 Q20.5 12.5 20.5 16 L20.5 23 L20.5 10 Q20.5 6.5 22.5 6.5 Q24.5 6.5 24.5 10 L24.5 22 L24.5 7 Q24.5 3.5 26.5 3.5 Q28.5 3.5 28.5 7 L28.5 22 L28.5 9 Q28.5 5.5 30.5 5.5 Q32.5 5.5 32.5 9 L32.5 24 Q32.5 24 34 22 Q35.5 19.5 37.5 21 Q39.5 22.5 37 26 L34 31 Q32 34 32 37 L32 42 Q32 46 28 48 L24 48 Q18 48 16 44 L14 38 Z" stroke="#006747" stroke-width="1.3" fill="rgba(0,103,71,0.05)" stroke-linejoin="round"/><circle cx="20.5" cy="24" r="2" fill="rgba(183,28,28,0.3)" stroke="#B71C1C" stroke-width="0.9"/><circle cx="24.5" cy="24" r="2" fill="rgba(183,28,28,0.3)" stroke="#B71C1C" stroke-width="0.9"/><circle cx="28.5" cy="24" r="2" fill="rgba(183,28,28,0.3)" stroke="#B71C1C" stroke-width="0.9"/></svg>',
     features: [
       'Raynaud\'s phenomenon \u2014 triphasic colour change (white \u2192 blue \u2192 red)',
       'Sclerodactyly \u2014 skin tightening of fingers with loss of skin creases',
@@ -37,7 +37,7 @@ export const anaClues = [
     id: 'muscles',
     title: 'Muscles',
     teaser: 'Proximal weakness, elevated CK, and dysphagia',
-    icon: '<svg viewBox="0 0 56 56" fill="none"><path d="M20 44 L20 28 Q20 20 24 16 L28 12" stroke="#39ff14" stroke-width="1.5" fill="none"/><path d="M28 12 Q34 16 38 14 Q42 12 42 18 Q42 24 36 26 L32 28" stroke="#39ff14" stroke-width="1.5" fill="rgba(57,255,20,0.06)"/><path d="M32 28 L32 22 Q32 18 36 18 Q40 18 40 22 L40 26" stroke="#39ff14" stroke-width="1.3" fill="rgba(57,255,20,0.06)"/><line x1="24" y1="30" x2="24" y2="42" stroke="#ff3366" stroke-width="1" stroke-dasharray="2 2"/><line x1="28" y1="28" x2="28" y2="40" stroke="#ff3366" stroke-width="1" stroke-dasharray="2 2"/><line x1="32" y1="30" x2="32" y2="40" stroke="#ff3366" stroke-width="1" stroke-dasharray="2 2"/><path d="M18 44 L20 44 L32 44 L34 44" stroke="#39ff14" stroke-width="1.3" fill="none"/></svg>',
+    icon: '<svg viewBox="0 0 56 56" fill="none"><path d="M20 44 L20 28 Q20 20 24 16 L28 12" stroke="#006747" stroke-width="1.5" fill="none"/><path d="M28 12 Q34 16 38 14 Q42 12 42 18 Q42 24 36 26 L32 28" stroke="#006747" stroke-width="1.5" fill="rgba(0,103,71,0.06)"/><path d="M32 28 L32 22 Q32 18 36 18 Q40 18 40 22 L40 26" stroke="#006747" stroke-width="1.3" fill="rgba(0,103,71,0.06)"/><line x1="24" y1="30" x2="24" y2="42" stroke="#B71C1C" stroke-width="1" stroke-dasharray="2 2"/><line x1="28" y1="28" x2="28" y2="40" stroke="#B71C1C" stroke-width="1" stroke-dasharray="2 2"/><line x1="32" y1="30" x2="32" y2="40" stroke="#B71C1C" stroke-width="1" stroke-dasharray="2 2"/><path d="M18 44 L20 44 L32 44 L34 44" stroke="#006747" stroke-width="1.3" fill="none"/></svg>',
     features: [
       'Proximal muscle weakness \u2014 difficulty rising from chairs, climbing stairs',
       'Elevated CK (creatine kinase) \u2014 often markedly raised',
@@ -67,7 +67,7 @@ export const anaClues = [
     id: 'skin-hair',
     title: 'Skin & Hair',
     teaser: 'Malar rash, discoid plaques, photosensitivity, and alopecia',
-    icon: '<svg viewBox="0 0 56 56" fill="none"><ellipse cx="28" cy="24" rx="12" ry="15" stroke="#39ff14" stroke-width="1.3" fill="rgba(57,255,20,0.04)"/><circle cx="23" cy="20" r="1.5" fill="#39ff14" opacity="0.5"/><circle cx="33" cy="20" r="1.5" fill="#39ff14" opacity="0.5"/><path d="M24 28 L28 26 L32 28" stroke="#39ff14" stroke-width="1" fill="none"/><path d="M20 24 Q24 30 28 24 Q32 30 36 24" stroke="#ff3366" stroke-width="1.2" fill="rgba(255,51,102,0.15)"/><path d="M18 12 Q16 6 20 8" stroke="#39ff14" stroke-width="1" stroke-dasharray="2 2" opacity="0.5"/><path d="M24 10 Q22 3 26 5" stroke="#39ff14" stroke-width="1" stroke-dasharray="2 2" opacity="0.5"/><path d="M32 10 Q34 3 30 5" stroke="#39ff14" stroke-width="1" stroke-dasharray="2 2" opacity="0.5"/><path d="M38 12 Q40 6 36 8" stroke="#39ff14" stroke-width="1" stroke-dasharray="2 2" opacity="0.5"/></svg>',
+    icon: '<svg viewBox="0 0 56 56" fill="none"><ellipse cx="28" cy="24" rx="12" ry="15" stroke="#006747" stroke-width="1.3" fill="rgba(0,103,71,0.04)"/><circle cx="23" cy="20" r="1.5" fill="#006747" opacity="0.5"/><circle cx="33" cy="20" r="1.5" fill="#006747" opacity="0.5"/><path d="M24 28 L28 26 L32 28" stroke="#006747" stroke-width="1" fill="none"/><path d="M20 24 Q24 30 28 24 Q32 30 36 24" stroke="#B71C1C" stroke-width="1.2" fill="rgba(183,28,28,0.15)"/><path d="M18 12 Q16 6 20 8" stroke="#006747" stroke-width="1" stroke-dasharray="2 2" opacity="0.5"/><path d="M24 10 Q22 3 26 5" stroke="#006747" stroke-width="1" stroke-dasharray="2 2" opacity="0.5"/><path d="M32 10 Q34 3 30 5" stroke="#006747" stroke-width="1" stroke-dasharray="2 2" opacity="0.5"/><path d="M38 12 Q40 6 36 8" stroke="#006747" stroke-width="1" stroke-dasharray="2 2" opacity="0.5"/></svg>',
     features: [
       'Malar (butterfly) rash \u2014 spares nasolabial folds',
       'Discoid lupus \u2014 scarring plaques on scalp, ears, face',
@@ -99,7 +99,7 @@ export const anaClues = [
     id: 'eyes-mouth',
     title: 'Eyes & Mouth',
     teaser: 'Sicca symptoms, oral ulcers, and parotid swelling',
-    icon: '<svg viewBox="0 0 56 56" fill="none"><path d="M10 20 Q10 14 18 14 Q26 14 26 20 Q26 26 18 26 Q10 26 10 20Z" stroke="#39ff14" stroke-width="1.3" fill="rgba(57,255,20,0.04)"/><circle cx="18" cy="20" r="3" fill="#39ff14" opacity="0.3"/><path d="M18 26 L16 32" stroke="#39ff14" stroke-width="1" stroke-dasharray="2 2"/><line x1="15" y1="30" x2="17" y2="31" stroke="#ff3366" stroke-width="1.2"/><line x1="14" y1="32" x2="18" y2="30" stroke="#ff3366" stroke-width="1.2"/><path d="M18 40 Q28 48 38 40" stroke="#39ff14" stroke-width="1.3" fill="none"/><circle cx="24" cy="44" r="1.5" fill="rgba(255,51,102,0.4)" stroke="#ff3366" stroke-width="0.8"/><circle cx="28" cy="45" r="1.5" fill="rgba(255,51,102,0.4)" stroke="#ff3366" stroke-width="0.8"/><circle cx="32" cy="44" r="1.5" fill="rgba(255,51,102,0.4)" stroke="#ff3366" stroke-width="0.8"/></svg>',
+    icon: '<svg viewBox="0 0 56 56" fill="none"><path d="M10 20 Q10 14 18 14 Q26 14 26 20 Q26 26 18 26 Q10 26 10 20Z" stroke="#006747" stroke-width="1.3" fill="rgba(0,103,71,0.04)"/><circle cx="18" cy="20" r="3" fill="#006747" opacity="0.3"/><path d="M18 26 L16 32" stroke="#006747" stroke-width="1" stroke-dasharray="2 2"/><line x1="15" y1="30" x2="17" y2="31" stroke="#B71C1C" stroke-width="1.2"/><line x1="14" y1="32" x2="18" y2="30" stroke="#B71C1C" stroke-width="1.2"/><path d="M18 40 Q28 48 38 40" stroke="#006747" stroke-width="1.3" fill="none"/><circle cx="24" cy="44" r="1.5" fill="rgba(183,28,28,0.4)" stroke="#B71C1C" stroke-width="0.8"/><circle cx="28" cy="45" r="1.5" fill="rgba(183,28,28,0.4)" stroke="#B71C1C" stroke-width="0.8"/><circle cx="32" cy="44" r="1.5" fill="rgba(183,28,28,0.4)" stroke="#B71C1C" stroke-width="0.8"/></svg>',
     features: [
       'Dry eyes (keratoconjunctivitis sicca) \u2014 gritty, burning sensation',
       'Dry mouth (xerostomia) \u2014 difficulty swallowing dry food',
@@ -126,7 +126,7 @@ export const anaClues = [
     id: 'chest',
     title: 'Chest',
     teaser: 'ILD, serositis, and pulmonary arterial hypertension',
-    icon: '<svg viewBox="0 0 56 56" fill="none"><line x1="28" y1="6" x2="28" y2="16" stroke="#39ff14" stroke-width="1.5"/><path d="M24 16 L28 14 L32 16" stroke="#39ff14" stroke-width="1.3" fill="none"/><path d="M18 18 Q14 26 14 34 Q14 44 22 46 L28 42" stroke="#39ff14" stroke-width="1.3" fill="rgba(57,255,20,0.04)"/><path d="M38 18 Q42 26 42 34 Q42 44 34 46 L28 42" stroke="#39ff14" stroke-width="1.3" fill="rgba(57,255,20,0.04)"/><path d="M18 18 Q24 18 28 16 Q32 18 38 18" stroke="#39ff14" stroke-width="1.3" fill="none"/><path d="M20 26 Q22 30 20 34" stroke="#ff3366" stroke-width="0.9" stroke-dasharray="2 2"/><path d="M24 24 Q26 30 24 36" stroke="#ff3366" stroke-width="0.9" stroke-dasharray="2 2"/><path d="M32 24 Q34 30 32 36" stroke="#ff3366" stroke-width="0.9" stroke-dasharray="2 2"/><path d="M36 26 Q38 30 36 34" stroke="#ff3366" stroke-width="0.9" stroke-dasharray="2 2"/></svg>',
+    icon: '<svg viewBox="0 0 56 56" fill="none"><line x1="28" y1="6" x2="28" y2="16" stroke="#006747" stroke-width="1.5"/><path d="M24 16 L28 14 L32 16" stroke="#006747" stroke-width="1.3" fill="none"/><path d="M18 18 Q14 26 14 34 Q14 44 22 46 L28 42" stroke="#006747" stroke-width="1.3" fill="rgba(0,103,71,0.04)"/><path d="M38 18 Q42 26 42 34 Q42 44 34 46 L28 42" stroke="#006747" stroke-width="1.3" fill="rgba(0,103,71,0.04)"/><path d="M18 18 Q24 18 28 16 Q32 18 38 18" stroke="#006747" stroke-width="1.3" fill="none"/><path d="M20 26 Q22 30 20 34" stroke="#B71C1C" stroke-width="0.9" stroke-dasharray="2 2"/><path d="M24 24 Q26 30 24 36" stroke="#B71C1C" stroke-width="0.9" stroke-dasharray="2 2"/><path d="M32 24 Q34 30 32 36" stroke="#B71C1C" stroke-width="0.9" stroke-dasharray="2 2"/><path d="M36 26 Q38 30 36 34" stroke="#B71C1C" stroke-width="0.9" stroke-dasharray="2 2"/></svg>',
     features: [
       'Progressive exertional dyspnoea and dry cough \u2192 ILD',
       'Pleuritic chest pain \u2192 serositis (SLE, drug-induced lupus)',
@@ -156,7 +156,7 @@ export const anaClues = [
     id: 'kidneys-gut',
     title: 'Kidneys & Gut',
     teaser: 'Lupus nephritis, scleroderma renal crisis, and GI dysmotility',
-    icon: '<svg viewBox="0 0 56 56" fill="none"><path d="M14 14 Q10 20 10 28 Q10 38 16 40 Q20 42 20 34 Q20 28 16 26 Q12 24 14 18 Z" stroke="#39ff14" stroke-width="1.3" fill="rgba(57,255,20,0.05)"/><path d="M42 14 Q46 20 46 28 Q46 38 40 40 Q36 42 36 34 Q36 28 40 26 Q44 24 42 18 Z" stroke="#39ff14" stroke-width="1.3" fill="rgba(57,255,20,0.05)"/><line x1="16" y1="42" x2="22" y2="50" stroke="#39ff14" stroke-width="1" opacity="0.5"/><line x1="40" y1="42" x2="34" y2="50" stroke="#39ff14" stroke-width="1" opacity="0.5"/><circle cx="15" cy="28" r="2.5" fill="rgba(255,51,102,0.3)" stroke="#ff3366" stroke-width="0.9"/></svg>',
+    icon: '<svg viewBox="0 0 56 56" fill="none"><path d="M14 14 Q10 20 10 28 Q10 38 16 40 Q20 42 20 34 Q20 28 16 26 Q12 24 14 18 Z" stroke="#006747" stroke-width="1.3" fill="rgba(0,103,71,0.05)"/><path d="M42 14 Q46 20 46 28 Q46 38 40 40 Q36 42 36 34 Q36 28 40 26 Q44 24 42 18 Z" stroke="#006747" stroke-width="1.3" fill="rgba(0,103,71,0.05)"/><line x1="16" y1="42" x2="22" y2="50" stroke="#006747" stroke-width="1" opacity="0.5"/><line x1="40" y1="42" x2="34" y2="50" stroke="#006747" stroke-width="1" opacity="0.5"/><circle cx="15" cy="28" r="2.5" fill="rgba(183,28,28,0.3)" stroke="#B71C1C" stroke-width="0.9"/></svg>',
     features: [
       'Proteinuria and haematuria \u2192 lupus nephritis',
       'Acute hypertension with renal impairment \u2192 scleroderma renal crisis',
@@ -184,7 +184,7 @@ export const anaClues = [
     id: 'obstetric',
     title: 'Obstetric',
     teaser: 'Recurrent pregnancy loss, congenital heart block, and neonatal rash',
-    icon: '<svg viewBox="0 0 56 56" fill="none"><circle cx="26" cy="10" r="5" stroke="#39ff14" stroke-width="1.3" fill="none"/><path d="M26 15 Q24 20 22 24 Q18 30 20 36 Q22 42 26 46 Q28 48 30 46 L34 42" stroke="#39ff14" stroke-width="1.3" fill="rgba(57,255,20,0.04)"/><path d="M30 20 Q34 28 36 36 Q37 40 34 42" stroke="#39ff14" stroke-width="1.3" fill="none"/><circle cx="30" cy="34" r="4" stroke="#ff3366" stroke-width="1" fill="rgba(255,51,102,0.12)"/><path d="M26 34 L28 32 L30 34 L32 32 L34 34" stroke="#ff3366" stroke-width="0.8" fill="none"/></svg>',
+    icon: '<svg viewBox="0 0 56 56" fill="none"><circle cx="26" cy="10" r="5" stroke="#006747" stroke-width="1.3" fill="none"/><path d="M26 15 Q24 20 22 24 Q18 30 20 36 Q22 42 26 46 Q28 48 30 46 L34 42" stroke="#006747" stroke-width="1.3" fill="rgba(0,103,71,0.04)"/><path d="M30 20 Q34 28 36 36 Q37 40 34 42" stroke="#006747" stroke-width="1.3" fill="none"/><circle cx="30" cy="34" r="4" stroke="#B71C1C" stroke-width="1" fill="rgba(183,28,28,0.12)"/><path d="M26 34 L28 32 L30 34 L32 32 L34 34" stroke="#B71C1C" stroke-width="0.8" fill="none"/></svg>',
     features: [
       'Recurrent pregnancy loss (especially 2nd/3rd trimester)',
       'Congenital heart block in the neonate',
@@ -210,7 +210,7 @@ export const anaClues = [
     id: 'blood-clots',
     title: 'Blood Clots',
     teaser: 'DVT/PE, arterial thrombosis, livedo reticularis, and the APS antibody panel',
-    icon: '<svg viewBox="0 0 56 56" fill="none"><path d="M22 2 Q16 4 16 14 L15 22 Q13 28 14 34 Q15 40 16 42 L16 46 L36 47 Q40 48 40 50 Q40 52 36 52 L16 52 Q20 48 22 42 Q30 34 28 24 Q26 14 24 2 Z" stroke="#39ff14" stroke-width="1.3" stroke-linejoin="round" fill="rgba(57,255,20,0.05)"/><ellipse cx="22" cy="34" rx="4" ry="2.8" fill="rgba(255,51,102,0.25)" stroke="#ff3366" stroke-width="1"/></svg>',
+    icon: '<svg viewBox="0 0 56 56" fill="none"><path d="M22 2 Q16 4 16 14 L15 22 Q13 28 14 34 Q15 40 16 42 L16 46 L36 47 Q40 48 40 50 Q40 52 36 52 L16 52 Q20 48 22 42 Q30 34 28 24 Q26 14 24 2 Z" stroke="#006747" stroke-width="1.3" stroke-linejoin="round" fill="rgba(0,103,71,0.05)"/><ellipse cx="22" cy="34" rx="4" ry="2.8" fill="rgba(183,28,28,0.25)" stroke="#B71C1C" stroke-width="1"/></svg>',
     features: [
       'Deep vein thrombosis or pulmonary embolism (especially unprovoked or recurrent)',
       'Arterial thrombosis \u2014 stroke or TIA in a young patient',
@@ -238,7 +238,7 @@ export const anaClues = [
     id: 'constitutional',
     title: 'Constitutional',
     teaser: 'Fatigue, fever, weight loss, and lymphadenopathy',
-    icon: '<svg viewBox="0 0 56 56" fill="none"><rect x="24" y="6" rx="4" ry="4" width="8" height="44" stroke="#39ff14" stroke-width="1.3" fill="rgba(57,255,20,0.04)"/><rect x="24" y="28" rx="2" ry="2" width="8" height="22" fill="rgba(255,51,102,0.2)" stroke="none"/><circle cx="28" cy="46" r="5" stroke="#39ff14" stroke-width="1.3" fill="rgba(255,51,102,0.25)"/><line x1="22" y1="16" x2="34" y2="16" stroke="#39ff14" stroke-width="0.8" opacity="0.4"/><line x1="22" y1="22" x2="34" y2="22" stroke="#39ff14" stroke-width="0.8" opacity="0.4"/><line x1="22" y1="28" x2="34" y2="28" stroke="#39ff14" stroke-width="0.8" opacity="0.4"/><line x1="22" y1="34" x2="34" y2="34" stroke="#39ff14" stroke-width="0.8" opacity="0.4"/></svg>',
+    icon: '<svg viewBox="0 0 56 56" fill="none"><rect x="24" y="6" rx="4" ry="4" width="8" height="44" stroke="#006747" stroke-width="1.3" fill="rgba(0,103,71,0.04)"/><rect x="24" y="28" rx="2" ry="2" width="8" height="22" fill="rgba(183,28,28,0.2)" stroke="none"/><circle cx="28" cy="46" r="5" stroke="#006747" stroke-width="1.3" fill="rgba(183,28,28,0.25)"/><line x1="22" y1="16" x2="34" y2="16" stroke="#006747" stroke-width="0.8" opacity="0.4"/><line x1="22" y1="22" x2="34" y2="22" stroke="#006747" stroke-width="0.8" opacity="0.4"/><line x1="22" y1="28" x2="34" y2="28" stroke="#006747" stroke-width="0.8" opacity="0.4"/><line x1="22" y1="34" x2="34" y2="34" stroke="#006747" stroke-width="0.8" opacity="0.4"/></svg>',
     features: [
       'Profound fatigue \u2014 often disproportionate to other findings',
       'Low-grade fever without infection',

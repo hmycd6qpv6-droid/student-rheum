@@ -4,7 +4,7 @@
 .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; position: relative; z-index: 1; }
 
 .hero { padding: 60px 0 32px; text-align: center; }
-.hero h1 { font-family: var(--font-display); font-size: clamp(32px,5vw,48px); font-weight: 300; letter-spacing: -2px; margin-bottom: 12px; color: var(--text-primary); }
+.hero h1 { font-family: var(--font-display); font-size: clamp(32px,5vw,48px); font-weight: 400; letter-spacing: -0.5px; margin-bottom: 12px; color: var(--text-primary); }
 .hero h1 strong { font-weight: 700; }
 .hero p { font-size: 14px; color: var(--text-secondary); max-width: 620px; margin: 0 auto; font-weight: 300; }
 
@@ -41,7 +41,7 @@
   border-color: var(--border-glow);
   background: var(--bg-card-hover);
   transform: translateY(-3px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 8px 32px rgba(20,40,30,0.105);
 }
 .module-card:hover::before {
   opacity: 1;
@@ -53,14 +53,14 @@
 }
 .module-card[data-accent="ana"]:hover {
   border-color: var(--border-glow);
-  box-shadow: 0 8px 32px rgba(57, 255, 20, 0.08);
+  box-shadow: 0 8px 32px rgba(0,103,71,0.08);
 }
 .module-card[data-accent="ana"] .module-card-title {
   color: var(--fitc-green);
 }
 .module-card[data-accent="ana"] .progress-fill {
   background: var(--fitc-green);
-  box-shadow: 0 0 8px rgba(57, 255, 20, 0.4);
+  box-shadow:none;
 }
 
 /* ANCA accent */
@@ -68,15 +68,15 @@
   background: var(--cyan-anca);
 }
 .module-card[data-accent="anca"]:hover {
-  border-color: rgba(0, 229, 255, 0.25);
-  box-shadow: 0 8px 32px rgba(0, 229, 255, 0.08);
+  border-color: rgba(0,114,135,0.25);
+  box-shadow: 0 8px 32px rgba(0,114,135,0.08);
 }
 .module-card[data-accent="anca"] .module-card-title {
   color: var(--cyan-anca);
 }
 .module-card[data-accent="anca"] .progress-fill {
   background: var(--cyan-anca);
-  box-shadow: 0 0 8px rgba(0, 229, 255, 0.4);
+  box-shadow:none;
 }
 
 /* Joints accent */
@@ -85,14 +85,14 @@
 }
 .module-card[data-accent="joints"]:hover {
   border-color: var(--border-joints);
-  box-shadow: 0 8px 32px rgba(255, 204, 0, 0.08);
+  box-shadow: 0 8px 32px rgba(140,82,10,0.08);
 }
 .module-card[data-accent="joints"] .module-card-title {
   color: var(--amber-joints);
 }
 .module-card[data-accent="joints"] .progress-fill {
   background: var(--amber-joints);
-  box-shadow: 0 0 8px rgba(255, 204, 0, 0.4);
+  box-shadow:none;
 }
 
 .module-card-title {
@@ -136,7 +136,7 @@
 .progress-bar {
   width: 100%;
   height: 4px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(20,45,35,0.08);
   border-radius: 2px;
   overflow: hidden;
 }
