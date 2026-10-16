@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rheumlab-static-v20261016a';
+const CACHE_NAME = 'rheumlab-static-v20261016b';
 const APP_SHELL = [
   './index.html',
   './module.html',

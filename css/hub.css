@@ -29,73 +29,31 @@
   display: flex;
   flex-direction: column;
 }
-.module-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
 .module-card:hover {
   border-color: var(--border-glow);
   background: var(--bg-card-hover);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 32px rgba(20,40,30,0.105);
-}
-.module-card:hover::before {
-  opacity: 1;
 }
 
 /* ANA accent */
-.module-card[data-accent="ana"]::before {
-  background: var(--fitc-green);
-}
-.module-card[data-accent="ana"]:hover {
-  border-color: var(--border-glow);
-  box-shadow: 0 8px 32px rgba(0,103,71,0.08);
-}
-.module-card[data-accent="ana"] .module-card-title {
-  color: var(--fitc-green);
-}
 .module-card[data-accent="ana"] .progress-fill {
   background: var(--fitc-green);
   box-shadow:none;
 }
 
 /* ANCA accent */
-.module-card[data-accent="anca"]::before {
-  background: var(--cyan-anca);
-}
-.module-card[data-accent="anca"]:hover {
-  border-color: rgba(0,114,135,0.25);
-  box-shadow: 0 8px 32px rgba(0,114,135,0.08);
-}
-.module-card[data-accent="anca"] .module-card-title {
-  color: var(--cyan-anca);
-}
 .module-card[data-accent="anca"] .progress-fill {
   background: var(--cyan-anca);
   box-shadow:none;
 }
 
 /* Joints accent */
-.module-card[data-accent="joints"]::before {
-  background: var(--amber-joints);
-}
-.module-card[data-accent="joints"]:hover {
-  border-color: var(--border-joints);
-  box-shadow: 0 8px 32px rgba(140,82,10,0.08);
-}
-.module-card[data-accent="joints"] .module-card-title {
-  color: var(--amber-joints);
-}
 .module-card[data-accent="joints"] .progress-fill {
   background: var(--amber-joints);
   box-shadow:none;
 }
 
 .module-card-title {
+  color: var(--text-primary);
   font-family: var(--font-display);
   font-size: 22px;
   font-weight: 600;
