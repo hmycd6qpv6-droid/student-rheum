@@ -1,4 +1,4 @@
-const CACHE_NAME = 'rheumlab-static-v20261016b';
+const CACHE_NAME = 'rheumlab-static-v20261017b';
 const APP_SHELL = [
   './index.html',
   './module.html',
@@ -63,7 +63,7 @@ function toAbsoluteUrl(path) {
 
 async function precache() {
   const cache = await caches.open(CACHE_NAME);
-  await cache.addAll(APP_SHELL.map(toAbsoluteUrl));
+  await cache.addAll(APP_SHELL.map(path => new Request(toAbsoluteUrl(path), { cache: 'reload' })));
 }
 
 async function cleanupOldCaches() {
