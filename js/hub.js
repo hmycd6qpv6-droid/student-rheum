@@ -3,7 +3,7 @@ import { getModuleProgress } from './progress.js';
 import { registerPWA } from './pwa.js';
 
 const QUIZ_TOTALS = { ana: 18, anca: 18, joints: 18 };
-const CASE_TOTALS = { ana: 4, anca: 4, joints: 4 };
+const CASE_TOTALS = { ana: 4, anca: 5, joints: 7 };
 
 const MODULES = [
   {
